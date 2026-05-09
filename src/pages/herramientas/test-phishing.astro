@@ -1,0 +1,82 @@
+---
+import Layout from '@/layouts/Layout.astro';
+---
+<Layout
+  title="Test de Phishing y Vulnerabilidad Humana | LumaCloud"
+  description="Pon a prueba a tu equipo con una simulación de phishing gratuita. Evalúa el score de riesgo de tu personal en Colombia."
+  silo="educacion"
+>
+  <section class="max-w-3xl mx-auto px-4 py-16">
+    <h1 class="text-3xl font-bold mb-4">Simulador de Phishing y Riesgo Humano</h1>
+    <p class="text-gray-600 mb-8">
+      ¿Serían tus empleados capaces de detectar un ataque de ingeniería social?
+      Haz este test rápido para evaluar el nivel de alerta de tu equipo.
+    </p>
+
+    <div class="bg-gray-100 rounded-2xl p-6 mb-8 border-l-4 border-yellow-500">
+      <p class="text-sm text-yellow-800 font-medium">Instrucciones:</p>
+      <p class="text-xs text-yellow-700">Analiza el siguiente e-mail y decide si es legítimo o un ataque de phishing.</p>
+    </div>
+
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden mb-8">
+      <div class="bg-gray-50 border-b border-gray-100 p-4">
+        <p class="text-sm"><strong>De:</strong> Soporte Microsoft <span class="text-gray-400">&lt;no-reply@microsoft-security-alert.net&gt;</span></p>
+        <p class="text-sm"><strong>Asunto:</strong> Actividad de inicio de sesión inusual detectada</p>
+      </div>
+      <div class="p-8">
+        <p class="mb-4 text-gray-800">Estimado usuario,</p>
+        <p class="mb-4 text-gray-800">Detectamos un inicio de sesión inusual desde Moscú, Rusia, en su cuenta corporativa.</p>
+        <p class="mb-6 text-gray-800">Si no fue usted, por favor haga clic en el botón de abajo para asegurar su cuenta inmediatamente:</p>
+        <button class="bg-blue-600 text-white px-6 py-2 rounded font-medium pointer-events-none">Asegurar Mi Cuenta</button>
+        <p class="mt-8 text-xs text-gray-400">© 2024 Microsoft Corporation. Todos los derechos reservados.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <button onclick="checkPhishing(false)" class="bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl font-bold transition">
+        Es Legítimo
+      </button>
+      <button onclick="checkPhishing(true)" class="bg-red-600 hover:bg-red-700 text-white py-4 rounded-xl font-bold transition">
+        Es Phishing
+      </button>
+    </div>
+
+    <div id="phishing-result" class="hidden mt-8 p-8 rounded-2xl border">
+      <h2 id="result-title" class="text-2xl font-bold mb-4"></h2>
+      <p id="result-body" class="text-gray-700 mb-6"></p>
+      <div class="bg-white/50 p-4 rounded-lg mb-6">
+        <p class="text-sm font-bold">Señales de alerta presentes:</p>
+        <ul class="list-disc pl-5 text-sm space-y-1 mt-2">
+          <li>Dominio sospechoso: microsoft-security-alert.net (no es microsoft.com)</li>
+          <li>Urgencia extrema y miedo (Moscú, Rusia)</li>
+          <li>Enlace oculto en un botón sin previa autenticación</li>
+        </ul>
+      </div>
+      <a href="/contacto" class="inline-block bg-brand-500 text-white px-8 py-3 rounded-lg font-bold hover:bg-brand-600 transition">
+        Capacitar a mi equipo ahora
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+function checkPhishing(isPhishing) {
+  const resultDiv = document.getElementById('phishing-result');
+  const title = document.getElementById('result-title');
+  const body = document.getElementById('result-body');
+
+  resultDiv.classList.remove('hidden');
+
+  if (isPhishing) {
+    resultDiv.className = 'mt-8 p-8 rounded-2xl border border-green-200 bg-green-50';
+    title.className = 'text-2xl font-bold mb-4 text-green-800';
+    title.textContent = '¡Correcto! Es Phishing';
+    body.textContent = 'Has identificado correctamente las señales. Sin embargo, el 30% de los empleados suele caer en este tipo de ataques de urgencia.';
+  } else {
+    resultDiv.className = 'mt-8 p-8 rounded-2xl border border-red-200 bg-red-50';
+    title.className = 'text-2xl font-bold mb-4 text-red-800';
+    title.textContent = '⚠️ ¡Error! Es Phishing';
+    body.textContent = 'Este es un ataque clásico. Si hubieras hecho clic, los hackers tendrían tus credenciales corporativas.';
+  }
+}
+</script>
