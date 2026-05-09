@@ -1,0 +1,38 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { supabase } from '@/lib/supabase';
+
+export async function getStaticPaths() {
+  const { data: pages } = await supabase
+    .from('pseo_pages')
+    .select('slug, keyword, silo, content_md, meta_title, meta_desc')
+    .eq('published', true);
+
+  return (pages ?? []).map((page) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+---
+<Layout
+  title={page.meta_title ?? page.keyword + ' | LumaCloud'}
+  description={page.meta_desc ?? ''}
+  silo={page.silo}
+>
+  <article class="max-w-3xl mx-auto px-4 py-16 prose prose-blue">
+    <h1>{page.keyword}</h1>
+    <div set:html={page.content_md} />
+    <div class="not-prose mt-12 bg-blue-50 border border-brand-100 rounded-xl p-8 text-center">
+      <h2 class="text-xl font-bold mb-2">¿Necesitas ayuda con {page.keyword}?</h2>
+      <p class="text-gray-600 mb-4">Habla con un experto de LumaCloud — respuesta en menos de 24 horas.</p>
+      <a
+        href={`/contacto?utm_source=pseo&utm_medium=organic&utm_campaign=${page.silo}&utm_content=${page.slug}`}
+        class="inline-block bg-brand-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-brand-600 transition"
+      >
+        Solicitar asesoría gratuita →
+      </a>
+    </div>
+  </article>
+</Layout>

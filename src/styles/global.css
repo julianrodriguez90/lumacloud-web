@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-brand: #1B4F9B;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  .prose h2 { @apply text-brand-500; }
+}

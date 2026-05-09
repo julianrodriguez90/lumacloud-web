@@ -1,0 +1,27 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { ctaLink } from '@/lib/appLinks';
+const cta = ctaLink('backup', 'calculadora-rto-rpo');
+---
+<Layout
+  title="Backup Empresarial en Colombia | LumaCloud"
+  description="Backup as a Service con RTO/RPO garantizados para empresas en Colombia. Recuperación ante desastres, continuidad del negocio."
+  silo="backup"
+>
+  <section class="bg-brand-500 text-white py-20 px-4">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl font-bold mb-4">Backup empresarial en Colombia</h1>
+      <p class="text-lg text-blue-100 mb-8">Solución de backup corporativo con recuperación garantizada. RTO y RPO definidos según tus necesidades. Datos siempre disponibles.</p>
+      <a href={cta} class="bg-white text-brand-500 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
+        Calcula tu plan de backup →
+      </a>
+    </div>
+  </section>
+  <section class="max-w-3xl mx-auto px-4 py-12 text-center">
+    <h2 class="text-2xl font-bold mb-4">Calculadora RTO/RPO gratuita</h2>
+    <p class="text-gray-600 mb-6">Descubre qué estrategia de backup necesita tu empresa según tu industria y volumen de datos.</p>
+    <a href="/herramientas/calculadora-rto-rpo" class="bg-brand-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-brand-600 transition">
+      Usar calculadora gratis →
+    </a>
+  </section>
+</Layout>

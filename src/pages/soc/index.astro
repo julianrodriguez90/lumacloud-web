@@ -1,0 +1,20 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { ctaLink } from '@/lib/appLinks';
+const cta = ctaLink('soc', 'monitoreo');
+---
+<Layout
+  title="SOC as a Service en Colombia | LumaCloud"
+  description="Centro de Operaciones de Seguridad 24/7 para empresas colombianas. SIEM, detección de amenazas y respuesta a incidentes."
+  silo="soc"
+>
+  <section class="bg-brand-500 text-white py-20 px-4">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl font-bold mb-4">SOC as a Service en Colombia</h1>
+      <p class="text-lg text-blue-100 mb-8">Monitoreo 24/7, detección de amenazas y respuesta a incidentes. Tu propio centro de operaciones de seguridad sin la inversión de uno interno.</p>
+      <a href={cta} class="bg-white text-brand-500 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
+        Solicita demostración →
+      </a>
+    </div>
+  </section>
+</Layout>
