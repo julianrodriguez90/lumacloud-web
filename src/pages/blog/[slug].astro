@@ -3,15 +3,26 @@ import Layout from '@/layouts/Layout.astro';
 import { supabase } from '@/lib/supabase';
 
 export async function getStaticPaths() {
-  const { data: pages } = await supabase
-    .from('pseo_pages')
-    .select('slug, keyword, silo, content_md, meta_title, meta_desc')
-    .eq('published', true);
+  // Si Supabase no está configurado (ej. build sin .env), retorna vacío
+  const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+  if (!supabaseUrl || supabaseUrl === 'https://tu-proyecto.supabase.co') {
+    return [];
+  }
 
-  return (pages ?? []).map((page) => ({
-    params: { slug: page.slug },
-    props: { page },
-  }));
+  try {
+    const { data: pages } = await supabase
+      .from('pseo_pages')
+      .select('slug, keyword, silo, content_md, meta_title, meta_desc')
+      .eq('published', true);
+
+    return (pages ?? []).map((page) => ({
+      params: { slug: page.slug },
+      props: { page },
+    }));
+  } catch (e) {
+    console.warn('[pSEO] Supabase no disponible en build time:', e);
+    return [];
+  }
 }
 
 const { page } = Astro.props;
