@@ -1,0 +1,41 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { supabase } from '@/lib/supabase';
+
+export async function getStaticPaths() {
+  const { data: pages } = await supabase
+    .from('pseo_pages')
+    .select('*')
+    .eq('silo', 'backup')
+    .not('sector', 'is', null);
+
+  return pages?.map((page) => ({
+    params: { sector: page.sector.toLowerCase() },
+    props: { page },
+  })) || [];
+}
+
+const { page } = Astro.props;
+---
+<Layout title={page.meta_title} description={page.meta_desc}>
+  <section class="bg-brand-500 text-white py-16 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-4xl font-bold mb-4">Backup para el sector {page.sector} en Colombia</h1>
+      <p class="text-xl text-blue-100">Protección de datos y continuidad de negocio especializada para empresas del sector {page.sector}.</p>
+    </div>
+  </section>
+
+  <article class="max-w-4xl mx-auto px-4 py-12 prose prose-blue lg:prose-lg">
+    <div set:html={page.content_md} />
+  </article>
+
+  <section class="bg-gray-50 py-12">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h2 class="text-2xl font-bold mb-6">Backup y DRP para {page.sector}</h2>
+      <p class="text-gray-600 mb-8">Nuestras soluciones cumplen con los estándares normativos exigidos para el sector {page.sector} en Colombia.</p>
+      <a href="/contacto" class="bg-brand-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-brand-600 transition">
+        Solicitar consultoría para {page.sector}
+      </a>
+    </div>
+  </section>
+</Layout>

@@ -10,10 +10,13 @@ export async function queryRAG(
 ): Promise<{ answer: string; sources: Array<{ source_name: string; source_url: string }> }> {
 
   // Rate limiting cliente: 10 req/día por silo
-  const key   = `rag_count_${silo}_${new Date().toDateString()}`;
-  const count = parseInt(localStorage.getItem(key) ?? '0', 10);
-  if (count >= 10) {
-    throw new Error('Límite diario de consultas alcanzado. Intenta mañana.');
+  if (typeof localStorage !== 'undefined') {
+    const key   = `rag_count_${silo}_${new Date().toDateString()}`;
+    const count = parseInt(localStorage.getItem(key) ?? '0', 10);
+    if (count >= 10) {
+      throw new Error('Límite diario de consultas alcanzado. Intenta mañana.');
+    }
+    localStorage.setItem(key, String(count + 1));
   }
 
   const res = await fetch(ragEndpoint(silo), {
@@ -24,6 +27,5 @@ export async function queryRAG(
 
   if (!res.ok) throw new Error(`RAG error: ${res.status}`);
 
-  localStorage.setItem(key, String(count + 1));
   return res.json();
 }

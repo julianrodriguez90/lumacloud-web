@@ -1,17 +1,8 @@
 ---
-export interface Props {
-  title: string;
-  description?: string;
-  canonical?: string;
-  silo?: string;
-}
 const {
-  title,
+  title = 'LumaCloud — Ciberseguridad y Nube Empresarial en Colombia',
   description = 'LumaCloud — Ciberseguridad y nube empresarial en Colombia.',
-  canonical,
-  silo,
 } = Astro.props;
-const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
 <html lang="es-CO">
@@ -20,88 +11,23 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
-    <!-- GA4 -->
-    <!-- TODO: Reemplazar G-XXXXXXXXXX con tu Measurement ID -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX', {
-        linker: { domains: ['lumacloud.co', 'app.lumacloud.co'] }
-      });
-    </script>
   </head>
   <body class="bg-white text-gray-900 font-sans antialiased">
-    <!-- Navbar -->
     <header class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
-      <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="/" class="flex items-center gap-2">
-          <span class="text-xl font-bold text-brand-500">LumaCloud</span>
-        </a>
-        <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
-          <a href="/ciberseguridad" class="hover:text-brand-500 transition">Ciberseguridad</a>
-          <a href="/backup" class="hover:text-brand-500 transition">Backup</a>
-          <a href="/cloud" class="hover:text-brand-500 transition">Cloud</a>
-          <a href="/soc" class="hover:text-brand-500 transition">SOC</a>
-          <a href="/blog" class="hover:text-brand-500 transition">Blog</a>
+      <nav class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+        <a href="/" class="text-xl font-bold text-brand-500">LumaCloud</a>
+        <div class="hidden md:flex gap-6 text-sm font-medium">
+          <a href="/ciberseguridad">Ciberseguridad</a>
+          <a href="/backup">Backup</a>
+          <a href="/cloud">Cloud</a>
+          <a href="/soc">SOC</a>
         </div>
-        <a
-          href="/contacto"
-          class="bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
-        >
-          Hablar con un experto
-        </a>
+        <a href="/contacto" class="bg-brand-500 text-white px-4 py-2 rounded-lg text-sm">Hablar con un experto</a>
       </nav>
     </header>
-
-    <!-- Main content -->
-    <main>
-      <slot />
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 mt-20">
-      <div class="max-w-6xl mx-auto px-4 py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div>
-          <p class="text-white font-semibold mb-3">Servicios</p>
-          <ul class="space-y-2 text-sm">
-            <li><a href="/ciberseguridad" class="hover:text-white">Ciberseguridad</a></li>
-            <li><a href="/backup" class="hover:text-white">Backup</a></li>
-            <li><a href="/cloud" class="hover:text-white">Cloud</a></li>
-            <li><a href="/soc" class="hover:text-white">SOC as a Service</a></li>
-          </ul>
-        </div>
-        <div>
-          <p class="text-white font-semibold mb-3">Herramientas</p>
-          <ul class="space-y-2 text-sm">
-            <li><a href="/herramientas/calculadora-rto-rpo" class="hover:text-white">Calculadora RTO/RPO</a></li>
-            <li><a href="/herramientas/evaluador-iso-27001" class="hover:text-white">Evaluador ISO 27001</a></li>
-            <li><a href="/herramientas/test-phishing" class="hover:text-white">Test Phishing</a></li>
-          </ul>
-        </div>
-        <div>
-          <p class="text-white font-semibold mb-3">Empresa</p>
-          <ul class="space-y-2 text-sm">
-            <li><a href="/blog" class="hover:text-white">Blog</a></li>
-            <li><a href="/contacto" class="hover:text-white">Contacto</a></li>
-          </ul>
-        </div>
-        <div>
-          <p class="text-white font-semibold mb-3">LumaCloud</p>
-          <p class="text-sm">Ciberseguridad y nube empresarial en Colombia.</p>
-          <p class="text-sm mt-2">Bogotá, Colombia</p>
-        </div>
-      </div>
-      <div class="border-t border-gray-800 py-4 text-center text-xs text-gray-600">
-        © {new Date().getFullYear()} LumaCloud SAS. Todos los derechos reservados.
-      </div>
-    </footer>
+    <main><slot /></main>
   </body>
 </html>

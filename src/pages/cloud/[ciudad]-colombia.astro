@@ -1,0 +1,40 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { supabase } from '@/lib/supabase';
+
+export async function getStaticPaths() {
+  const { data: pages } = await supabase
+    .from('pseo_pages')
+    .select('*')
+    .eq('silo', 'cloud')
+    .not('ciudad', 'is', null);
+
+  return pages?.map((page) => ({
+    params: { ciudad: page.ciudad.toLowerCase() },
+    props: { page },
+  })) || [];
+}
+
+const { page } = Astro.props;
+---
+<Layout title={page.meta_title} description={page.meta_desc}>
+  <section class="bg-brand-500 text-white py-16 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-4xl font-bold mb-4">Infraestructura Cloud en {page.ciudad}</h1>
+      <p class="text-xl text-blue-100">Servidores, Cloud Privado y Data Center con baja latencia para empresas en {page.ciudad}.</p>
+    </div>
+  </section>
+
+  <article class="max-w-4xl mx-auto px-4 py-12 prose prose-blue lg:prose-lg">
+    <div set:html={page.content_md} />
+  </article>
+
+  <section class="bg-gray-50 py-12">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h2 class="text-2xl font-bold mb-6">Cloud de alto rendimiento en {page.ciudad}</h2>
+      <a href="/contacto" class="bg-brand-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-brand-600 transition">
+        Cotizar Cloud en {page.ciudad}
+      </a>
+    </div>
+  </section>
+</Layout>
