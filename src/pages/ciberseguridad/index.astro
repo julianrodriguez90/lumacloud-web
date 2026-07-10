@@ -1,0 +1,258 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BrandImage from '@/components/BrandImage.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Soluciones de Ciberseguridad para Empresas | LumaCloud';
+const description =
+  'Ciberprotección integral para empresas en Colombia: antivirus EDR, DLP, seguridad perimetral, WAF y email security con tecnología Acronis y monitoreo continuo.';
+
+const SUBSERVICIOS = [
+  {
+    nombre: 'Antivirus EDR',
+    texto:
+      'Protección de endpoints con Acronis Cyber Protect Cloud: anti-malware de pila completa, prevención de exploits, filtrado de URL y detección antiransomware con mejores tasas de detección.',
+  },
+  {
+    nombre: 'DLP — Prevención de fuga de datos',
+    texto:
+      'Protege datos confidenciales en más de 70 canales: dispositivos periféricos y comunicaciones de red, con directivas creadas y ajustadas automáticamente según tu operación.',
+  },
+  {
+    nombre: 'Seguridad perimetral',
+    texto:
+      'El escudo de tu red: firewall administrado, detección de intrusiones y bloqueo de amenazas antes de que penetren tu infraestructura.',
+  },
+  {
+    nombre: 'WAF — Firewall de aplicaciones web',
+    texto:
+      'Defiende tus aplicaciones web contra inyecciones SQL, XSS y CSRF, filtrando y monitoreando el tráfico HTTP hacia tus servicios.',
+  },
+  {
+    nombre: 'Email security',
+    texto: 'Bloquea phishing, malware y suplantación en el canal por donde entra la mayoría de los ataques: el correo.',
+  },
+  {
+    nombre: 'Análisis forense',
+    texto:
+      'Reúne pruebas digitales en un repositorio central seguro para investigaciones detalladas y correcciones adecuadas después de un incidente.',
+  },
+];
+
+const FAQS = [
+  {
+    q: '¿Qué incluye el servicio de ciberseguridad administrada de LumaCloud?',
+    a: 'Incluye protección de endpoints con antivirus EDR, prevención de fuga de datos (DLP), seguridad perimetral con firewall, WAF para aplicaciones web y email security, gestionados por nuestro equipo con tecnología Acronis Cyber Protect Cloud.',
+  },
+  {
+    q: '¿Qué diferencia un antivirus EDR de un antivirus tradicional?',
+    a: 'Un EDR no solo detecta firmas conocidas: monitorea el comportamiento de los endpoints, cubre más vectores de ataque (incluidos exploits de vulnerabilidades y ataques basados en web) y permite responder y remediar incidentes, con prevención de repetición de amenazas.',
+  },
+  {
+    q: '¿La solución DLP requiere una configuración compleja?',
+    a: 'No. Las directivas DLP iniciales se generan automáticamente según los flujos de datos de tu empresa y se ajustan continuamente, sin necesidad de meses de despliegue ni equipos dedicados a su mantenimiento.',
+  },
+  {
+    q: '¿Cómo se integra la ciberseguridad con el backup?',
+    a: 'Usamos una plataforma integrada que combina ciberprotección, copia de seguridad y recuperación ante desastres en una sola consola: el proceso de recuperación queda protegido con análisis anti-malware para evitar que la amenaza se repita.',
+  },
+  {
+    q: '¿Atienden empresas fuera de Bogotá?',
+    a: 'Sí. Prestamos servicios de ciberseguridad administrada para empresas en toda Colombia, con arquitectura local, monitoreo continuo y soporte 24/7.',
+  },
+];
+
+const serviceSchema = {
+  '@type': 'Service',
+  name: 'Ciberseguridad administrada para empresas',
+  serviceType: 'Ciberseguridad administrada',
+  provider: { '@id': `${SITE.url}/#organization` },
+  areaServed: 'Colombia',
+  description,
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Servicios de ciberseguridad',
+    itemListElement: SUBSERVICIOS.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s.nombre },
+    })),
+  },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Ciberseguridad', href: '/ciberseguridad' },
+  ]}
+  schemas={[serviceSchema]}
+>
+  <!-- HERO -->
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:pb-24 lg:pt-20">
+      <div class="animate-rise">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Ciberseguridad</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          Soluciones de <span class="text-brand-gradient">ciberseguridad</span> para empresas
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+          Defensa integral frente a las ciberamenazas de hoy: antivirus EDR, DLP, seguridad perimetral, WAF y email security en una sola
+          plataforma, administrada por expertos y respaldada por Acronis.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a
+            href="/contacto"
+            class="rounded-xl bg-mid-500 px-8 py-4 text-center font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600"
+          >
+            Solicita tu diagnóstico gratuito
+          </a>
+          <a
+            href="/soc"
+            class="rounded-xl border border-frost-300 bg-white/70 px-8 py-4 text-center font-semibold text-cold-600 backdrop-blur transition-colors hover:border-mid-400 hover:text-mid-600"
+          >
+            Conoce nuestro SOC 24/7
+          </a>
+        </div>
+      </div>
+      <BrandImage
+        src="/images/heros/ciberseguridad-candado.webp"
+        alt="Ciberseguridad empresarial: candado sobre un circuito digital"
+        width={1280}
+        height={800}
+        overlay
+        priority
+        class="animate-rise [animation-delay:0.15s]"
+      />
+    </div>
+  </section>
+
+  <!-- SUBSERVICIOS -->
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <p class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Ciberprotección integral</p>
+    <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-5xl">Todas tus defensas, una sola plataforma</h2>
+    <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+    <div class="scroll-reveal mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        SUBSERVICIOS.map((s) => (
+          <div class="card-brand p-7">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M10 2 3 5.5v5c0 4 3 6.5 7 7.5 4-1 7-3.5 7-7.5v-5L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                <path d="M7 10l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3 class="mt-5 text-lg font-bold text-ink">{s.nombre}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-mute">{s.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- POR QUÉ / DETALLE -->
+  <section class="bg-blueprint bg-frost-50 py-20">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+      <div class="scroll-reveal">
+        <h2 class="font-display text-4xl text-cold-600 sm:text-5xl">Detén las amenazas antes de que entren</h2>
+        <div class="mt-3 w-16 brand-rule"></div>
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-ink-soft">
+          <p>
+            La tecnología Acronis Active Protection, ampliada con prevención de exploits, filtrado de URL y detección antiransomware,
+            descubre más amenazas y más rápido — incluso en los datos de tus copias de seguridad.
+          </p>
+          <p>
+            Administra directivas de protección de forma inteligente: listas blancas automáticas de tus aplicaciones, análisis de malware
+            automáticos y definiciones siempre actualizadas como parte del proceso de recuperación.
+          </p>
+          <p>
+            Y si algo pasa, respondemos: pruebas digitales centralizadas para investigación forense y corrección completa del incidente,
+            sin costos desorbitados.
+          </p>
+        </div>
+        <ul class="mt-8 space-y-3">
+          {
+            [
+              'Tasas de detección superiores con anti-malware de pila completa',
+              'Prevención de repetición de amenazas única en el sector',
+              'Consolidación de soluciones: menos costos, menos complejidad',
+              'Recuperación protegida: el ransomware no vuelve con tu backup',
+            ].map((b) => (
+              <li class="flex items-start gap-3 text-ink">
+                <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-mid-500 to-sky-500 text-white">
+                  <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2 6.5 4.5 9 10 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="text-[0.95rem] font-medium">{b}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="space-y-6">
+        <BrandImage
+          src="/images/heros/soc-analista.webp"
+          alt="Analista de seguridad monitoreando amenazas desde un laptop en un datacenter"
+          width={1280}
+          height={800}
+          overlay
+          class="scroll-reveal"
+        />
+        <div class="card-brand p-7">
+          <p class="font-display text-2xl text-cold-600">¿Sabías que…?</p>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            La mayoría de los ataques entra por correo o por endpoints sin protección moderna. Por eso integramos email security y EDR en la
+            misma plataforma que tu backup: si algo falla, la recuperación ya está blindada.
+          </p>
+          <a href="/blog" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500 hover:text-mid-600">
+            Lee nuestros análisis de amenazas
+            <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENLACES DE SILO -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    <h2 class="font-display text-3xl text-cold-600 sm:text-4xl">Explora el ecosistema de seguridad</h2>
+    <div class="mt-8 grid gap-5 sm:grid-cols-3">
+      {
+        [
+          { href: '/soc', label: 'SOC 24/7', desc: 'Monitoreo continuo con SIEM, threat hunting y respuesta a incidentes.' },
+          { href: '/backup', label: 'Backup y DRP', desc: 'La última línea de defensa: recuperación garantizada ante ransomware.' },
+          { href: '/cumplimiento/iso-27001', label: 'Cumplimiento ISO 27001', desc: 'Alinea tu seguridad con estándares internacionales y la Ley 1581.' },
+        ].map((l) => (
+          <a href={l.href} class="card-brand group p-7">
+            <h3 class="font-bold text-ink group-hover:text-mid-600">{l.label}</h3>
+            <p class="mt-2 text-sm text-ink-mute">{l.desc}</p>
+            <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500">
+              Ver más
+              <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="Blinda tu empresa hoy"
+    text="Agenda un diagnóstico gratuito de ciberseguridad: evaluamos tu exposición actual y te proponemos un plan de protección a tu medida."
+    ctaLabel="Solicita tu diagnóstico gratuito"
+  />
+</BaseLayout>

@@ -1,0 +1,25 @@
+# LumaCloud
+
+> Empresa colombiana de ciberseguridad y nube empresarial (Grupo Luma SAS, Bogotá). Protege y opera la infraestructura tecnológica de empresas en Colombia con una solución 360.
+
+## Servicios
+
+- Ciberseguridad administrada: antivirus EDR, DLP, seguridad perimetral, WAF, email security (tecnología Acronis) — https://lumacloud.co/ciberseguridad
+- Backup empresarial y ciberrecuperación: backup, DRP, replicación — https://lumacloud.co/backup
+- Cloud e infraestructura: VPS, nube pública, privada e híbrida, almacenamiento — https://lumacloud.co/cloud
+- SOC as a Service 24/7: SIEM, EDR, threat hunting, SOAR, sandbox, IDS, vulnerability management — https://lumacloud.co/soc
+- Cumplimiento: ISO 27001 y Ley 1581 de protección de datos — https://lumacloud.co/cumplimiento/iso-27001
+- Servicios profesionales TI: administración de bases de datos, infraestructura, sistemas operativos, hacking ético — https://lumacloud.co/servicios-profesionales
+- Gonemo: agentes de IA para automatización empresarial — https://lumacloud.co/gonemo
+- CSIRT: equipo de respuesta a incidentes de seguridad — https://lumacloud.co/csirt
+
+## Datos
+
+- Contacto: info@lumacloud.co · +57 318 595 8261 · Cll 121 #15a-50, Bogotá D.C., Colombia
+- Datacenters certificados TIER III y IV con arquitectura local en Colombia
+- CSIRT operativo · Soporte 24/7 · Migración a la nube gratuita
+
+## Recursos
+
+- Blog de ciberseguridad y nube: https://lumacloud.co/blog
+- Herramientas gratuitas: calculadora RTO/RPO, evaluador ISO 27001, test de phishing — https://lumacloud.co/herramientas/calculadora-rto-rpo

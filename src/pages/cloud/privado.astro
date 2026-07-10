@@ -1,0 +1,266 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BrandImage from '@/components/BrandImage.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Cloud Privado para Empresas en Colombia | LumaCloud';
+const description =
+  'Cloud privado en Colombia: infraestructura dedicada para tu empresa con Proxmox y VMware, datacenters TIER III y IV, seguridad y soporte experto 24/7.';
+
+const BENEFICIOS = [
+  {
+    nombre: 'Infraestructura dedicada',
+    texto:
+      'Una nube exclusiva para tu organización: no compartes recursos con otros usuarios y tienes control total sobre tu entorno, incluida la instalación de software personalizado.',
+  },
+  {
+    nombre: 'Implementación personalizada',
+    texto:
+      'Cada empresa es única. Diseñamos arquitecturas de nube privada alineadas con tus objetivos y requisitos específicos, para impulsar la eficiencia y el rendimiento de tu operación.',
+  },
+  {
+    nombre: 'Seguridad en primer plano',
+    texto:
+      'Cifrado avanzado, monitoreo constante y medidas de cumplimiento rigurosas: un entorno que garantiza la confidencialidad e integridad de tus activos digitales.',
+  },
+  {
+    nombre: 'Cumplimiento normativo',
+    texto:
+      'Mantén tus datos sensibles en infraestructura dedicada para cumplir regulaciones específicas de tu industria, sin renunciar a la agilidad de la nube.',
+  },
+  {
+    nombre: 'Escalabilidad lineal',
+    texto:
+      'Aumenta hardware, procesadores y almacenamiento según crece tu negocio, con precios estables y sin sobrecostos ocultos en la factura.',
+  },
+  {
+    nombre: 'Soporte integral 24/7',
+    texto:
+      'No estás solo en tu viaje a la nube: nuestro equipo te acompaña desde la implementación inicial hasta la gestión continua, resolviendo problemas cuando ocurran.',
+  },
+];
+
+const FAQS = [
+  {
+    q: '¿Qué es un cloud privado y en qué se diferencia de la nube pública?',
+    a: 'Un cloud privado es una infraestructura de computación dedicada exclusivamente a una sola organización, mientras que la nube pública comparte recursos entre múltiples usuarios. La privada ofrece mayor control, seguridad y personalización para datos y aplicaciones críticas.',
+  },
+  {
+    q: '¿Qué tecnologías de virtualización usa LumaCloud?',
+    a: 'Trabajamos con tecnologías líderes como Proxmox y VMware sobre datacenters TIER III y IV con arquitectura local en Colombia, lo que se traduce en latencias bajas y recursos dedicados y garantizados.',
+  },
+  {
+    q: '¿El cloud privado me ayuda con el cumplimiento normativo?',
+    a: 'Sí. Al mantener tus datos sensibles en infraestructura dedicada, con cifrado, gestión de identidad y acceso, y monitoreo constante, es más sencillo cumplir regulaciones específicas de tu industria.',
+  },
+  {
+    q: '¿Puedo combinar cloud privado con nube pública?',
+    a: 'Sí. Con una nube híbrida alojas datos críticos en la nube privada y cargas menos sensibles en la pública, optimizando costos y facilitando la migración gradual desde tu infraestructura local.',
+  },
+  {
+    q: '¿Cuánto cuesta migrar mi infraestructura actual a un cloud privado?',
+    a: 'La migración es gratuita: trasladamos tus sistemas, datos, aplicaciones y página web sin costo adicional, con acompañamiento de nuestro equipo de expertos, arquitectos y DBM en operación continua.',
+  },
+];
+
+const serviceSchema = {
+  '@type': 'Service',
+  name: 'Cloud privado para empresas',
+  serviceType: 'Nube privada dedicada',
+  provider: { '@id': `${SITE.url}/#organization` },
+  areaServed: 'Colombia',
+  description,
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Beneficios del cloud privado',
+    itemListElement: BENEFICIOS.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s.nombre },
+    })),
+  },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Cloud', href: '/cloud' },
+    { name: 'Cloud privado', href: '/cloud/privado' },
+  ]}
+  schemas={[serviceSchema]}
+>
+  <!-- HERO -->
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:pb-24 lg:pt-20">
+      <div class="animate-rise">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <a href="/cloud" class="hover:text-mid-600">Cloud</a>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Cloud privado</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          <span class="text-brand-gradient">Cloud privado</span> para empresas en Colombia
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+          Una nube dedicada exclusivamente a tu organización: control total, seguridad y flexibilidad para tus datos y aplicaciones
+          críticas, sobre datacenters TIER III y IV con arquitectura local.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a
+            href="/contacto"
+            class="rounded-xl bg-mid-500 px-8 py-4 text-center font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600"
+          >
+            Habla con un experto
+          </a>
+          <a
+            href="/cloud"
+            class="rounded-xl border border-frost-300 bg-white/70 px-8 py-4 text-center font-semibold text-cold-600 backdrop-blur transition-colors hover:border-mid-400 hover:text-mid-600"
+          >
+            Ver toda la infraestructura cloud
+          </a>
+        </div>
+      </div>
+      <BrandImage
+        src="/images/heros/cloud-datacenter.webp"
+        alt="Sala de servidores con luces cian que aloja el cloud privado de LumaCloud"
+        width={700}
+        height={451}
+        overlay
+        priority
+        class="animate-rise [animation-delay:0.15s]"
+      />
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <p class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Nube privada dedicada</p>
+    <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-5xl">Tu nube, bajo tus reglas</h2>
+    <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+    <div class="scroll-reveal mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        BENEFICIOS.map((s) => (
+          <div class="card-brand p-7">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <rect x="3" y="3.5" width="14" height="5.5" rx="1.5" stroke="currentColor" stroke-width="1.5" />
+                <rect x="3" y="11" width="14" height="5.5" rx="1.5" stroke="currentColor" stroke-width="1.5" />
+                <path d="M6 6.25h.01M6 13.75h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3 class="mt-5 text-lg font-bold text-ink">{s.nombre}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-mute">{s.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- POR QUÉ / DETALLE -->
+  <section class="bg-blueprint bg-frost-50 py-20">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+      <div class="scroll-reveal">
+        <h2 class="font-display text-4xl text-cold-600 sm:text-5xl">¿Cuándo conviene una nube privada?</h2>
+        <div class="mt-3 w-16 brand-rule"></div>
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-ink-soft">
+          <p>
+            Cuando manejas datos sensibles, operas bajo regulaciones estrictas o necesitas un entorno con recursos garantizados que no se
+            comparte con nadie más. Una nube privada te da la agilidad del cloud con el control de una infraestructura propia, sin comprar
+            ni mantener hardware físico.
+          </p>
+          <p>
+            En LumaCloud la construimos sobre datacenters TIER III y IV con virtualización Proxmox o VMware, según lo que mejor se ajuste a
+            tu operación. Aplicamos cifrado en tránsito y en reposo, gestión de identidad y acceso basada en roles, y auditoría y monitoreo
+            constantes para detectar actividad sospechosa en tiempo real.
+          </p>
+          <p>
+            ¿Necesitas lo mejor de ambos mundos? Combinamos tu nube privada con nube pública en un esquema híbrido: datos críticos en
+            entorno dedicado y cargas flexibles donde resulten más eficientes.
+          </p>
+        </div>
+        <ul class="mt-8 space-y-3">
+          {
+            [
+              'Datos y aplicaciones críticas en entorno exclusivo',
+              'Cifrado en tránsito y en reposo, con acceso basado en roles',
+              'Arquitecturas personalizadas según tus objetivos',
+              'Precios estables y contratos con permanencia flexible',
+            ].map((b) => (
+              <li class="flex items-start gap-3 text-ink">
+                <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-mid-500 to-sky-500 text-white">
+                  <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2 6.5 4.5 9 10 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="text-[0.95rem] font-medium">{b}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="space-y-6">
+        <BrandImage
+          src="/images/nosotros/equipo-1.webp"
+          alt="Equipo de expertos de LumaCloud que diseña e implementa nubes privadas"
+          width={1000}
+          height={668}
+          overlay
+          class="scroll-reveal"
+        />
+        <div class="card-brand p-7">
+          <p class="font-display text-2xl text-cold-600">¿Sabías que…?</p>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            Pasarte a una nube privada de LumaCloud no implica pagar por el traslado: la migración de tus sistemas, datos, aplicaciones y
+            página web es gratuita y la ejecuta nuestro equipo de expertos, arquitectos y DBM.
+          </p>
+          <a href="/cloud/migracion" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500 hover:text-mid-600">
+            Conoce la migración gratuita
+            <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENLACES DE SILO -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    <h2 class="font-display text-3xl text-cold-600 sm:text-4xl">Completa tu estrategia cloud</h2>
+    <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        [
+          { href: '/cloud', label: 'Infraestructura cloud', desc: 'VPS, nube pública, híbrida y almacenamiento en datacenters TIER III y IV.' },
+          { href: '/cloud/migracion', label: 'Migración a la nube', desc: 'Traslado gratuito de tus sistemas, datos, aplicaciones y web.' },
+          { href: '/backup', label: 'Backup y DRP', desc: 'Copias de seguridad y recuperación ante desastres para tu nube privada.' },
+          { href: '/soc', label: 'SOC 24/7', desc: 'Monitoreo de seguridad continuo sobre tu infraestructura dedicada.' },
+        ].map((l) => (
+          <a href={l.href} class="card-brand group p-7">
+            <h3 class="font-bold text-ink group-hover:text-mid-600">{l.label}</h3>
+            <p class="mt-2 text-sm text-ink-mute">{l.desc}</p>
+            <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500">
+              Ver más
+              <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="Diseña tu nube privada"
+    text="Cuéntanos qué necesita tu operación y diseñamos una nube privada a tu medida: infraestructura dedicada, seguridad de primer nivel y migración gratuita."
+    ctaLabel="Habla con un experto"
+  />
+</BaseLayout>

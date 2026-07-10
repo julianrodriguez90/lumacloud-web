@@ -1,0 +1,255 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BrandImage from '@/components/BrandImage.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Consultoría en Ciberseguridad en Colombia | LumaCloud';
+const description =
+  'Consultoría en ciberseguridad para empresas en Colombia: evaluación de vulnerabilidades, hacking ético, hardening y DLP con acompañamiento experto.';
+
+const SERVICIOS = [
+  {
+    nombre: 'Evaluación de vulnerabilidades',
+    texto:
+      'Analizamos tu red, aplicaciones y sistemas para identificar brechas de seguridad antes de que alguien más las encuentre, con un informe priorizado y accionable.',
+  },
+  {
+    nombre: 'Hacking ético',
+    texto:
+      'Nuestros especialistas certificados simulan ataques reales contra tus defensas para descubrir puntos débiles y ayudarte a corregirlos de forma proactiva.',
+  },
+  {
+    nombre: 'Hardening de sistemas',
+    texto:
+      'Reducimos la superficie de ataque de tu infraestructura: ajustamos sistemas operativos, aplicaciones y redes para cerrar las brechas por donde entran los atacantes.',
+  },
+  {
+    nombre: 'DLP — Prevención de fuga de datos',
+    texto:
+      'Te asesoramos en la protección de datos confidenciales en más de 70 canales, con directivas que se crean y ajustan según los flujos reales de tu operación.',
+  },
+  {
+    nombre: 'Seguridad perimetral',
+    texto:
+      'Diseñamos y gestionamos el escudo de tu red: firewall, detección de intrusiones y bloqueo de amenazas adaptados a las necesidades de tu empresa.',
+  },
+  {
+    nombre: 'Análisis forense',
+    texto:
+      'Si ya ocurrió un incidente, reunimos pruebas digitales en un repositorio central seguro para investigar a fondo y corregir la brecha por completo.',
+  },
+];
+
+const PROCESO = [
+  {
+    paso: '01',
+    nombre: 'Diagnóstico',
+    texto: 'Evaluamos tu exposición actual: infraestructura, aplicaciones, endpoints y prácticas de tu equipo.',
+  },
+  {
+    paso: '02',
+    nombre: 'Plan a tu medida',
+    texto: 'Priorizamos los hallazgos por riesgo real para tu negocio y te proponemos una hoja de ruta clara.',
+  },
+  {
+    paso: '03',
+    nombre: 'Implementación',
+    texto: 'Ejecutamos las correcciones: hardening, seguridad perimetral, DLP y protección de endpoints.',
+  },
+  {
+    paso: '04',
+    nombre: 'Mejora continua',
+    texto: 'Acompañamos tu operación con monitoreo, reevaluaciones periódicas y soporte de nuestro SOC 24/7.',
+  },
+];
+
+const FAQS = [
+  {
+    q: '¿Qué incluye una consultoría en ciberseguridad de LumaCloud?',
+    a: 'Incluye la evaluación de vulnerabilidades de tu infraestructura, pruebas de hacking ético, recomendaciones de hardening y un plan de remediación priorizado. Según tus necesidades, puede extenderse a DLP, seguridad perimetral y ciberseguridad administrada continua.',
+  },
+  {
+    q: '¿La consultoría es solo para grandes empresas?',
+    a: 'No. Trabajamos con empresas de todos los tamaños en Colombia. Adaptamos el alcance y la profundidad de la consultoría a tu operación, para que inviertas en lo que de verdad reduce tu riesgo.',
+  },
+  {
+    q: '¿Qué diferencia una consultoría puntual de la ciberseguridad administrada?',
+    a: 'La consultoría es un diagnóstico y plan de acción con acompañamiento en la implementación. La ciberseguridad administrada es un servicio continuo: nuestro equipo gestiona tus defensas día a día con monitoreo y soporte permanente. Muchos clientes empiezan con la consultoría y luego pasan al servicio administrado.',
+  },
+  {
+    q: '¿Atienden empresas en cualquier ciudad de Colombia?',
+    a: 'Sí. Nuestra sede está en Bogotá, pero prestamos consultoría y servicios administrados de ciberseguridad a empresas en toda Colombia, de forma remota y con soporte continuo.',
+  },
+  {
+    q: '¿Cómo empiezo?',
+    a: 'Agenda un diagnóstico gratuito: evaluamos tu exposición actual y te proponemos un plan de protección a la medida de tu empresa, sin compromiso.',
+  },
+];
+
+const serviceSchema = {
+  '@type': 'Service',
+  name: 'Consultoría en ciberseguridad',
+  serviceType: 'Consultoría en ciberseguridad',
+  provider: { '@id': `${SITE.url}/#organization` },
+  areaServed: 'Colombia',
+  description,
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Servicios de consultoría en ciberseguridad',
+    itemListElement: SERVICIOS.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s.nombre },
+    })),
+  },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Ciberseguridad', href: '/ciberseguridad' },
+    { name: 'Consultoría', href: '/ciberseguridad/consultoria' },
+  ]}
+  schemas={[serviceSchema]}
+>
+  <!-- HERO -->
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:pb-24 lg:pt-20">
+      <div class="animate-rise">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <a href="/ciberseguridad" class="hover:text-mid-600">Ciberseguridad</a>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Consultoría</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          Consultoría en <span class="text-brand-gradient">ciberseguridad</span> en Colombia
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+          Te ayudamos a entender tu riesgo real y a cerrarlo: evaluación de vulnerabilidades, hacking ético, hardening y un plan de
+          protección a la medida de tu empresa, con acompañamiento experto de principio a fin.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a
+            href="/contacto"
+            class="rounded-xl bg-mid-500 px-8 py-4 text-center font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600"
+          >
+            Solicita tu diagnóstico gratuito
+          </a>
+          <a
+            href="/ciberseguridad"
+            class="rounded-xl border border-frost-300 bg-white/70 px-8 py-4 text-center font-semibold text-cold-600 backdrop-blur transition-colors hover:border-mid-400 hover:text-mid-600"
+          >
+            Ver soluciones de ciberseguridad
+          </a>
+        </div>
+      </div>
+      <BrandImage
+        src="/images/heros/servicios-profesionales.webp"
+        alt="Consultores de ciberseguridad de LumaCloud trabajando sobre la infraestructura de un cliente"
+        width={1280}
+        height={855}
+        overlay
+        priority
+        class="animate-rise [animation-delay:0.15s]"
+      />
+    </div>
+  </section>
+
+  <!-- SERVICIOS DE CONSULTORÍA -->
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <p class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Servicios profesionales</p>
+    <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-5xl">Lo que cubre nuestra consultoría</h2>
+    <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+    <div class="scroll-reveal mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        SERVICIOS.map((s) => (
+          <div class="card-brand p-7">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M10 2 3 5.5v5c0 4 3 6.5 7 7.5 4-1 7-3.5 7-7.5v-5L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                <path d="M7 10l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3 class="mt-5 text-lg font-bold text-ink">{s.nombre}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-mute">{s.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- CÓMO TRABAJAMOS -->
+  <section class="bg-blueprint bg-frost-50 py-20">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+      <div class="scroll-reveal">
+        <h2 class="font-display text-4xl text-cold-600 sm:text-5xl">Descubre tus vulnerabilidades antes que los atacantes</h2>
+        <div class="mt-3 w-16 brand-rule"></div>
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-ink-soft">
+          <p>
+            La mejor defensa empieza por saber dónde estás expuesto. Por eso nuestra consultoría arranca con un análisis profundo y
+            proactivo de tus sistemas: red, aplicaciones y endpoints, mirados con los ojos de un atacante.
+          </p>
+          <p>
+            No te entregamos un informe genérico y nos vamos. Priorizamos cada hallazgo según el impacto real en tu negocio, te
+            explicamos el riesgo en lenguaje claro y te acompañamos en la implementación de las correcciones.
+          </p>
+          <p>
+            Y cuando el plan está en marcha, puedes dar el siguiente paso: ciberseguridad administrada con monitoreo continuo desde
+            nuestro <a href="/soc" class="font-semibold text-mid-500 hover:text-mid-600">SOC 24/7</a>, para que la protección no dependa
+            de revisiones puntuales.
+          </p>
+        </div>
+      </div>
+      <div class="scroll-reveal grid gap-5 sm:grid-cols-2">
+        {
+          PROCESO.map((p) => (
+            <div class="card-brand p-7">
+              <p class="font-display text-3xl text-brand-gradient">{p.paso}</p>
+              <h3 class="mt-3 font-bold text-ink">{p.nombre}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ink-mute">{p.texto}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ENLACES DE SILO -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    <h2 class="font-display text-3xl text-cold-600 sm:text-4xl">Sigue explorando</h2>
+    <div class="mt-8 grid gap-5 sm:grid-cols-3">
+      {
+        [
+          { href: '/ciberseguridad', label: 'Ciberseguridad administrada', desc: 'EDR, DLP, seguridad perimetral, WAF y email security en una sola plataforma.' },
+          { href: '/ciberseguridad/auditoria', label: 'Auditoría de seguridad', desc: 'Hacking ético y análisis de vulnerabilidades con plan de remediación.' },
+          { href: '/soc', label: 'SOC 24/7', desc: 'Monitoreo continuo con SIEM, threat hunting y respuesta a incidentes.' },
+        ].map((l) => (
+          <a href={l.href} class="card-brand group p-7">
+            <h3 class="font-bold text-ink group-hover:text-mid-600">{l.label}</h3>
+            <p class="mt-2 text-sm text-ink-mute">{l.desc}</p>
+            <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500">
+              Ver más
+              <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="Empecemos por conocer tu riesgo"
+    text="Agenda un diagnóstico gratuito de ciberseguridad: evaluamos tu exposición actual y te proponemos una hoja de ruta clara, priorizada y a tu medida."
+    ctaLabel="Solicita tu diagnóstico gratuito"
+  />
+</BaseLayout>

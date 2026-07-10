@@ -1,0 +1,267 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BrandImage from '@/components/BrandImage.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Backup as a Service (BaaS) en Colombia | LumaCloud';
+const description =
+  'Backup as a Service en Colombia: respaldo administrado con tecnología Acronis, soporte 24/7 y migración gratuita. Descubre qué incluye nuestro BaaS.';
+
+const INCLUYE = [
+  {
+    nombre: 'Plataforma administrada por expertos',
+    texto:
+      'Accede a nuestros técnicos experimentados y a un equipo de soporte experto por un costo mensual asequible, sin contratar ni capacitar personal dedicado.',
+  },
+  {
+    nombre: 'Programación y automatización',
+    texto:
+      'Definimos contigo los programas de respaldo según tu operación y los automatizamos: menos errores humanos y cero backups olvidados.',
+  },
+  {
+    nombre: 'Almacenamiento inmutable',
+    texto:
+      'Tus copias quedan protegidas durante un período en el que no se pueden modificar ni eliminar, en datacenters TIER III y IV en Colombia.',
+  },
+  {
+    nombre: 'Pruebas de control incluidas',
+    texto:
+      'Probamos rutinariamente tu plan de recuperación para confirmar que funciona sin fallas — antes de que lo necesites de verdad.',
+  },
+  {
+    nombre: 'Monitoreo y alertas de amenazas',
+    texto:
+      'Alertas de amenazas y protección proactiva contra ransomware integradas al servicio, con soporte 24/7 los 365 días del año.',
+  },
+  {
+    nombre: 'Recuperación y análisis forense',
+    texto:
+      'Ante una pérdida, restauramos datos y sistemas de forma remota con poco o ningún tiempo de inactividad, y realizamos investigación forense completa.',
+  },
+];
+
+const FAQS = [
+  {
+    q: '¿Qué es Backup as a Service (BaaS)?',
+    a: 'Es el modelo en el que LumaCloud administra por ti toda la estrategia de respaldo: plataforma, programación, almacenamiento, monitoreo, pruebas de control y recuperación, por un costo mensual asequible. Tú te concentras en tu negocio; nosotros en que tus datos estén siempre protegidos.',
+  },
+  {
+    q: '¿Qué incluye el BaaS de LumaCloud?',
+    a: 'Programación y automatización de copias, almacenamiento inmutable en datacenters TIER III y IV en Colombia bajo la regla 3-2-1, pruebas de control rutinarias, alertas de amenazas, soporte 24/7 y recuperación remota con investigación forense cuando se necesita.',
+  },
+  {
+    q: '¿Para qué empresas es el BaaS?',
+    a: 'Para cualquier empresa que no quiera (o no pueda) dedicar un equipo interno al respaldo. Subcontratar con un asesor de TI como LumaCloud llena los vacíos de habilidades de tu equipo, controla tus costos y te ayuda a cumplir los estándares y requisitos de tu industria.',
+  },
+  {
+    q: '¿En qué se diferencia de comprar un software de backup?',
+    a: 'Un software sigue dependiendo de que alguien lo configure, lo monitoree y pruebe las recuperaciones. Con BaaS, ese trabajo es nuestro: tecnología Acronis gestionada por expertos, con protección integrada contra ransomware y antimalware basado en comportamiento y firmas.',
+  },
+  {
+    q: '¿Hay costos de migración o cargos por transferencia de datos?',
+    a: 'No. La migración a LumaCloud es gratuita y las transacciones desde y hacia nuestra nube son ilimitadas, sin costo adicional. Sin costos ocultos.',
+  },
+];
+
+const serviceSchema = {
+  '@type': 'Service',
+  name: 'Backup as a Service (BaaS) en Colombia',
+  serviceType: 'Backup as a Service',
+  provider: { '@id': `${SITE.url}/#organization` },
+  areaServed: 'Colombia',
+  description,
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Qué incluye el Backup as a Service',
+    itemListElement: INCLUYE.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s.nombre },
+    })),
+  },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Backup', href: '/backup' },
+    { name: 'Backup as a Service', href: '/backup/baas' },
+  ]}
+  schemas={[serviceSchema]}
+>
+  <!-- HERO -->
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:pb-24 lg:pt-20">
+      <div class="animate-rise">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <a href="/backup" class="hover:text-mid-600">Backup</a>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Backup as a Service</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          <span class="text-brand-gradient">Backup as a Service</span> en Colombia
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+          Tu respaldo, administrado por expertos: tecnología Acronis, almacenamiento inmutable, pruebas de recuperación y soporte 24/7 por
+          un costo mensual asequible. Duerme mejor por la noche y trabaja más eficiente durante el día.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a
+            href="/contacto"
+            class="rounded-xl bg-mid-500 px-8 py-4 text-center font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600"
+          >
+            Agenda tu cita con un agente
+          </a>
+          <a
+            href="/backup/nube"
+            class="rounded-xl border border-frost-300 bg-white/70 px-8 py-4 text-center font-semibold text-cold-600 backdrop-blur transition-colors hover:border-mid-400 hover:text-mid-600"
+          >
+            Ver el backup en la nube
+          </a>
+        </div>
+      </div>
+      <BrandImage
+        src="/images/heros/backup-nube.webp"
+        alt="Consola de Backup as a Service gestionada por LumaCloud"
+        width={1280}
+        height={853}
+        overlay
+        priority
+        class="animate-rise [animation-delay:0.15s]"
+      />
+    </div>
+  </section>
+
+  <!-- QUÉ INCLUYE -->
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <p class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Modelo como servicio</p>
+    <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-5xl">Qué incluye nuestro BaaS</h2>
+    <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+    <div class="scroll-reveal mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        INCLUYE.map((s) => (
+          <div class="card-brand p-7">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M3 6.5h14M3 10h14M3 13.5h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                <circle cx="6" cy="6.5" r="0.9" fill="currentColor" />
+                <circle cx="6" cy="10" r="0.9" fill="currentColor" />
+                <circle cx="6" cy="13.5" r="0.9" fill="currentColor" />
+              </svg>
+            </div>
+            <h3 class="mt-5 text-lg font-bold text-ink">{s.nombre}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-mute">{s.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- DETALLE: PARA QUIÉN -->
+  <section class="bg-blueprint bg-frost-50 py-20">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+      <div class="scroll-reveal">
+        <h2 class="font-display text-4xl text-cold-600 sm:text-5xl">Para empresas que prefieren delegar el respaldo</h2>
+        <div class="mt-3 w-16 brand-rule"></div>
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-ink-soft">
+          <p>
+            El funcionamiento y el crecimiento de tu empresa dependen de la accesibilidad, la seguridad y la integridad de tus datos. Pero
+            mantener una estrategia de respaldo bien hecha — programarla, monitorearla y probarla — exige tiempo y habilidades que no todos
+            los equipos de TI tienen disponibles.
+          </p>
+          <p>
+            Con el BaaS de LumaCloud llenas ese vacío: nuestro equipo colaborativo, centrado en el negocio, adapta los servicios de
+            tecnología y seguridad exactamente a tus necesidades, con protección contra amenazas las 24 horas, los 7 días de la semana, los
+            365 días del año.
+          </p>
+          <p>
+            Además, podemos ajustar nuestro enfoque para ayudarte a cumplir con los estándares únicos y los requisitos de cumplimiento de
+            tu industria. Tu negocio primero: nosotros nos mantenemos enfocados en tus objetivos comerciales.
+          </p>
+        </div>
+        <ul class="mt-8 space-y-3">
+          {
+            [
+              'Costo mensual asequible en lugar de inversión en infraestructura y personal',
+              'Cumplimiento de la industria: ajustamos el enfoque a tus requisitos',
+              'Tranquilidad: cubrimos tu protección de TI para que construyas un negocio más rentable',
+              'Sin costos ocultos: transacciones ilimitadas y migración gratuita',
+            ].map((b) => (
+              <li class="flex items-start gap-3 text-ink">
+                <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-mid-500 to-sky-500 text-white">
+                  <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2 6.5 4.5 9 10 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="text-[0.95rem] font-medium">{b}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="space-y-6">
+        <BrandImage
+          src="/images/heros/cloud-datacenter.webp"
+          alt="Datacenter en Colombia desde donde se opera el Backup as a Service"
+          width={700}
+          height={451}
+          overlay
+          class="scroll-reveal"
+        />
+        <div class="card-brand p-7">
+          <p class="font-display text-2xl text-cold-600">Backup + ciberprotección, juntos</p>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            Nuestro BaaS usa una plataforma que integra copia de seguridad, recuperación ante desastres y ciberprotección en una sola
+            consola: la recuperación queda blindada con análisis antimalware para que la amenaza no se repita.
+          </p>
+          <a href="/ciberseguridad" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500 hover:text-mid-600">
+            Conoce la ciberseguridad administrada
+            <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENLACES DE SILO -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    <h2 class="font-display text-3xl text-cold-600 sm:text-4xl">Sigue explorando la protección de datos</h2>
+    <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        [
+          { href: '/backup', label: 'Backup empresarial', desc: 'La estrategia completa: regla 3-2-1, DRP y replicación de servidores.' },
+          { href: '/backup/nube', label: 'Backup en la nube', desc: 'Por qué la nube supera al respaldo local: inmutabilidad, RTO y RPO a tu medida.' },
+          { href: '/ciberseguridad', label: 'Ciberseguridad', desc: 'Antivirus EDR, DLP y seguridad perimetral administradas por expertos.' },
+          { href: '/soc', label: 'SOC 24/7', desc: 'Monitoreo continuo, threat hunting y respuesta a incidentes.' },
+        ].map((l) => (
+          <a href={l.href} class="card-brand group p-7">
+            <h3 class="font-bold text-ink group-hover:text-mid-600">{l.label}</h3>
+            <p class="mt-2 text-sm text-ink-mute">{l.desc}</p>
+            <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500">
+              Ver más
+              <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="Deja tu respaldo en manos expertas"
+    text="Cuéntanos cómo opera tu empresa y te proponemos un plan de Backup as a Service a tu medida, con migración gratuita y soporte 24/7."
+    ctaLabel="Agenda tu cita con un agente"
+  />
+</BaseLayout>
