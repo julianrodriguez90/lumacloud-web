@@ -1,0 +1,12 @@
+{
+  "id": 5233,
+  "slug": "carrito",
+  "link": "https://lumacloud.co/carrito/",
+  "title": "Carrito",
+  "date": "2025-05-21T14:02:25",
+  "modified": "2025-09-25T16:46:22",
+  "excerpt": "",
+  "featured_image": null,
+  "yoast": null,
+  "html": "\t\t<div data-elementor-type=\"wp-page\" data-elementor-id=\"5233\" class=\"elementor elementor-5233\" data-elementor-post-type=\"page\">\n\t\t\t\t<div class=\"elementor-element elementor-element-c04dfed e-flex e-con-boxed e-con e-parent\" data-id=\"c04dfed\" data-element_type=\"container\" data-e-type=\"container\">\n\t\t\t\t\t<div class=\"e-con-inner\">\n\t\t\t\t<div class=\"elementor-element elementor-element-47b13940 elementor-widget elementor-widget-text-editor\" data-id=\"47b13940\" data-element_type=\"widget\" data-e-type=\"widget\" data-widget_type=\"text-editor.default\">\n\t\t\t\t<div class=\"elementor-widget-container\">\n\t\t\t\t\t\t\t\t\t<div class=\"woocommerce\"><div class=\"woocommerce-notices-wrapper\"></div><div class=\"wc-empty-cart-message\">\n\t<div class=\"cart-empty woocommerce-info\" role=\"status\">\n\t\tTu carrito está vacío.\t</div>\n</div>\t<p class=\"return-to-shop\">\n\t\t<a class=\"button wc-backward\" href=\"https://lumacloud.co/tienda/\">\n\t\t\tVolver a la tienda\t\t</a>\n\t</p>\n</div>\t\t\t\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t"
+}

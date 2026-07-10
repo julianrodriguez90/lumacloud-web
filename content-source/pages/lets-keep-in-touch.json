@@ -1,0 +1,12 @@
+{
+  "id": 5322,
+  "slug": "lets-keep-in-touch",
+  "link": "https://lumacloud.co/lets-keep-in-touch/",
+  "title": "Let’s Keep In Touch",
+  "date": "2025-05-30T18:20:23",
+  "modified": "2025-05-30T18:20:23",
+  "excerpt": "Hi [bwfan_subscriber_name] Help us to improve your experience with us through better communication. Please adjust your preferences for email [bwfan_subscriber_recipient]. [bwfan_unsubscribe_button label=»Update my preference»].",
+  "featured_image": null,
+  "yoast": null,
+  "html": "<p>Hi [bwfan_subscriber_name] </p>\n<p>Help us to improve your experience with us through better communication. Please adjust your preferences for email [bwfan_subscriber_recipient]. </p>\n<p>[bwfan_unsubscribe_button label=»Update my preference»].</p>\n"
+}
