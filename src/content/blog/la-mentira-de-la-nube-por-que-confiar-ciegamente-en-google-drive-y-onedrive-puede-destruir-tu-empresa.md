@@ -18,7 +18,7 @@ Millones de usuarios y empresas asumen que servicios como Google Drive, Microsof
 
 Confundir estos dos conceptos es el equivalente digital a creer que tener un espejo retrovisor (que refleja lo que pasa al instante) es lo mismo que tener una póliza de seguro.
 
-# El Espejismo de la Sincronización
+## El Espejismo de la Sincronización
 
 Para entender el riesgo, debemos diseccionar la tecnología. Google Drive y OneDrive están diseñados para la **productividad**. Su función principal es asegurar que el archivo que modificas en tu laptop se actualice inmediatamente en tu tablet y en el servidor.
 
@@ -28,7 +28,7 @@ Si un empleado borra accidentalmente una carpeta crítica, la nube sincroniza es
 
 Como señala la firma de ciberseguridad **Kaspersky**, la sincronización automática es un vector de ataque perfecto: _«Si el ransomware cifra los archivos en el ordenador local, la aplicación de almacenamiento en la nube sincronizará diligentemente esos archivos cifrados con la nube»_. En cuestión de segundos, tu «backup» en la nube se convierte en una colección de archivos inútiles secuestrados.
 
-# El Mito de la «Papelera de Reciclaje»
+## El Mito de la «Papelera de Reciclaje»
 
 Muchos argumentarán: _«Pero existe la papelera de reciclaje y el historial de versiones»_.
 

@@ -138,6 +138,8 @@ for (const file of files.sort()) {
   md = md.replace(/(?:\d+\.\s+)?Tabla de contenidos\s*\n+\s*\[Toggle\]\(#?[^)]*\)\s*\n*/g, '');
   // anclas internas rotas que apuntan al propio post → texto plano
   md = md.replace(/\[([^\]]+)\]\(\/blog\/[^)#]*#[^)]*\)/g, '$1');
+  // el H1 lo pone la plantilla: los H1 del cuerpo bajan a H2
+  md = md.replace(/^# /gm, '## ');
 
   const category = inferCategory(post.title, md.slice(0, 2000));
   const fm = [
