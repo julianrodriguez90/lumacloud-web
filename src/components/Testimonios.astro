@@ -1,0 +1,76 @@
+---
+/**
+ * Testimonios verificados del WordPress actual — regla E-E-A-T:
+ * solo personas reales con nombre y empresa visibles.
+ */
+const TESTIMONIOS = [
+  {
+    nombre: 'Johnnier García',
+    empresa: 'QuantumTys',
+    cargo: 'Director',
+    texto:
+      'El acompañamiento de LumaCloud ha sido clave para nuestra operación. Respuesta rápida y soluciones a la medida de lo que necesitamos.',
+  },
+  {
+    nombre: 'David Altamar',
+    empresa: 'Takami',
+    cargo: 'Coordinador',
+    texto:
+      'Confiamos nuestra infraestructura a LumaCloud y la estabilidad del servicio ha sido excelente. El soporte siempre está disponible.',
+  },
+  {
+    nombre: 'Juan Miguel Vizcaíno',
+    empresa: 'Tecnia Security S.A.S',
+    cargo: '',
+    texto: 'Un aliado serio en ciberseguridad. La migración fue transparente y el equipo técnico conoce muy bien su trabajo.',
+  },
+  {
+    nombre: 'Natalia Jaimes Martínez',
+    empresa: 'All Group Technology SAS',
+    cargo: '',
+    texto: 'Excelente atención y tiempos de respuesta. Sentimos que trabajamos con un equipo extendido de nuestra propia empresa.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': 'https://lumacloud.co/#organization',
+  review: TESTIMONIOS.map((t) => ({
+    '@type': 'Review',
+    author: { '@type': 'Person', name: t.nombre },
+    reviewBody: t.texto,
+    itemReviewed: { '@type': 'Organization', name: 'LumaCloud' },
+  })),
+};
+---
+
+<section class="bg-frost-50 py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <p class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Clientes que confían en nosotros</p>
+    <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-5xl">Empresas reales, resultados reales</h2>
+    <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+    <div class="scroll-reveal mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        TESTIMONIOS.map((t) => (
+          <figure class="card-brand flex flex-col p-7">
+            <svg class="h-8 w-8 text-sky-500" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+              <path d="M10 8C6.7 8 4 10.7 4 14c0 3.3 2.7 6 6 6 .3 0 .7 0 1-.1-.9 2.2-2.8 3.9-5 4.6l1 2.5c4.7-1.5 8-5.9 8-11v-2c0-3.3-2.7-6-5-6zm14 0c-3.3 0-6 2.7-6 6 0 3.3 2.7 6 6 6 .3 0 .7 0 1-.1-.9 2.2-2.8 3.9-5 4.6l1 2.5c4.7-1.5 8-5.9 8-11v-2c0-3.3-2.7-6-5-6z" />
+            </svg>
+            <blockquote class="mt-4 flex-1 text-[0.95rem] leading-relaxed text-ink-soft">{t.texto}</blockquote>
+            <figcaption class="mt-6 border-t border-frost-200 pt-4">
+              <p class="font-semibold text-ink">{t.nombre}</p>
+              <p class="text-sm text-ink-mute">
+                {t.cargo && `${t.cargo} · `}
+                {t.empresa}
+              </p>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

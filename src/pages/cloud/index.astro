@@ -1,20 +1,266 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import { ctaLink } from '@/lib/appLinks';
-const cta = ctaLink('cloud', 'calculadora-migracion');
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BrandImage from '@/components/BrandImage.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Infraestructura Cloud en Colombia | LumaCloud';
+const description =
+  'Infraestructura cloud en Colombia: VPS, nube pública, privada e híbrida y almacenamiento en datacenters TIER III y IV, con soporte 24/7 y precios estables.';
+
+const SUBSERVICIOS = [
+  {
+    nombre: 'VPS empresariales',
+    texto:
+      'Servidores virtuales de alto rendimiento con recursos dedicados y garantizados: CPU, RAM y almacenamiento SSD para cargas de trabajo exigentes, con tráfico entrante y saliente ilimitado.',
+  },
+  {
+    nombre: 'Nube pública',
+    texto:
+      'Accede a servidores, almacenamiento y aplicaciones a través de internet sin una inversión inicial significativa en infraestructura. Escalable y eficiente en costos para tu operación.',
+  },
+  {
+    nombre: 'Nube privada',
+    texto:
+      'Infraestructura dedicada exclusivamente a tu organización, con arquitecturas personalizadas, cifrado avanzado y monitoreo constante para tus datos y aplicaciones críticas.',
+  },
+  {
+    nombre: 'Nube híbrida',
+    texto:
+      'Combina la agilidad de la nube pública con la seguridad de la privada: datos sensibles en entorno dedicado, cargas menos críticas en pública y migración gradual desde tu infraestructura local.',
+  },
+  {
+    nombre: 'Almacenamiento',
+    texto:
+      'Guarda, gestiona y recupera tu información desde cualquier lugar, con la disponibilidad y seguridad que exige la operación de tu empresa.',
+  },
+  {
+    nombre: 'Red de alta velocidad',
+    texto:
+      'Conectividad con baja latencia y protección anti-DDoS incluida, para que tus aplicaciones en línea respondan rápido y tu operación no se detenga.',
+  },
+];
+
+const FAQS = [
+  {
+    q: '¿Qué servicios de infraestructura cloud ofrece LumaCloud?',
+    a: 'Ofrecemos VPS empresariales, nube pública, nube privada, nube híbrida y almacenamiento, alojados en datacenters TIER III y IV con arquitectura local en Colombia y soporte 24/7.',
+  },
+  {
+    q: '¿Por qué elegir una nube con arquitectura local en Colombia?',
+    a: 'Porque las latencias de operación son muy inferiores a las de nubes con infraestructura fuera del país. Además, nuestros tiempos de entrega destacan frente a las nubes existentes: ejecución inmediata para que tu proyecto arranque sin esperas.',
+  },
+  {
+    q: '¿Cobran por el uso de ancho de banda?',
+    a: 'No. No monetizamos el uso del canal: trabajamos con transferencias y ancho de banda garantizados, con precios estables y sin sorpresas en la factura.',
+  },
+  {
+    q: '¿Puedo escalar los recursos de mi infraestructura?',
+    a: 'Sí. La escalabilidad es lineal: puedes aumentar hardware, procesadores, memoria y almacenamiento según tus necesidades, sin sobrecostos ocultos.',
+  },
+  {
+    q: '¿La migración a la nube de LumaCloud tiene costo?',
+    a: 'No. Te brindamos sin costo adicional el proceso de trasladar a nuestra nube tus sistemas, datos, aplicaciones, página web y más, con acompañamiento de nuestro equipo de expertos 24/7.',
+  },
+];
+
+const serviceSchema = {
+  '@type': 'Service',
+  name: 'Infraestructura cloud para empresas',
+  serviceType: 'Infraestructura como servicio (IaaS)',
+  provider: { '@id': `${SITE.url}/#organization` },
+  areaServed: 'Colombia',
+  description,
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Servicios de infraestructura cloud',
+    itemListElement: SUBSERVICIOS.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s.nombre },
+    })),
+  },
+};
 ---
-<Layout
-  title="Cloud Privado en Colombia | LumaCloud"
-  description="Infraestructura cloud privada en Colombia. IaaS, PaaS, migración a la nube y data center propio con alta disponibilidad."
-  silo="cloud"
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Cloud', href: '/cloud' },
+  ]}
+  schemas={[serviceSchema]}
 >
-  <section class="bg-brand-500 text-white py-20 px-4">
-    <div class="max-w-4xl mx-auto">
-      <h1 class="text-4xl font-bold mb-4">Cloud privado e infraestructura en Colombia</h1>
-      <p class="text-lg text-blue-100 mb-8">Nube privada, IaaS y colocation en data center colombiano. Soberanía de datos, baja latencia y soporte local 24/7.</p>
-      <a href={cta} class="bg-white text-brand-500 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
-        Diseña tu arquitectura cloud →
-      </a>
+  <!-- HERO -->
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:pb-24 lg:pt-20">
+      <div class="animate-rise">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Cloud</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          Infraestructura <span class="text-brand-gradient">cloud</span> en Colombia
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+          VPS, nube pública, privada e híbrida y almacenamiento en datacenters TIER III y IV. Rendimiento, escalabilidad bajo demanda y
+          control total sobre tus recursos, sin los costos ni complicaciones del hardware físico.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a
+            href="/contacto"
+            class="rounded-xl bg-mid-500 px-8 py-4 text-center font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600"
+          >
+            Habla con un experto
+          </a>
+          <a
+            href="/cloud/migracion"
+            class="rounded-xl border border-frost-300 bg-white/70 px-8 py-4 text-center font-semibold text-cold-600 backdrop-blur transition-colors hover:border-mid-400 hover:text-mid-600"
+          >
+            Migra gratis a nuestra nube
+          </a>
+        </div>
+      </div>
+      <BrandImage
+        src="/images/heros/home-datacenter.webp"
+        alt="Datacenter de LumaCloud con pasillos de servidores para infraestructura cloud en Colombia"
+        width={1816}
+        height={1210}
+        overlay
+        priority
+        class="animate-rise [animation-delay:0.15s]"
+      />
     </div>
   </section>
-</Layout>
+
+  <!-- SUBSERVICIOS -->
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <p class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Infraestructura IaaS</p>
+    <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-5xl">Toda tu infraestructura, una sola nube</h2>
+    <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+    <div class="scroll-reveal mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        SUBSERVICIOS.map((s) => (
+          <div class="card-brand p-7">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path
+                  d="M5.5 15.5h8.75a3.25 3.25 0 0 0 .55-6.45A5 5 0 0 0 5.2 8.6a3.5 3.5 0 0 0 .3 6.9z"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <h3 class="mt-5 text-lg font-bold text-ink">{s.nombre}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-mute">{s.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- POR QUÉ / DETALLE -->
+  <section class="bg-blueprint bg-frost-50 py-20">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+      <div class="scroll-reveal">
+        <h2 class="font-display text-4xl text-cold-600 sm:text-5xl">Una nube local, sin sorpresas en la factura</h2>
+        <div class="mt-3 w-16 brand-rule"></div>
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-ink-soft">
+          <p>
+            Nuestra arquitectura local en Colombia, sobre datacenters TIER III y IV, entrega latencias muy por debajo del estándar de otros
+            servicios en la nube. Tus aplicaciones responden rápido porque los datos no cruzan el océano para llegar a tus usuarios.
+          </p>
+          <p>
+            Virtualizamos con tecnologías líderes como Proxmox y VMware, con recursos dedicados y garantizados. Y como no monetizamos el
+            ancho de banda, la nube resulta accesible: precios estables y escalabilidad lineal de hardware, procesadores y almacenamiento
+            sin sobrecostos.
+          </p>
+          <p>
+            Evaluamos tus necesidades para diseñar una solución a tu medida, con tiempos de contratación flexibles según el servicio y un
+            equipo de expertos, arquitectos y DBM en operación continua.
+          </p>
+        </div>
+        <ul class="mt-8 space-y-3">
+          {
+            [
+              'Precios estables: escala recursos sin sobrecostos ocultos',
+              'Ejecución inmediata: tiempos de entrega que destacan',
+              'Latencias bajas gracias a la arquitectura local',
+              'Migración gratuita de sistemas, datos, aplicaciones y web',
+              'Soporte especializado 24/7 en cada etapa',
+            ].map((b) => (
+              <li class="flex items-start gap-3 text-ink">
+                <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-mid-500 to-sky-500 text-white">
+                  <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2 6.5 4.5 9 10 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="text-[0.95rem] font-medium">{b}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="space-y-6">
+        <BrandImage
+          src="/images/heros/cloud-datacenter.webp"
+          alt="Sala de servidores con iluminación cian donde opera la nube de LumaCloud"
+          width={700}
+          height={451}
+          overlay
+          class="scroll-reveal"
+        />
+        <div class="card-brand p-7">
+          <p class="font-display text-2xl text-cold-600">¿Sabías que…?</p>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            Trasladar tus sistemas, datos, aplicaciones y página web a nuestra nube no te cuesta nada adicional: la migración es gratuita y
+            la acompaña nuestro equipo de expertos, arquitectos y DBM.
+          </p>
+          <a href="/cloud/migracion" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500 hover:text-mid-600">
+            Conoce cómo funciona la migración
+            <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENLACES DE SILO -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    <h2 class="font-display text-3xl text-cold-600 sm:text-4xl">Explora el ecosistema cloud</h2>
+    <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        [
+          { href: '/cloud/privado', label: 'Cloud privado', desc: 'Infraestructura dedicada para control total, seguridad y cumplimiento.' },
+          { href: '/cloud/migracion', label: 'Migración a la nube', desc: 'Trasladamos tus sistemas, datos y aplicaciones sin costo adicional.' },
+          { href: '/backup', label: 'Backup y DRP', desc: 'Copias de seguridad y recuperación ante desastres para tu continuidad.' },
+          { href: '/soc', label: 'SOC 24/7', desc: 'Monitoreo continuo de seguridad y respuesta a incidentes en tu nube.' },
+        ].map((l) => (
+          <a href={l.href} class="card-brand group p-7">
+            <h3 class="font-bold text-ink group-hover:text-mid-600">{l.label}</h3>
+            <p class="mt-2 text-sm text-ink-mute">{l.desc}</p>
+            <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500">
+              Ver más
+              <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="Lleva tu operación a la nube"
+    text="Cuéntanos qué necesita tu infraestructura y diseñamos una solución a tu medida: VPS, nube pública, privada o híbrida, con migración gratuita y soporte 24/7."
+    ctaLabel="Habla con un experto"
+  />
+</BaseLayout>

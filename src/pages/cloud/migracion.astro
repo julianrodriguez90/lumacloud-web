@@ -1,0 +1,270 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BrandImage from '@/components/BrandImage.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Migración a la Nube para Empresas | LumaCloud';
+const description =
+  'Migra tu empresa a la nube sin costo adicional: trasladamos sistemas, datos, aplicaciones y web con acompañamiento experto 24/7 en Colombia.';
+
+const QUE_MIGRAMOS = [
+  {
+    nombre: 'Sistemas y servidores',
+    texto:
+      'Trasladamos tus sistemas y servidores a VPS empresariales o a la nube pública, privada o híbrida que mejor se ajuste a tu operación, sobre datacenters TIER III y IV.',
+  },
+  {
+    nombre: 'Datos y bases de datos',
+    texto:
+      'Tu información viaja segura: nuestro equipo de expertos, arquitectos y DBM planifica y ejecuta el traslado de tus datos para garantizar los resultados de la migración.',
+  },
+  {
+    nombre: 'Aplicaciones',
+    texto:
+      'Movemos tus aplicaciones de negocio a una infraestructura con recursos dedicados, almacenamiento SSD y red de alta velocidad para que respondan mejor que antes.',
+  },
+  {
+    nombre: 'Página web',
+    texto:
+      'Tu sitio web también se muda gratis: alojamiento con rendimiento optimizado, latencias bajas por arquitectura local y protección anti-DDoS incluida.',
+  },
+  {
+    nombre: 'Entornos cliente-servidor',
+    texto:
+      '¿Sigues en un entorno cliente-servidor? Te ofrecemos una migración fluida hacia la nube para mejorar tu competitividad y asegurar tu futuro tecnológico.',
+  },
+  {
+    nombre: 'Migración gradual',
+    texto:
+      'Si prefieres avanzar por etapas, un esquema de nube híbrida facilita la migración paso a paso desde tu infraestructura local, sin frenar la operación.',
+  },
+];
+
+const FAQS = [
+  {
+    q: '¿La migración a la nube de LumaCloud es realmente gratuita?',
+    a: 'Sí. Te brindamos sin costo adicional el proceso de trasladar a nuestra nube tus sistemas, datos, aplicaciones, página web y más. Solo pagas el servicio de nube que contrates, con precios estables y sin sorpresas.',
+  },
+  {
+    q: '¿Quién ejecuta la migración?',
+    a: 'Nuestro equipo de expertos, arquitectos y DBM, que está en operación continua 24/7 para garantizar los resultados en cualquier migración, desde la planeación hasta la validación final.',
+  },
+  {
+    q: '¿Puedo migrar de forma gradual en lugar de todo a la vez?',
+    a: 'Sí. Con un esquema de nube híbrida puedes migrar paso a paso desde tu infraestructura local: mantienes los datos sensibles en nube privada mientras trasladas las demás cargas a tu ritmo.',
+  },
+  {
+    q: '¿Por qué migrar a una nube con infraestructura en Colombia?',
+    a: 'Por las latencias bajas de la arquitectura local, muy por debajo del estándar de otros servicios en la nube, y por la ejecución inmediata: nuestros tiempos de entrega destacan frente a las nubes existentes.',
+  },
+  {
+    q: '¿Qué pasa después de la migración?',
+    a: 'Sigues acompañado: soporte especializado 24/7, escalabilidad lineal de recursos sin sobrecostos ocultos, ancho de banda garantizado sin monetizar el canal y contratos con permanencia flexible.',
+  },
+];
+
+const serviceSchema = {
+  '@type': 'Service',
+  name: 'Migración a la nube para empresas',
+  serviceType: 'Migración a la nube',
+  provider: { '@id': `${SITE.url}/#organization` },
+  areaServed: 'Colombia',
+  description,
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Alcance de la migración a la nube',
+    itemListElement: QUE_MIGRAMOS.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s.nombre },
+    })),
+  },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Cloud', href: '/cloud' },
+    { name: 'Migración a la nube', href: '/cloud/migracion' },
+  ]}
+  schemas={[serviceSchema]}
+>
+  <!-- HERO -->
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:pb-24 lg:pt-20">
+      <div class="animate-rise">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <a href="/cloud" class="hover:text-mid-600">Cloud</a>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Migración a la nube</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          <span class="text-brand-gradient">Migración a la nube</span> para empresas en Colombia
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+          Trasladamos a nuestra nube tus sistemas, datos, aplicaciones y página web sin costo adicional, con un equipo de expertos,
+          arquitectos y DBM en operación continua para garantizar los resultados.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a
+            href="/contacto"
+            class="rounded-xl bg-mid-500 px-8 py-4 text-center font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600"
+          >
+            Inicia tu migración gratuita
+          </a>
+          <a
+            href="/cloud"
+            class="rounded-xl border border-frost-300 bg-white/70 px-8 py-4 text-center font-semibold text-cold-600 backdrop-blur transition-colors hover:border-mid-400 hover:text-mid-600"
+          >
+            Conoce nuestra infraestructura cloud
+          </a>
+        </div>
+      </div>
+      <BrandImage
+        src="/images/heros/home-datacenter.webp"
+        alt="Datacenter de LumaCloud, destino de las migraciones a la nube de empresas en Colombia"
+        width={1816}
+        height={1210}
+        overlay
+        priority
+        class="animate-rise [animation-delay:0.15s]"
+      />
+    </div>
+  </section>
+
+  <!-- QUÉ MIGRAMOS -->
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <p class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Migración gratuita</p>
+    <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-5xl">Todo lo que trasladamos por ti</h2>
+    <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+    <div class="scroll-reveal mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        QUE_MIGRAMOS.map((s) => (
+          <div class="card-brand p-7">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path
+                  d="M5.5 13.5h8.75a3.25 3.25 0 0 0 .55-6.45A5 5 0 0 0 5.2 6.6a3.5 3.5 0 0 0 .3 6.9z"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"
+                />
+                <path d="M10 17v-6m0 0-2 2m2-2 2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3 class="mt-5 text-lg font-bold text-ink">{s.nombre}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-mute">{s.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- POR QUÉ MIGRAR / DETALLE -->
+  <section class="bg-blueprint bg-frost-50 py-20">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+      <div class="scroll-reveal">
+        <h2 class="font-display text-4xl text-cold-600 sm:text-5xl">¿Por qué migrar con LumaCloud?</h2>
+        <div class="mt-3 w-16 brand-rule"></div>
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-ink-soft">
+          <p>
+            Porque el traslado no te cuesta nada adicional y llegas a una nube pensada para tu operación: datacenters TIER III y IV con
+            arquitectura local en Colombia, virtualización con Proxmox y VMware, y latencias muy por debajo del estándar de otros servicios
+            en la nube.
+          </p>
+          <p>
+            Empezamos evaluando tus necesidades para diseñar la solución que mejor se ajuste a tus requerimientos: VPS, nube pública,
+            privada o híbrida. Luego planificamos el traslado, lo ejecutamos con nuestro equipo en operación continua y te acompañamos en la
+            validación de cada sistema.
+          </p>
+          <p>
+            Al otro lado te espera una factura sin sorpresas: precios estables, escalabilidad lineal de recursos sin sobrecostos, ancho de
+            banda garantizado sin monetizar el canal y tiempos de contratación flexibles según el servicio.
+          </p>
+        </div>
+        <ul class="mt-8 space-y-3">
+          {
+            [
+              'Migración gratuita de sistemas, datos, aplicaciones y web',
+              'Ejecución inmediata: tiempos de entrega que destacan',
+              'Equipo de expertos, arquitectos y DBM en operación 24/7',
+              'Opción de migración gradual con nube híbrida',
+            ].map((b) => (
+              <li class="flex items-start gap-3 text-ink">
+                <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-mid-500 to-sky-500 text-white">
+                  <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2 6.5 4.5 9 10 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="text-[0.95rem] font-medium">{b}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="space-y-6">
+        <BrandImage
+          src="/images/nosotros/equipo-1.webp"
+          alt="Equipo de LumaCloud que acompaña las migraciones a la nube de principio a fin"
+          width={1000}
+          height={668}
+          overlay
+          class="scroll-reveal"
+        />
+        <div class="card-brand p-7">
+          <p class="font-display text-2xl text-cold-600">¿Sabías que…?</p>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            Si manejas datos sensibles o regulados, no tienes que elegir entre quedarte donde estás o moverlo todo: una nube privada te da
+            control total y la híbrida te permite migrar por etapas.
+          </p>
+          <a href="/cloud/privado" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500 hover:text-mid-600">
+            Conoce el cloud privado
+            <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENLACES DE SILO -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    <h2 class="font-display text-3xl text-cold-600 sm:text-4xl">Después de migrar, protege tu nube</h2>
+    <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        [
+          { href: '/cloud', label: 'Infraestructura cloud', desc: 'VPS, nube pública, privada e híbrida y almacenamiento en Colombia.' },
+          { href: '/cloud/privado', label: 'Cloud privado', desc: 'Infraestructura dedicada con control total, seguridad y cumplimiento.' },
+          { href: '/backup', label: 'Backup y DRP', desc: 'Copias de seguridad y recuperación ante desastres para tus datos migrados.' },
+          { href: '/soc', label: 'SOC 24/7', desc: 'Monitoreo continuo de seguridad sobre tu nueva infraestructura en la nube.' },
+        ].map((l) => (
+          <a href={l.href} class="card-brand group p-7">
+            <h3 class="font-bold text-ink group-hover:text-mid-600">{l.label}</h3>
+            <p class="mt-2 text-sm text-ink-mute">{l.desc}</p>
+            <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500">
+              Ver más
+              <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="Múdate a la nube sin pagar el trasteo"
+    text="Cuéntanos qué quieres migrar y nuestro equipo diseña el plan: traslado gratuito de sistemas, datos, aplicaciones y web, con acompañamiento 24/7."
+    ctaLabel="Inicia tu migración gratuita"
+  />
+</BaseLayout>

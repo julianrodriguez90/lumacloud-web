@@ -1,58 +1,39 @@
-# LumaCloud Web — Astro + pSEO + RAG
+# lumacloud-web
 
-Sitio web de LumaCloud construido con Astro SSG, Tailwind CSS y Supabase (pgvector para RAG).
+Rediseño completo de [lumacloud.co](https://lumacloud.co) — Astro 6 + Tailwind 4, desplegado en Vercel.
 
 ## Stack
 
-- **Frontend**: Astro 4 (SSG) + Tailwind CSS
-- **Base de datos**: Supabase (PostgreSQL + pgvector)
-- **LLM**: Claude Haiku via OpenRouter
-- **Deployment**: Vercel
+- **Astro 6** (`output: static`) con adaptador Vercel — único endpoint server-side: `/api/contact` (Resend)
+- **Tailwind 4** vía `@tailwindcss/vite` — tokens de marca en `src/styles/global.css` (@theme)
+- **Content Collections** — blog migrado del WordPress (88 artículos) en `src/content/blog/`
+- Tipografías self-hosted: Bebas Neue (display) + Inter Variable (texto)
+- GA4 vía Partytown, sitemap automático, JSON-LD en `BaseLayout`
 
-## Inicio rápido
+## Comandos
 
 ```bash
-# 1. Instalar dependencias
-npm install
-
-# 2. Configurar variables de entorno
-cp .env.example .env
-# Editar .env con tus credenciales de Supabase y OpenRouter
-
-# 3. Iniciar en desarrollo
-npm run dev
-
-# 4. Build para producción
-npm run build
+npm run dev              # dev server en :4321
+npm run build            # build de producción (dist/ + .vercel/)
+npm run extract-wp       # re-extrae contenido del WP vía REST API → content-source/
+npm run catalog-media    # clasifica los medios extraídos → MEDIA-CATALOG.md
+npm run wp-to-collection # convierte posts extraídos → src/content/blog/*.md
+npm run optimize-images  # scripts/originals/selected/ → public/images/*.webp
+node scripts/generate-redirects.mjs  # regenera redirects 301 de posts
 ```
 
-## Estructura
+## Estructura de contenido
 
-```
-src/
-  layouts/    → Layout base con header/footer
-  pages/      → Rutas del sitio (SSG)
-    ciberseguridad/
-    backup/
-    cloud/
-    soc/
-    cumplimiento/
-    blog/[slug].astro    → Páginas pSEO desde Supabase
-    herramientas/        → Calculadoras y tests IA
-  lib/
-    supabase.ts   → Cliente Supabase
-    rag.ts        → Query RAG
-    appLinks.ts   → UTM helpers
-```
+- `content-source/` — corpus extraído del WordPress (fuente de verdad anti-alucinación: todo dato factual de la web debe rastrearse aquí o al BrandBook)
+- `scripts/originals/` — imágenes originales (no en git); solo los WebP optimizados van a `public/images/`
+- `redirects.mjs` + `redirects-posts.generated.mjs` — 301 WordPress → Astro (se materializan en el build de Vercel)
 
 ## Variables de entorno
 
-```env
-PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
-PUBLIC_SUPABASE_ANON_KEY=tu-anon-key
-OPENROUTER_API_KEY=tu-openrouter-key
-```
+Ver `.env.example`: `RESEND_API_KEY` (formulario de contacto), `PUBLIC_GA4_ID` (analytics, opcional).
 
-## pSEO
+## Docs
 
-Ver documentación en `/scripts/generate_pseo.ts` y el Plan Maestro pSEO.
+- `docs/RESPALDO-WORDPRESS.md` — cómo respaldar el WP antes del cutover de DNS
+- `docs/superpowers/specs/2026-05-13-lumacloud-rebuild-design.md` — spec técnico del rebuild
+- `Plan_Maestro_pSEO_LumaCloud.docx` — estrategia SEO (silos, keywords, roadmap)

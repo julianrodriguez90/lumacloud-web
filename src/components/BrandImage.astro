@@ -1,0 +1,37 @@
+---
+/**
+ * Imagen con tratamiento de marca: esquinas redondeadas, sombra de color
+ * y overlay de gradiente azul opcional para consistencia visual.
+ */
+interface Props {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  /** overlay de gradiente de marca sobre la imagen */
+  overlay?: boolean;
+  /** imagen crítica above-the-fold (hero LCP) */
+  priority?: boolean;
+  class?: string;
+}
+const { src, alt, width, height, overlay = false, priority = false, class: className = '' } = Astro.props;
+---
+
+<figure class:list={['relative overflow-hidden rounded-2xl shadow-[0_20px_50px_rgb(23_58_135/0.18)]', className]}>
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={priority ? 'eager' : 'lazy'}
+    fetchpriority={priority ? 'high' : 'auto'}
+    decoding={priority ? 'sync' : 'async'}
+    class="h-full w-full object-cover"
+  />
+  {
+    overlay && (
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-cold-600/35 via-transparent to-sky-500/15" aria-hidden="true" />
+    )
+  }
+  <div class="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-cold-600/10" aria-hidden="true"></div>
+</figure>

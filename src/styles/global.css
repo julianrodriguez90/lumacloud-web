@@ -1,13 +1,285 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
+/* ============================================================
+   LumaCloud — Sistema de diseño
+   Fuente: LUMA BrandBook (colores, tipografías, tono)
+   Dirección: "precisión de ingeniería" — claro corporativo,
+   Bebas Neue display como firma, gradiente de marca recurrente
+   ============================================================ */
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('/fonts/bebas-neue.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: optional;
+}
+
+@font-face {
+  font-family: 'Inter Variable';
+  src: url('/fonts/inter-variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: optional;
+}
+
+@theme {
+  /* Paleta BrandBook */
+  --color-cold-50: #eef2fb;
+  --color-cold-100: #d8e0f5;
+  --color-cold-200: #b0c2ea;
+  --color-cold-300: #7e99da;
+  --color-cold-400: #4a6cc0;
+  --color-cold-500: #2450a3;
+  --color-cold-600: #173a87; /* COLD BLUE — primario */
+  --color-cold-700: #122e6c;
+  --color-cold-800: #0e2453;
+  --color-cold-900: #0a1a3d;
+
+  --color-mid-50: #e6f1ff;
+  --color-mid-100: #cce3ff;
+  --color-mid-200: #99c7ff;
+  --color-mid-300: #66abff;
+  --color-mid-400: #338fff;
+  --color-mid-500: #0073ff; /* MID BLUE — acción/CTA */
+  --color-mid-600: #005cd9;
+  --color-mid-700: #0047ad;
+  --color-mid-800: #003380;
+  --color-mid-900: #002054;
+
+  --color-sky-300: #7edcff;
+  --color-sky-400: #52d3ff;
+  --color-sky-500: #27caff; /* WHITE BLUE — acento */
+  --color-sky-600: #00b5f0;
+
+  --color-ink: #100e16; /* GREY B — texto fuerte / footer */
+  --color-ink-soft: #3d3a47;
+  --color-ink-mute: #6b6875;
+
+  /* Superficies frías claras */
+  --color-frost-50: #f7f9fc;
+  --color-frost-100: #eff3f9;
+  --color-frost-200: #e2e9f3;
+  --color-frost-300: #cdd8e8;
+
+  /* Tipografía */
+  --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif-condensed, sans-serif;
+  --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Sombras de marca */
+  --shadow-card: 0 1px 2px rgb(16 14 22 / 0.04), 0 4px 16px rgb(23 58 135 / 0.06);
+  --shadow-card-hover: 0 2px 4px rgb(16 14 22 / 0.05), 0 12px 32px rgb(0 115 255 / 0.14);
+  --shadow-glow: 0 0 48px rgb(39 202 255 / 0.35);
+
+  /* Easing */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ---------- base ---------- */
 @layer base {
-  :root {
-    --color-brand: #1B4F9B;
-  }
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
-  .prose h2 { @apply text-brand-500; }
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: #fff;
+    font-feature-settings: 'ss01', 'cv11';
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-mid-500);
+    color: #fff;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ---------- utilidades de marca ---------- */
+@utility font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* Gradiente de marca: cold → mid → sky */
+@utility bg-brand-gradient {
+  background-image: linear-gradient(135deg, var(--color-cold-600) 0%, var(--color-mid-500) 55%, var(--color-sky-500) 100%);
+}
+
+@utility text-brand-gradient {
+  background-image: linear-gradient(100deg, var(--color-cold-600) 0%, var(--color-mid-500) 60%, var(--color-sky-500) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Línea de gradiente — firma visual (bordes superiores, subrayados, reglas) */
+@utility brand-rule {
+  background-image: linear-gradient(90deg, var(--color-cold-600), var(--color-mid-500), var(--color-sky-500));
+  height: 3px;
+  border-radius: 9999px;
+}
+
+/* Patrón blueprint: grid técnico sutil para heros y fondos */
+@utility bg-blueprint {
+  background-image:
+    linear-gradient(rgb(23 58 135 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(23 58 135 / 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility bg-blueprint-dark {
+  background-image:
+    linear-gradient(rgb(39 202 255 / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(39 202 255 / 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* Malla de gradiente para heros claros */
+@utility bg-hero-mesh {
+  background-image:
+    radial-gradient(38rem 24rem at 88% -8%, rgb(39 202 255 / 0.14), transparent 52%),
+    radial-gradient(30rem 20rem at -6% 12%, rgb(0 115 255 / 0.07), transparent 50%);
+}
+
+/* Card con borde-gradiente en hover */
+@utility card-brand {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--color-frost-300);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+  transition:
+    box-shadow 0.35s var(--ease-out-quart),
+    transform 0.35s var(--ease-out-quart),
+    border-color 0.35s var(--ease-out-quart);
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--color-mid-300);
+  }
+}
+
+/* ---------- animaciones de entrada ---------- */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-rise {
+  animation: rise-in 0.7s var(--ease-out-quart) both;
+}
+
+/* Stagger para grupos: aplicar .animate-rise + .stagger en el contenedor */
+.stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger > *:nth-child(2) { animation-delay: 0.12s; }
+.stagger > *:nth-child(3) { animation-delay: 0.19s; }
+.stagger > *:nth-child(4) { animation-delay: 0.26s; }
+.stagger > *:nth-child(5) { animation-delay: 0.33s; }
+.stagger > *:nth-child(6) { animation-delay: 0.4s; }
+.stagger > *:nth-child(7) { animation-delay: 0.47s; }
+.stagger > *:nth-child(8) { animation-delay: 0.54s; }
+
+/* Reveal al hacer scroll — CSS puro con scroll-driven animations */
+@supports (animation-timeline: view()) {
+  .scroll-reveal {
+    animation: rise-in 0.8s var(--ease-out-quart) both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 42%;
+  }
+}
+
+/* ---------- prosa de blog ---------- */
+.prose-luma {
+  max-width: 68ch;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--color-ink-soft);
+
+  & h2 {
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-size: 1.875rem;
+    line-height: 1.15;
+    color: var(--color-cold-600);
+    margin: 2.5rem 0 1rem;
+  }
+  & h3 {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-ink);
+    margin: 2rem 0 0.75rem;
+  }
+  & p {
+    margin: 1.1rem 0;
+  }
+  & a {
+    color: var(--color-mid-600);
+    text-decoration: underline;
+    text-decoration-color: var(--color-sky-500);
+    text-underline-offset: 3px;
+    &:hover {
+      color: var(--color-mid-500);
+    }
+  }
+  & ul,
+  & ol {
+    margin: 1.1rem 0;
+    padding-left: 1.5rem;
+  }
+  & ul {
+    list-style: none;
+    & li {
+      position: relative;
+      margin: 0.5rem 0;
+      &::before {
+        content: '';
+        position: absolute;
+        left: -1.25rem;
+        top: 0.66em;
+        width: 0.45rem;
+        height: 0.45rem;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, var(--color-mid-500), var(--color-sky-500));
+      }
+    }
+  }
+  & ol {
+    list-style: decimal;
+    & li {
+      margin: 0.5rem 0;
+    }
+  }
+  & blockquote {
+    border-left: 3px solid var(--color-mid-500);
+    padding-left: 1.25rem;
+    font-style: italic;
+    color: var(--color-ink-mute);
+    margin: 1.5rem 0;
+  }
+  & img {
+    border-radius: var(--radius-xl);
+    margin: 1.75rem auto;
+  }
+  & strong {
+    color: var(--color-ink);
+  }
 }

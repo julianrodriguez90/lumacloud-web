@@ -1,27 +1,262 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import { ctaLink } from '@/lib/appLinks';
-const cta = ctaLink('backup', 'calculadora-rto-rpo');
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BrandImage from '@/components/BrandImage.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Backup Empresarial en Colombia | LumaCloud';
+const description =
+  'Backup empresarial en Colombia con la regla 3-2-1, almacenamiento inmutable, DRP y replicación en datacenters TIER III y IV. Protege tus datos hoy.';
+
+const CAPACIDADES = [
+  {
+    nombre: 'Programación de backups',
+    texto:
+      'Programas de respaldo regulares y consistentes, diferentes para cada negocio y adaptados a tus necesidades comerciales a lo largo del tiempo.',
+  },
+  {
+    nombre: 'Almacenamiento inmutable',
+    texto:
+      'Tus copias de seguridad contienen datos confidenciales. Con el almacenamiento inmutable defines un período en el que los datos no se pueden modificar ni eliminar — ni siquiera por un atacante.',
+  },
+  {
+    nombre: 'Pruebas de control',
+    texto:
+      'Probamos de forma rutinaria que tu plan de recuperación funcione sin fallas. Sin pruebas, nunca sabrás si tu recuperación funcionará hasta que más la necesites.',
+  },
+  {
+    nombre: 'Automatización',
+    texto:
+      'La automatización de las copias de seguridad reduce los errores humanos y le libera tiempo a tu equipo para que se concentre en el negocio.',
+  },
+  {
+    nombre: 'DRP — Recuperación ante desastres',
+    texto:
+      'Diseñamos planes de recuperación ante desastres (DRP) personalizados, con recuperación rápida y soluciones escalables para garantizar la continuidad de tu empresa.',
+  },
+  {
+    nombre: 'Replicación de servidores',
+    texto:
+      'Duplicamos el contenido y las operaciones de tu servidor principal en servidores secundarios en tiempo real: si el principal falla, el secundario toma su lugar automáticamente.',
+  },
+];
+
+const FAQS = [
+  {
+    q: '¿Qué es la regla de backup 3-2-1?',
+    a: 'Es la estrategia que aplicamos en LumaCloud para máxima protección: tus datos en tiempo real en nuestros servidores, una copia de seguridad en nuestro datacenter principal y una tercera copia externa almacenada fuera de las instalaciones, asegurando continuidad ante cualquier imprevisto.',
+  },
+  {
+    q: '¿Qué diferencia hay entre backup y DRP?',
+    a: 'El backup es la copia de tus datos; el DRP (Disaster Recovery Plan) es la estrategia completa para que tu operación siga funcionando tras un ciberataque, un fallo técnico o un desastre natural. Las simples copias diarias ya no son suficientes: por eso combinamos backup, DRP y replicación en un enfoque de ciberrecuperación.',
+  },
+  {
+    q: '¿El backup me protege contra ransomware?',
+    a: 'Es tu última línea de defensa, pero por sí solo no basta. Nuestro enfoque se alinea con el marco NIST — identificar, proteger, detectar, responder y recuperar — e integra protección proactiva contra ransomware, antimalware basado en comportamiento y almacenamiento inmutable para que tus copias no puedan ser cifradas ni eliminadas.',
+  },
+  {
+    q: '¿Dónde se almacenan las copias de seguridad?',
+    a: 'En datacenters TIER III y IV con arquitectura local en Colombia. Además, las transacciones desde y hacia LumaCloud son ilimitadas y sin costo adicional: sin costos ocultos.',
+  },
+  {
+    q: '¿Cuánto tarda la recuperación ante una pérdida de datos?',
+    a: 'Podemos remediar y restaurar rápidamente datos y sistemas perdidos de forma remota, con poco o ningún tiempo de inactividad, y realizar una investigación forense completa del incidente.',
+  },
+];
+
+const serviceSchema = {
+  '@type': 'Service',
+  name: 'Backup empresarial en Colombia',
+  serviceType: 'Backup y recuperación ante desastres',
+  provider: { '@id': `${SITE.url}/#organization` },
+  areaServed: 'Colombia',
+  description,
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Servicios de backup y ciberrecuperación',
+    itemListElement: CAPACIDADES.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s.nombre },
+    })),
+  },
+};
 ---
-<Layout
-  title="Backup Empresarial en Colombia | LumaCloud"
-  description="Backup as a Service con RTO/RPO garantizados para empresas en Colombia. Recuperación ante desastres, continuidad del negocio."
-  silo="backup"
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Backup', href: '/backup' },
+  ]}
+  schemas={[serviceSchema]}
 >
-  <section class="bg-brand-500 text-white py-20 px-4">
-    <div class="max-w-4xl mx-auto">
-      <h1 class="text-4xl font-bold mb-4">Backup empresarial en Colombia</h1>
-      <p class="text-lg text-blue-100 mb-8">Solución de backup corporativo con recuperación garantizada. RTO y RPO definidos según tus necesidades. Datos siempre disponibles.</p>
-      <a href={cta} class="bg-white text-brand-500 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
-        Calcula tu plan de backup →
-      </a>
+  <!-- HERO -->
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:pb-24 lg:pt-20">
+      <div class="animate-rise">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Backup</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          <span class="text-brand-gradient">Backup empresarial</span> en Colombia
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+          ¿Qué pasaría si perdieras toda tu información en un instante? Más que archivos, son el corazón de tu negocio. Protege tu empresa
+          con backup 3-2-1, DRP y replicación: ciberrecuperación completa desde datacenters TIER III y IV en Colombia.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a
+            href="/contacto"
+            class="rounded-xl bg-mid-500 px-8 py-4 text-center font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600"
+          >
+            Protege tu información hoy
+          </a>
+          <a
+            href="/backup/baas"
+            class="rounded-xl border border-frost-300 bg-white/70 px-8 py-4 text-center font-semibold text-cold-600 backdrop-blur transition-colors hover:border-mid-400 hover:text-mid-600"
+          >
+            Conoce el Backup as a Service
+          </a>
+        </div>
+      </div>
+      <BrandImage
+        src="/images/heros/backup-nube.webp"
+        alt="Interfaz de backup empresarial en la nube de LumaCloud"
+        width={1280}
+        height={853}
+        overlay
+        priority
+        class="animate-rise [animation-delay:0.15s]"
+      />
     </div>
   </section>
-  <section class="max-w-3xl mx-auto px-4 py-12 text-center">
-    <h2 class="text-2xl font-bold mb-4">Calculadora RTO/RPO gratuita</h2>
-    <p class="text-gray-600 mb-6">Descubre qué estrategia de backup necesita tu empresa según tu industria y volumen de datos.</p>
-    <a href="/herramientas/calculadora-rto-rpo" class="bg-brand-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-brand-600 transition">
-      Usar calculadora gratis →
-    </a>
+
+  <!-- CAPACIDADES -->
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <p class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Ciberrecuperación</p>
+    <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-5xl">Backup, DRP y replicación en una sola estrategia</h2>
+    <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+    <div class="scroll-reveal mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        CAPACIDADES.map((s) => (
+          <div class="card-brand p-7">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h7A2.5 2.5 0 0 1 16 6.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 4 13.5v-7z" stroke="currentColor" stroke-width="1.5" />
+                <path d="M7 10.5l2 2 4-4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3 class="mt-5 text-lg font-bold text-ink">{s.nombre}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-mute">{s.texto}</p>
+          </div>
+        ))
+      }
+    </div>
   </section>
-</Layout>
+
+  <!-- DETALLE: REGLA 3-2-1 + NIST -->
+  <section class="bg-blueprint bg-frost-50 py-20">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+      <div class="scroll-reveal">
+        <h2 class="font-display text-4xl text-cold-600 sm:text-5xl">La regla 3-2-1: tres copias, cero excusas</h2>
+        <div class="mt-3 w-16 brand-rule"></div>
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-ink-soft">
+          <p>
+            Sin copias de seguridad confiables, un fallo puede significar pérdidas financieras y dañar tu reputación. Por eso en LumaCloud
+            aplicamos la regla 3-2-1: tus datos en tiempo real en nuestros servidores, una copia de seguridad en nuestro datacenter
+            principal y una tercera copia externa fuera de las instalaciones.
+          </p>
+          <p>
+            Y como los ciberdelincuentes son cada vez más sofisticados, las copias por sí solas no bastan. Nuestro enfoque de protección se
+            alinea con el marco del NIST y cubre sus cinco áreas clave: identificar vulnerabilidades, proteger, detectar amenazas,
+            responder y recuperar.
+          </p>
+          <p>
+            Es crucial proteger todo lo que pueda estar en riesgo: desde un servidor lleno de datos comerciales hasta una presentación que
+            no puedes permitirte perder. Ningún sistema debe quedar desprotegido.
+          </p>
+        </div>
+        <ul class="mt-8 space-y-3">
+          {
+            [
+              'Protección de datos continua y copia de seguridad con recuperación de desastres',
+              'Protección proactiva contra ransomware y amenazas avanzadas desde el día cero',
+              'Notarización de datos y sincronización segura de archivos',
+              'Transacciones ilimitadas desde y hacia LumaCloud, sin costos ocultos',
+            ].map((b) => (
+              <li class="flex items-start gap-3 text-ink">
+                <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-mid-500 to-sky-500 text-white">
+                  <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2 6.5 4.5 9 10 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="text-[0.95rem] font-medium">{b}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="space-y-6">
+        <BrandImage
+          src="/images/heros/home-datacenter.webp"
+          alt="Datacenter TIER III en Colombia donde se almacenan las copias de seguridad"
+          width={1816}
+          height={1210}
+          overlay
+          class="scroll-reveal"
+        />
+        <div class="card-brand p-7">
+          <p class="font-display text-2xl text-cold-600">¿Cuánto cuesta una hora de inactividad?</p>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            Suma la pérdida de ingresos, la productividad detenida, el costo de recuperar los datos y el daño a tu reputación. Ningún
+            negocio es inmune al tiempo de inactividad — pero con un DRP sólido, la interrupción es mínima.
+          </p>
+          <a href="/contacto" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500 hover:text-mid-600">
+            Hablemos de tu plan de continuidad
+            <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENLACES DE SILO -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    <h2 class="font-display text-3xl text-cold-600 sm:text-4xl">Explora las soluciones de backup</h2>
+    <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        [
+          { href: '/backup/nube', label: 'Backup en la nube', desc: 'Copias automáticas fuera de tus instalaciones, con RTO y RPO a la medida de tu operación.' },
+          { href: '/backup/baas', label: 'Backup as a Service (BaaS)', desc: 'Respaldo administrado por expertos, con soporte 24/7 y costo mensual asequible.' },
+          { href: '/ciberseguridad', label: 'Ciberseguridad', desc: 'EDR, DLP y seguridad perimetral: detén las amenazas antes de necesitar el backup.' },
+          { href: '/soc', label: 'SOC 24/7', desc: 'Monitoreo continuo y respuesta a incidentes para complementar tu ciberrecuperación.' },
+        ].map((l) => (
+          <a href={l.href} class="card-brand group p-7">
+            <h3 class="font-bold text-ink group-hover:text-mid-600">{l.label}</h3>
+            <p class="mt-2 text-sm text-ink-mute">{l.desc}</p>
+            <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500">
+              Ver más
+              <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="No pongas en riesgo lo más valioso"
+    text="Con una estrategia de backup sólida, tu negocio sigue adelante sin importar lo que pase. Hablemos y protege tu información hoy."
+    ctaLabel="Agenda tu cita con un agente"
+  />
+</BaseLayout>

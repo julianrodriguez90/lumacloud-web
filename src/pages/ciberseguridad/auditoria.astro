@@ -1,0 +1,266 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BrandImage from '@/components/BrandImage.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Auditoría de Seguridad Informática | LumaCloud';
+const description =
+  'Auditoría de seguridad informática para tu empresa: hacking ético, evaluación de vulnerabilidades y análisis forense con plan de remediación claro.';
+
+const ALCANCE = [
+  {
+    nombre: 'Evaluación de vulnerabilidades',
+    texto:
+      'Escaneamos y analizamos tu red, servidores, aplicaciones y endpoints para identificar brechas de seguridad y configuraciones débiles.',
+  },
+  {
+    nombre: 'Pruebas de hacking ético',
+    texto:
+      'Simulamos ataques reales contra tus defensas, actuando con la perspectiva de un atacante, para comprobar qué tan lejos podría llegar una intrusión.',
+  },
+  {
+    nombre: 'Revisión de configuraciones',
+    texto:
+      'Auditamos sistemas operativos, bases de datos y redes frente a buenas prácticas de hardening: detectamos servicios innecesarios y configuraciones inseguras.',
+  },
+  {
+    nombre: 'Seguridad perimetral y aplicaciones web',
+    texto:
+      'Evaluamos tu firewall, la detección de intrusiones y tus aplicaciones web frente a ataques como inyecciones SQL, XSS y CSRF.',
+  },
+  {
+    nombre: 'Protección de datos y DLP',
+    texto:
+      'Revisamos cómo fluye la información confidencial de tu empresa y por dónde podría fugarse: dispositivos, correo y comunicaciones de red.',
+  },
+  {
+    nombre: 'Análisis forense',
+    texto:
+      'Si sospechas de un incidente, reunimos pruebas digitales en un repositorio central seguro para investigar qué pasó y corregir la brecha por completo.',
+  },
+];
+
+const ENTREGABLES = [
+  'Informe ejecutivo en lenguaje claro para la gerencia',
+  'Detalle técnico de cada hallazgo con evidencia',
+  'Priorización por riesgo real para tu negocio',
+  'Plan de remediación accionable, paso a paso',
+];
+
+const FAQS = [
+  {
+    q: '¿Qué es una auditoría de seguridad informática?',
+    a: 'Es una evaluación sistemática de la seguridad de tus sistemas: red, servidores, aplicaciones, endpoints y prácticas de tu equipo. Combina evaluación de vulnerabilidades, pruebas de hacking ético y revisión de configuraciones, y termina en un informe con hallazgos priorizados y un plan de remediación.',
+  },
+  {
+    q: '¿En qué se diferencia el hacking ético de un escaneo de vulnerabilidades?',
+    a: 'El escaneo identifica debilidades conocidas de forma automatizada. El hacking ético va más allá: nuestros especialistas certificados intentan explotar esas debilidades como lo haría un atacante real, para medir el impacto verdadero y descartar falsos positivos.',
+  },
+  {
+    q: '¿La auditoría interrumpe la operación de mi empresa?',
+    a: 'No debería. Acordamos contigo el alcance, las ventanas de prueba y los sistemas críticos antes de empezar. Las pruebas se ejecutan de forma controlada para no afectar tu operación.',
+  },
+  {
+    q: '¿Qué recibo al final de la auditoría?',
+    a: 'Un informe ejecutivo para la gerencia, el detalle técnico de cada hallazgo con su evidencia, la priorización por riesgo y un plan de remediación claro. Si lo deseas, te acompañamos en la implementación de las correcciones.',
+  },
+  {
+    q: '¿Cada cuánto debería auditar la seguridad de mi empresa?',
+    a: 'Lo recomendable es auditar al menos una vez al año y después de cambios importantes en tu infraestructura o aplicaciones. Entre auditorías, la ciberseguridad administrada y el monitoreo continuo de nuestro SOC 24/7 mantienen la vigilancia activa.',
+  },
+];
+
+const serviceSchema = {
+  '@type': 'Service',
+  name: 'Auditoría de seguridad informática',
+  serviceType: 'Auditoría de seguridad informática',
+  provider: { '@id': `${SITE.url}/#organization` },
+  areaServed: 'Colombia',
+  description,
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Alcance de la auditoría de seguridad',
+    itemListElement: ALCANCE.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s.nombre },
+    })),
+  },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Ciberseguridad', href: '/ciberseguridad' },
+    { name: 'Auditoría de seguridad', href: '/ciberseguridad/auditoria' },
+  ]}
+  schemas={[serviceSchema]}
+>
+  <!-- HERO -->
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:pb-24 lg:pt-20">
+      <div class="animate-rise">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <a href="/ciberseguridad" class="hover:text-mid-600">Ciberseguridad</a>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Auditoría de seguridad</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          Auditoría de <span class="text-brand-gradient">seguridad informática</span>
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+          Pon a prueba tus defensas antes de que lo haga un atacante: evaluación de vulnerabilidades, hacking ético y revisión de
+          configuraciones, con hallazgos priorizados y un plan de remediación que sí puedes ejecutar.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a
+            href="/contacto"
+            class="rounded-xl bg-mid-500 px-8 py-4 text-center font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600"
+          >
+            Agenda tu auditoría
+          </a>
+          <a
+            href="/soc"
+            class="rounded-xl border border-frost-300 bg-white/70 px-8 py-4 text-center font-semibold text-cold-600 backdrop-blur transition-colors hover:border-mid-400 hover:text-mid-600"
+          >
+            Conoce nuestro SOC 24/7
+          </a>
+        </div>
+      </div>
+      <BrandImage
+        src="/images/heros/ciberseguridad-candado.webp"
+        alt="Auditoría de seguridad informática: candado sobre un circuito digital"
+        width={1280}
+        height={800}
+        overlay
+        priority
+        class="animate-rise [animation-delay:0.15s]"
+      />
+    </div>
+  </section>
+
+  <!-- ALCANCE -->
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <p class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Alcance de la auditoría</p>
+    <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-5xl">Qué revisamos en tu infraestructura</h2>
+    <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+    <div class="scroll-reveal mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        ALCANCE.map((s) => (
+          <div class="card-brand p-7">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <circle cx="9" cy="9" r="5.5" stroke="currentColor" stroke-width="1.5" />
+                <path d="M13 13l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3 class="mt-5 text-lg font-bold text-ink">{s.nombre}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-mute">{s.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- METODOLOGÍA / ENTREGABLES -->
+  <section class="bg-blueprint bg-frost-50 py-20">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+      <div class="scroll-reveal">
+        <h2 class="font-display text-4xl text-cold-600 sm:text-5xl">De los hallazgos a las correcciones</h2>
+        <div class="mt-3 w-16 brand-rule"></div>
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-ink-soft">
+          <p>
+            Una auditoría solo sirve si termina en decisiones. Nuestros especialistas certificados evalúan la robustez de tus sistemas
+            simulando ataques reales, y traducen cada hallazgo técnico a su impacto en el negocio: qué podría pasar, qué tan probable es
+            y qué cuesta corregirlo.
+          </p>
+          <p>
+            Después de la auditoría no te dejamos solo. Podemos ejecutar contigo el plan de remediación — hardening, seguridad
+            perimetral, protección de endpoints — y mantener la vigilancia con
+            <a href="/soc" class="font-semibold text-mid-500 hover:text-mid-600">monitoreo continuo desde nuestro SOC 24/7</a>.
+          </p>
+          <p>
+            Además, una auditoría periódica te ayuda a demostrar cumplimiento normativo y a mantener tu infraestructura alineada con
+            las buenas prácticas de <a href="/ciberseguridad" class="font-semibold text-mid-500 hover:text-mid-600">ciberseguridad empresarial</a>.
+          </p>
+        </div>
+        <ul class="mt-8 space-y-3">
+          {
+            ENTREGABLES.map((b) => (
+              <li class="flex items-start gap-3 text-ink">
+                <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-mid-500 to-sky-500 text-white">
+                  <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2 6.5 4.5 9 10 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="text-[0.95rem] font-medium">{b}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="space-y-6">
+        <BrandImage
+          src="/images/heros/soc-analista.webp"
+          alt="Analista de seguridad revisando los resultados de una auditoría desde un datacenter"
+          width={1280}
+          height={800}
+          overlay
+          class="scroll-reveal"
+        />
+        <div class="card-brand p-7">
+          <p class="font-display text-2xl text-cold-600">¿Sospechas de un incidente?</p>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            No esperes a la próxima auditoría. Nuestro servicio de análisis forense reúne las pruebas digitales, reconstruye lo que pasó
+            y te ayuda a cerrar la brecha para que no se repita.
+          </p>
+          <a href="/contacto" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500 hover:text-mid-600">
+            Habla con un experto
+            <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENLACES DE SILO -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    <h2 class="font-display text-3xl text-cold-600 sm:text-4xl">Completa tu estrategia de seguridad</h2>
+    <div class="mt-8 grid gap-5 sm:grid-cols-3">
+      {
+        [
+          { href: '/ciberseguridad', label: 'Ciberseguridad administrada', desc: 'Protección continua: EDR, DLP, seguridad perimetral, WAF y email security.' },
+          { href: '/ciberseguridad/consultoria', label: 'Consultoría en ciberseguridad', desc: 'Diagnóstico, hoja de ruta y acompañamiento experto en la implementación.' },
+          { href: '/soc', label: 'SOC 24/7', desc: 'Monitoreo continuo con SIEM, threat hunting y respuesta a incidentes.' },
+        ].map((l) => (
+          <a href={l.href} class="card-brand group p-7">
+            <h3 class="font-bold text-ink group-hover:text-mid-600">{l.label}</h3>
+            <p class="mt-2 text-sm text-ink-mute">{l.desc}</p>
+            <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500">
+              Ver más
+              <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="Pon a prueba tus defensas"
+    text="Agenda una auditoría de seguridad informática: descubre tus vulnerabilidades antes que los atacantes y recibe un plan de remediación claro y priorizado."
+    ctaLabel="Agenda tu auditoría"
+  />
+</BaseLayout>

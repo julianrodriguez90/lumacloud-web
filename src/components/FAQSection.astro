@@ -1,0 +1,46 @@
+---
+/**
+ * FAQs con <details> accesible. El schema FAQPage se emite aquí mismo
+ * para que cada página con FAQs lo tenga automáticamente.
+ */
+interface Props {
+  faqs: { q: string; a: string }[];
+  title?: string;
+}
+const { faqs, title = 'Preguntas frecuentes' } = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<section class="mx-auto max-w-3xl px-4 py-20 sm:px-6">
+  <h2 class="font-display text-center text-4xl text-cold-600 sm:text-5xl">{title}</h2>
+  <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+  <div class="mt-10 space-y-3">
+    {
+      faqs.map((f) => (
+        <details class="group rounded-2xl border border-frost-200 bg-white transition-colors open:border-mid-300 open:shadow-card">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 text-left font-semibold text-ink [&::-webkit-details-marker]:hidden">
+            {f.q}
+            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-frost-300 text-mid-500 transition-transform group-open:rotate-45">
+              <svg class="h-3.5 w-3.5" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </span>
+          </summary>
+          <p class="px-6 pb-5 text-[0.95rem] leading-relaxed text-ink-soft">{f.a}</p>
+        </details>
+      ))
+    }
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

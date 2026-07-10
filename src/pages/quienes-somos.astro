@@ -1,0 +1,334 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BrandImage from '@/components/BrandImage.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import Testimonios from '@/components/Testimonios.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Quiénes Somos | LumaCloud';
+const description =
+  'Conoce LumaCloud: empresa colombiana de ciberseguridad y nube. Nuestra misión, visión 2030, valores y por qué somos el aliado correcto para tu negocio.';
+
+const VALORES = [
+  {
+    nombre: 'Curiosidad',
+    texto:
+      'No es solo un rasgo, es nuestro motor de innovación. Nos impulsa a explorar territorios desconocidos: la chispa que enciende nuestra creatividad y nos lleva a descubrimientos que transforman.',
+  },
+  {
+    nombre: 'Acción',
+    texto:
+      'El puente entre lo que es posible y lo que se logra. No nos conformamos con soñar; nos esforzamos por hacer. Respondemos con rapidez y eficacia a los desafíos y capitalizamos las oportunidades.',
+  },
+  {
+    nombre: 'Innovación',
+    texto:
+      'No se trata solo de tecnología, sino de una mentalidad que desafía el status quo. Innovamos para avanzar como empresa, impulsar a toda la industria y contribuir a un futuro mejor.',
+  },
+  {
+    nombre: 'Pasión',
+    texto:
+      'Lo que nos da energía y nos mantiene enfocados en nuestra misión. Se refleja en nuestro entusiasmo, nuestra dedicación y nuestro compromiso con la excelencia en cada aspecto del trabajo.',
+  },
+  {
+    nombre: 'Compromiso',
+    texto:
+      'Una promesa a clientes, colaboradores y socios: estar siempre presentes, ser confiables y superar las expectativas. Relaciones sólidas basadas en confianza, respeto e integridad.',
+  },
+];
+
+const DIFERENCIALES = [
+  {
+    nombre: 'Sin sorpresas en la factura',
+    texto: 'Precios estables y escalabilidad de recursos lineal: sube hardware, procesadores o almacenamiento sin sobrecostos.',
+  },
+  {
+    nombre: 'Ejecución inmediata',
+    texto: 'Nuestros tiempos de entrega destacan frente a las nubes existentes: aprovisionamos rápido para que operes rápido.',
+  },
+  {
+    nombre: 'Latencias bajas',
+    texto: 'Arquitectura local con latencias de operación e interconexión muy por debajo del estándar de otros servicios en la nube.',
+  },
+  {
+    nombre: 'Nube accesible',
+    texto: 'No monetizamos el uso del canal: transferencias y ancho de banda garantizados, con precios accesibles.',
+  },
+  {
+    nombre: 'Solución a tu medida',
+    texto: 'Evaluamos tus necesidades para diseñar una solución ajustada a tus requerimientos reales, no una plantilla genérica.',
+  },
+  {
+    nombre: 'Migración gratuita',
+    texto: 'Trasladamos a nuestra nube tus sistemas, datos, aplicaciones y página web sin costo adicional.',
+  },
+  {
+    nombre: 'Tiempos de contratación flexibles',
+    texto: 'La permanencia de nuestros contratos se ajusta a los requerimientos del servicio que contratas.',
+  },
+  {
+    nombre: 'Atención a toda hora (24/7)',
+    texto: 'Nuestro equipo de expertos, arquitectos y DBA está en operación continua para respaldarte en cualquier momento.',
+  },
+];
+
+const FAQS = [
+  {
+    q: '¿Qué hace LumaCloud?',
+    a: 'Somos una empresa colombiana especializada en ciberseguridad, ciberrecuperación e infraestructura en la nube. Protegemos la información y las operaciones de las empresas con soluciones como ciberseguridad administrada, backup, cloud privado y monitoreo desde nuestro SOC.',
+  },
+  {
+    q: '¿Dónde está ubicada LumaCloud?',
+    a: `Nuestra sede está en la ${SITE.address.street}, Bogotá D.C., Colombia, y prestamos servicios a empresas en todo el país con soporte 24/7.`,
+  },
+  {
+    q: '¿Qué diferencia a LumaCloud de otros proveedores de nube?',
+    a: 'Precios estables sin sorpresas en la factura, ejecución inmediata, latencias bajas gracias a nuestra arquitectura local, migración gratuita a nuestra nube y un equipo de expertos disponible a toda hora.',
+  },
+  {
+    q: '¿Cuáles son los valores de LumaCloud?',
+    a: 'Curiosidad, Acción, Innovación, Pasión y Compromiso. Son el motor de cómo trabajamos: exploramos, hacemos, desafiamos el status quo y cumplimos lo que prometemos.',
+  },
+  {
+    q: '¿Cómo puedo contactar al equipo de LumaCloud?',
+    a: `Escríbenos a ${SITE.email}, llámanos al ${SITE.phoneDisplay} o visita nuestra página de contacto: nuestro equipo profesional está siempre atento a toda solicitud.`,
+  },
+];
+
+const aboutSchema = {
+  '@type': 'AboutPage',
+  '@id': `${SITE.url}/quienes-somos#aboutpage`,
+  url: `${SITE.url}/quienes-somos`,
+  name: 'Quiénes Somos — LumaCloud',
+  description,
+  mainEntity: { '@id': `${SITE.url}/#organization` },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Quiénes somos', href: '/quienes-somos' },
+  ]}
+  schemas={[aboutSchema]}
+>
+  <!-- HERO -->
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:pb-24 lg:pt-20">
+      <div class="animate-rise">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Quiénes somos</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          Una nube diseñada para <span class="text-brand-gradient">impulsar tu negocio</span>
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+          En LumaCloud no solo ofrecemos infraestructura en la nube: garantizamos el crecimiento y la protección de tu empresa. Nos
+          especializamos en ciberseguridad y ciberrecuperación, con un SOC que monitorea en tiempo real para detectar y responder de
+          inmediato ante cualquier amenaza digital.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a
+            href="/contacto"
+            class="rounded-xl bg-mid-500 px-8 py-4 text-center font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600"
+          >
+            Conversemos de tu proyecto
+          </a>
+          <a
+            href="/ciberseguridad"
+            class="rounded-xl border border-frost-300 bg-white/70 px-8 py-4 text-center font-semibold text-cold-600 backdrop-blur transition-colors hover:border-mid-400 hover:text-mid-600"
+          >
+            Conoce nuestros servicios
+          </a>
+        </div>
+      </div>
+      <div class="relative animate-rise [animation-delay:0.15s]">
+        <BrandImage
+          src="/images/nosotros/equipo-1.webp"
+          alt="Equipo de LumaCloud trabajando en soluciones de nube y ciberseguridad"
+          width={1000}
+          height={668}
+          overlay
+          priority
+        />
+        <BrandImage
+          src="/images/nosotros/equipo-2.webp"
+          alt="Colaboradores de LumaCloud en una sesión de trabajo en equipo"
+          width={1000}
+          height={668}
+          class="absolute -bottom-8 -left-6 hidden w-1/2 border-4 border-white lg:block"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- MISIÓN -->
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div class="scroll-reveal">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Nuestra misión</p>
+        <h2 class="font-display mt-3 text-4xl text-cold-600 sm:text-5xl">Un mundo mejor, justo y solidario</h2>
+        <div class="mt-3 w-16 brand-rule"></div>
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-ink-soft">
+          <p>
+            Nuestra misión trasciende la prestación de servicios tecnológicos: estamos comprometidos con la creación de un mundo mejor,
+            justo y solidario. Cada paso que damos está inspirado por un propósito claro: dejar una huella positiva en el planeta, en
+            nuestras comunidades y en cada persona con la que interactuamos.
+          </p>
+          <p>
+            Creemos que un mundo más justo comienza con la realización de los sueños de quienes forman parte de nuestro equipo, y que
+            nuestras empresas deben ser escenarios de transformación y crecimiento personal y profesional.
+          </p>
+          <p>
+            Cada servicio que ofrecemos, cada solución que desarrollamos y cada relación que construimos es un paso hacia ese mundo que
+            imaginamos: uno donde la tecnología es una fuerza para el bien y cada individuo puede alcanzar su potencial.
+          </p>
+        </div>
+        <ul class="mt-8 space-y-3">
+          {
+            [
+              'Un mundo mejor: tecnología que no solo conecta, también protege',
+              'Un mundo más justo: cumpliendo sueños, creando valor',
+              'Un mundo más solidario: espacios de transformación y crecimiento',
+            ].map((b) => (
+              <li class="flex items-start gap-3 text-ink">
+                <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-mid-500 to-sky-500 text-white">
+                  <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2 6.5 4.5 9 10 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="text-[0.95rem] font-medium">{b}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="space-y-6">
+        <BrandImage
+          src="/images/nosotros/equipo-2.webp"
+          alt="El equipo de LumaCloud colaborando alrededor de un propósito común"
+          width={1000}
+          height={668}
+          overlay
+          class="scroll-reveal lg:hidden"
+        />
+        <div class="card-brand scroll-reveal p-8">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Visión 2030</p>
+          <p class="font-display mt-3 text-3xl text-cold-600">Pioneros de un movimiento más grande</p>
+          <div class="mt-3 w-16 brand-rule"></div>
+          <div class="mt-5 space-y-4 text-[0.95rem] leading-relaxed text-ink-soft">
+            <p>
+              Para el año 2030 nos vemos no solo como líderes en el sector tecnológico de América Latina, sino como pioneros en la
+              construcción de un mundo mejor, justo y solidario.
+            </p>
+            <p>
+              Nuestro camino está pavimentado con innovación, excelencia y un compromiso inquebrantable con la calidad: ser facilitadores
+              de cambio, impulsores de la transformación digital y colaboradores en la solución de los desafíos más apremiantes de nuestra
+              era.
+            </p>
+            <p>
+              Es una visión ambiciosa, y sabemos que es posible con el apoyo de nuestra comunidad de colaboradores, clientes y partners.
+              Juntos, podemos hacer de Luma un modelo de innovación y humanidad.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALORES -->
+  <section class="bg-blueprint bg-frost-50 py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <p class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Nuestros valores</p>
+      <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-5xl">Lo que nos mueve todos los días</h2>
+      <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+      <div class="scroll-reveal mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          VALORES.map((v, i) => (
+            <div class="card-brand p-7">
+              <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 font-display text-lg text-white">
+                {String(i + 1).padStart(2, '0')}
+              </div>
+              <h3 class="mt-5 text-lg font-bold text-ink">{v.nombre}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ink-mute">{v.texto}</p>
+            </div>
+          ))
+        }
+        <div class="card-brand flex flex-col justify-center bg-gradient-to-br from-cold-600 to-mid-500 p-7">
+          <p class="font-display text-2xl text-white">Más que un proveedor, una familia</p>
+          <p class="mt-3 text-sm leading-relaxed text-white/80">
+            En Luma no solo te unes a un proveedor de servicios en la nube: te unes a un equipo dedicado a apoyarte en cada paso de tu
+            viaje digital. Juntos, haremos que tu negocio crezca.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIALES -->
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <p class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Por qué elegirnos</p>
+    <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-5xl">Somos la decisión correcta para tu negocio</h2>
+    <div class="mx-auto mt-3 w-16 brand-rule"></div>
+    <p class="mx-auto mt-6 max-w-2xl text-center text-base leading-relaxed text-ink-soft">
+      Sabemos que cada empresa tiene su propia voz y visión. Por eso nuestro equipo no solo responde a tus preguntas: se anticipa a tus
+      necesidades con soporte técnico especializado y personalizado.
+    </p>
+
+    <div class="scroll-reveal mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        DIFERENCIALES.map((d) => (
+          <div class="card-brand p-7">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M10 2 3 5.5v5c0 4 3 6.5 7 7.5 4-1 7-3.5 7-7.5v-5L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                <path d="M7 10l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3 class="mt-5 text-lg font-bold text-ink">{d.nombre}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-mute">{d.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ENLACES A SERVICIOS -->
+  <section class="mx-auto max-w-7xl px-4 pb-16 sm:px-6">
+    <h2 class="font-display text-3xl text-cold-600 sm:text-4xl">Conoce lo que hacemos</h2>
+    <div class="mt-8 grid gap-5 sm:grid-cols-3">
+      {
+        [
+          { href: '/ciberseguridad', label: 'Ciberseguridad', desc: 'EDR, DLP, seguridad perimetral, WAF y email security administrados por expertos.' },
+          { href: '/backup', label: 'Backup y DRP', desc: 'Copias de seguridad y recuperación ante desastres para blindar tu información.' },
+          { href: '/servicios-profesionales', label: 'Servicios profesionales', desc: 'Bases de datos, infraestructura, sistemas operativos y hacking ético.' },
+        ].map((l) => (
+          <a href={l.href} class="card-brand group p-7">
+            <h3 class="font-bold text-ink group-hover:text-mid-600">{l.label}</h3>
+            <p class="mt-2 text-sm text-ink-mute">{l.desc}</p>
+            <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500">
+              Ver más
+              <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <Testimonios />
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="Únete a nuestros clientes felices"
+    text="Cuéntanos los desafíos de tu empresa y trabajemos mano a mano para encontrar la solución perfecta. Sin costos ocultos ni sorpresas."
+    ctaLabel="Habla con nuestro equipo"
+  />
+</BaseLayout>

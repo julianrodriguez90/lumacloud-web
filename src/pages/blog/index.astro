@@ -1,0 +1,146 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CTASection from '@/components/CTASection.astro';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+const CATEGORIAS: Record<string, string> = {
+  ciberseguridad: 'Ciberseguridad',
+  backup: 'Backup y DRP',
+  cloud: 'Cloud',
+  soc: 'SOC',
+  educacion: 'Educación',
+};
+
+const [destacado, ...resto] = posts;
+
+const title = 'Blog de Ciberseguridad y Nube | LumaCloud';
+const description =
+  'Análisis, alertas y guías de ciberseguridad, backup, cloud y cumplimiento para empresas colombianas, escritos por el equipo de LumaCloud.';
+
+const fmt = (d: Date) => d.toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<BaseLayout {title} {description} breadcrumbs={[{ name: 'Inicio', href: '/' }, { name: 'Blog', href: '/blog' }]}>
+  <section class="bg-blueprint bg-hero-mesh border-b border-frost-200">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Blog LumaCloud</p>
+      <h1 class="font-display mt-3 max-w-3xl text-5xl leading-[0.95] text-ink sm:text-7xl">
+        Ciberseguridad y nube, <span class="text-brand-gradient">explicadas para tu negocio</span>
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-ink-soft">
+        Amenazas emergentes, buenas prácticas y tendencias tecnológicas analizadas por nuestro equipo.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+    <!-- filtros por categoría (CSS :target-free, filtrado con radio + sibling) -->
+    <div class="filters flex flex-wrap gap-2">
+      <input type="radio" name="cat" id="cat-todas" class="peer/todas sr-only" checked />
+      <label
+        for="cat-todas"
+        class="cursor-pointer rounded-full border border-frost-300 px-4 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:border-mid-400 hover:text-mid-600"
+      >
+        Todas
+      </label>
+      {
+        Object.entries(CATEGORIAS).map(([key, label]) => (
+          <>
+            <input type="radio" name="cat" id={`cat-${key}`} class:list={[`peer/${key}`, 'sr-only']} />
+            <label
+              for={`cat-${key}`}
+              class="cursor-pointer rounded-full border border-frost-300 px-4 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:border-mid-400 hover:text-mid-600"
+            >
+              {label}
+            </label>
+          </>
+        ))
+      }
+    </div>
+
+    {
+      destacado && (
+        <a href={`/blog/${destacado.id.replace(/\.md$/, '')}`} class="card-brand group mt-10 grid overflow-hidden lg:grid-cols-2" data-cat={destacado.data.category}>
+          {destacado.data.image && (
+            <div class="overflow-hidden">
+              <img
+                src={destacado.data.image}
+                alt={destacado.data.imageAlt ?? destacado.data.title}
+                width={1400}
+                height={800}
+                class="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-105 lg:h-full"
+                fetchpriority="high"
+              />
+            </div>
+          )}
+          <div class="flex flex-col justify-center p-8 lg:p-12">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-mid-500">
+              Más reciente · {CATEGORIAS[destacado.data.category]}
+            </p>
+            <h2 class="mt-3 text-2xl font-bold leading-snug text-ink group-hover:text-mid-600 lg:text-3xl">{destacado.data.title}</h2>
+            <p class="mt-3 line-clamp-3 text-ink-mute">{destacado.data.seoDescription}</p>
+            <p class="mt-5 text-sm text-ink-mute">{fmt(destacado.data.publishDate)}</p>
+          </div>
+        </a>
+      )
+    }
+
+    <div class="posts-grid mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        resto.map((post) => (
+          <a href={`/blog/${post.id.replace(/\.md$/, '')}`} class="card-brand group flex flex-col overflow-hidden" data-cat={post.data.category}>
+            {post.data.image ? (
+              <div class="overflow-hidden">
+                <img
+                  src={post.data.image}
+                  alt={post.data.imageAlt ?? post.data.title}
+                  width={700}
+                  height={400}
+                  loading="lazy"
+                  class="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+            ) : (
+              <div class="bg-brand-gradient h-44 w-full opacity-80" />
+            )}
+            <div class="flex flex-1 flex-col p-6">
+              <p class="text-xs font-semibold uppercase tracking-[0.15em] text-mid-500">{CATEGORIAS[post.data.category]}</p>
+              <h2 class="mt-2 flex-1 text-lg font-bold leading-snug text-ink group-hover:text-mid-600">{post.data.title}</h2>
+              <p class="mt-4 text-sm text-ink-mute">{fmt(post.data.publishDate)}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <CTASection
+    title="¿Tu empresa está protegida?"
+    text="Detrás de cada artículo hay un equipo que protege empresas colombianas todos los días. Hablemos de tu caso."
+  />
+</BaseLayout>
+
+<style>
+  /* Filtrado por categoría sin JS: los radios controlan la visibilidad de las cards */
+  .filters:has(#cat-ciberseguridad:checked) ~ * [data-cat]:not([data-cat='ciberseguridad']),
+  .filters:has(#cat-backup:checked) ~ * [data-cat]:not([data-cat='backup']),
+  .filters:has(#cat-cloud:checked) ~ * [data-cat]:not([data-cat='cloud']),
+  .filters:has(#cat-soc:checked) ~ * [data-cat]:not([data-cat='soc']),
+  .filters:has(#cat-educacion:checked) ~ * [data-cat]:not([data-cat='educacion']) {
+    display: none;
+  }
+  .filters:has(#cat-ciberseguridad:checked) ~ a[data-cat]:not([data-cat='ciberseguridad']),
+  .filters:has(#cat-backup:checked) ~ a[data-cat]:not([data-cat='backup']),
+  .filters:has(#cat-cloud:checked) ~ a[data-cat]:not([data-cat='cloud']),
+  .filters:has(#cat-soc:checked) ~ a[data-cat]:not([data-cat='soc']),
+  .filters:has(#cat-educacion:checked) ~ a[data-cat]:not([data-cat='educacion']) {
+    display: none;
+  }
+  .filters input:checked + label {
+    background: var(--color-mid-500);
+    border-color: var(--color-mid-500);
+    color: #fff;
+  }
+</style>
