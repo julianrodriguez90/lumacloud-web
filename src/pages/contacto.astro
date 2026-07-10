@@ -1,0 +1,320 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Contacto | LumaCloud';
+const description =
+  'Habla con el equipo de LumaCloud: diagnóstico gratuito de ciberseguridad y nube para tu empresa. Escríbenos, llámanos o visítanos en Bogotá.';
+
+const SERVICIOS = [
+  'Ciberseguridad',
+  'Backup y DRP',
+  'Cloud',
+  'SOC',
+  'Cumplimiento',
+  'Servicios profesionales',
+  'Gonemo IA',
+  'Otro',
+];
+
+const contactSchema = {
+  '@type': 'ContactPage',
+  '@id': `${SITE.url}/contacto#webpage`,
+  url: `${SITE.url}/contacto`,
+  name: title,
+  description,
+  mainEntity: { '@id': `${SITE.url}/#organization` },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Contacto', href: '/contacto' },
+  ]}
+  schemas={[contactSchema]}
+>
+  <!-- HERO -->
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto max-w-7xl px-4 pb-12 pt-14 sm:px-6 lg:pb-16 lg:pt-20">
+      <div class="animate-rise max-w-2xl">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Contacto</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          Hablemos de <span class="text-brand-gradient">tu seguridad</span>
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+          Cuéntanos tu reto de ciberseguridad, backup o nube y te respondemos con un diagnóstico claro, sin compromisos ni letra pequeña.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULARIO + INFO -->
+  <section class="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_1fr] lg:gap-14 lg:py-20">
+    <!-- Columna: formulario -->
+    <div class="card-brand p-7 sm:p-9">
+      <h2 class="font-display text-3xl text-cold-600 sm:text-4xl">Escríbenos</h2>
+      <div class="mt-3 w-16 brand-rule"></div>
+      <p class="mt-4 text-sm leading-relaxed text-ink-mute">
+        Los campos marcados con <span class="text-mid-600">*</span> son obligatorios. Te respondemos en horario hábil, normalmente el mismo
+        día.
+      </p>
+
+      <form id="form-contacto" class="mt-8 grid gap-5 sm:grid-cols-2" novalidate>
+        <!-- honeypot anti-spam: invisible para humanos -->
+        <div class="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+          <label for="website">No llenes este campo</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div>
+          <label for="nombre" class="text-sm font-semibold text-ink">Nombre <span class="text-mid-600">*</span></label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            required
+            maxlength="200"
+            autocomplete="name"
+            class="mt-1.5 w-full rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+          />
+        </div>
+        <div>
+          <label for="email" class="text-sm font-semibold text-ink">Email corporativo <span class="text-mid-600">*</span></label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            maxlength="200"
+            autocomplete="email"
+            class="mt-1.5 w-full rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+          />
+        </div>
+        <div>
+          <label for="empresa" class="text-sm font-semibold text-ink">Empresa</label>
+          <input
+            type="text"
+            id="empresa"
+            name="empresa"
+            maxlength="200"
+            autocomplete="organization"
+            class="mt-1.5 w-full rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+          />
+        </div>
+        <div>
+          <label for="telefono" class="text-sm font-semibold text-ink">Teléfono</label>
+          <input
+            type="tel"
+            id="telefono"
+            name="telefono"
+            maxlength="200"
+            autocomplete="tel"
+            class="mt-1.5 w-full rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+          />
+        </div>
+        <div class="sm:col-span-2">
+          <label for="servicio" class="text-sm font-semibold text-ink">Servicio de interés</label>
+          <select
+            id="servicio"
+            name="servicio"
+            class="mt-1.5 w-full rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+          >
+            <option value="">Selecciona una opción</option>
+            {SERVICIOS.map((s) => <option value={s}>{s}</option>)}
+          </select>
+        </div>
+        <div class="sm:col-span-2">
+          <label for="mensaje" class="text-sm font-semibold text-ink">Mensaje <span class="text-mid-600">*</span></label>
+          <textarea
+            id="mensaje"
+            name="mensaje"
+            required
+            rows="5"
+            maxlength="5000"
+            class="mt-1.5 w-full resize-y rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+            placeholder="Cuéntanos tu reto: ¿qué quieres proteger, respaldar o migrar?"></textarea>
+        </div>
+
+        <div class="sm:col-span-2">
+          <button
+            type="submit"
+            id="form-submit"
+            class="w-full rounded-xl bg-mid-500 px-8 py-4 font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 sm:w-auto"
+          >
+            Enviar mensaje
+          </button>
+        </div>
+
+        <p id="form-status" role="status" aria-live="polite" class="hidden rounded-xl px-4 py-3 text-sm font-medium sm:col-span-2"></p>
+      </form>
+    </div>
+
+    <!-- Columna: información de contacto -->
+    <div class="space-y-5">
+      <div class="card-brand p-7">
+        <h2 class="font-display text-2xl text-cold-600">Canales directos</h2>
+        <ul class="mt-5 space-y-5">
+          <li class="flex items-start gap-4">
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path
+                  d="M4 3h3l2 5-2.5 1.5a11 11 0 0 0 4 4L12 11l5 2v3a1 1 0 0 1-1 1C8.8 17 3 11.2 3 4a1 1 0 0 1 1-1z"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </span>
+            <div>
+              <p class="text-sm font-semibold text-ink">Teléfono</p>
+              <a href={`tel:${SITE.phone}`} class="text-sm text-ink-mute transition-colors hover:text-mid-600">{SITE.phoneDisplay}</a>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <rect x="2.5" y="4.5" width="15" height="11" rx="2" stroke="currentColor" stroke-width="1.5"></rect>
+                <path d="m3.5 6 6.5 5 6.5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+            <div>
+              <p class="text-sm font-semibold text-ink">Email</p>
+              <a href={`mailto:${SITE.email}`} class="text-sm text-ink-mute transition-colors hover:text-mid-600">{SITE.email}</a>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path
+                  d="M10 18s6-5.1 6-9.5A6 6 0 0 0 4 8.5C4 12.9 10 18 10 18z"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"></path>
+                <circle cx="10" cy="8.5" r="2" stroke="currentColor" stroke-width="1.5"></circle>
+              </svg>
+            </span>
+            <div>
+              <p class="text-sm font-semibold text-ink">Oficina</p>
+              <p class="text-sm text-ink-mute">{SITE.address.street}, {SITE.address.city}, {SITE.address.country}</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5"></circle>
+                <path d="M10 6v4l2.5 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+            <div>
+              <p class="text-sm font-semibold text-ink">Horario</p>
+              <p class="text-sm text-ink-mute">Lunes a viernes, 8:00 a. m. – 6:00 p. m.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <a
+        href={SITE.whatsapp}
+        target="_blank"
+        rel="noopener"
+        class="card-brand group flex items-center gap-4 p-7 transition-colors hover:border-mid-300"
+      >
+        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-mid-500 to-sky-500 text-white">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-2.9c-.3-.4.3-.4.7-1.3 0-.2 0-.3-.1-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5 0-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 1.9 2.9 4.5 4 1.7.8 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3z"
+            ></path>
+          </svg>
+        </span>
+        <div>
+          <p class="font-bold text-ink group-hover:text-mid-600">Escríbenos por WhatsApp</p>
+          <p class="text-sm text-ink-mute">Respuesta rápida en horario hábil</p>
+        </div>
+        <svg
+          class="ml-auto h-5 w-5 shrink-0 text-mid-500 transition-transform group-hover:translate-x-1"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </a>
+
+      <div class="card-brand p-7">
+        <p class="font-display text-2xl text-cold-600">¿Prefieres empezar por tu cuenta?</p>
+        <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+          Usa nuestras herramientas gratuitas y llega a la conversación con un diagnóstico en la mano.
+        </p>
+        <ul class="mt-4 space-y-2 text-sm font-semibold">
+          <li>
+            <a href="/herramientas/calculadora-rto-rpo" class="text-mid-500 transition-colors hover:text-mid-600">Calculadora RTO/RPO →</a>
+          </li>
+          <li>
+            <a href="/herramientas/evaluador-iso-27001" class="text-mid-500 transition-colors hover:text-mid-600">
+              Evaluador de brecha ISO 27001 →
+            </a>
+          </li>
+          <li>
+            <a href="/herramientas/test-phishing" class="text-mid-500 transition-colors hover:text-mid-600">Test de phishing →</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('form-contacto') as HTMLFormElement | null;
+  const status = document.getElementById('form-status');
+  const submitBtn = document.getElementById('form-submit') as HTMLButtonElement | null;
+
+  const OK_CLASSES = ['border', 'border-mid-300', 'bg-mid-500/10', 'text-cold-600'];
+  const ERR_CLASSES = ['border', 'border-red-300', 'bg-red-50', 'text-red-700'];
+
+  function showStatus(message: string, ok: boolean) {
+    if (!status) return;
+    status.classList.remove('hidden', ...OK_CLASSES, ...ERR_CLASSES);
+    status.classList.add(...(ok ? OK_CLASSES : ERR_CLASSES));
+    status.textContent = message;
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando…';
+    }
+
+    try {
+      const res = await fetch('/api/contact', { method: 'POST', body: new FormData(form) });
+      let data: { ok?: boolean; error?: string } = {};
+      try {
+        data = await res.json();
+      } catch {
+        /* respuesta sin JSON */
+      }
+
+      if (res.ok && data.ok) {
+        form.reset();
+        showStatus('¡Mensaje enviado! Te contactaremos muy pronto en horario hábil.', true);
+      } else {
+        showStatus(data.error ?? 'No pudimos enviar tu mensaje. Intenta de nuevo o escríbenos a info@lumacloud.co.', false);
+      }
+    } catch {
+      showStatus('Error de conexión. Verifica tu red e intenta de nuevo, o escríbenos a info@lumacloud.co.', false);
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar mensaje';
+      }
+    }
+  });
+</script>

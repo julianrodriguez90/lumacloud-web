@@ -1,0 +1,268 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BrandImage from '@/components/BrandImage.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Ciberseguridad para Empresas en Medellín | LumaCloud';
+const description =
+  'Ciberseguridad para empresas en Medellín: servicios administrados remotos, SOC 24/7 y arquitectura local colombiana, sin salir de tu oficina.';
+
+const SERVICIOS = [
+  {
+    nombre: 'Ciberseguridad administrada remota',
+    texto:
+      'EDR, DLP, seguridad perimetral, WAF y email security desplegados y gestionados a distancia: tu equipo no tiene que operar nada.',
+  },
+  {
+    nombre: 'SOC 24/7',
+    texto:
+      'Vigilancia permanente de tu infraestructura con SIEM, threat hunting y respuesta a incidentes, sin importar la hora ni el día.',
+  },
+  {
+    nombre: 'Hacking ético',
+    texto:
+      'Ponemos a prueba tus defensas de forma remota y controlada, simulando ataques reales para descubrir vulnerabilidades antes que los delincuentes.',
+  },
+  {
+    nombre: 'Hardening de sistemas',
+    texto:
+      'Endurecemos la configuración de tus servidores, aplicaciones y redes para reducir la superficie de ataque de tu operación.',
+  },
+  {
+    nombre: 'Protección de datos (DLP)',
+    texto:
+      'Evita fugas de información confidencial en más de 70 canales, con directivas que se generan y ajustan según tu operación real.',
+  },
+  {
+    nombre: 'Análisis forense',
+    texto:
+      'Si ocurre un incidente, recolectamos pruebas digitales de forma remota en un repositorio central seguro y te ayudamos a cerrar la brecha.',
+  },
+];
+
+const VENTAJAS = [
+  'Servicio administrado 100% remoto: sin desplazamientos ni demoras',
+  'Arquitectura local colombiana: tus datos y tu operación en el país',
+  'Latencias bajas a nivel nacional para monitoreo y respuesta',
+  'Un solo contrato para ciberseguridad, backup y nube empresarial',
+];
+
+const FAQS = [
+  {
+    q: '¿LumaCloud tiene oficina en Medellín?',
+    a: `Nuestra sede está en Bogotá (${SITE.address.street}), pero eso no limita el servicio: la ciberseguridad administrada, el SOC 24/7 y las pruebas de hacking ético se prestan de forma remota, con la misma calidad para empresas de Medellín y de toda Colombia.`,
+  },
+  {
+    q: '¿Cómo funciona el servicio remoto para una empresa en Medellín?',
+    a: 'Desplegamos los agentes de protección en tus endpoints y servidores a distancia, configuramos las políticas junto a tu equipo por videollamada y desde ahí nuestro SOC monitorea tu infraestructura de forma continua. Las reuniones de seguimiento y los informes se manejan de manera virtual.',
+  },
+  {
+    q: '¿El monitoreo remoto es tan efectivo como uno en sitio?',
+    a: 'Sí. La detección y respuesta a amenazas ocurre sobre la telemetría de tus sistemas, no depende de presencia física. Con arquitectura local colombiana y latencias bajas a nivel nacional, el monitoreo y la respuesta operan en tiempo real.',
+  },
+  {
+    q: '¿Mis datos salen de Colombia?',
+    a: 'Trabajamos con arquitectura local colombiana, de modo que tu información y tu operación de seguridad permanecen en el país, lo que también facilita el cumplimiento de la Ley 1581 de protección de datos.',
+  },
+  {
+    q: '¿Qué necesito para empezar?',
+    a: 'Solo agendar un diagnóstico gratuito. Evaluamos tu exposición actual de forma remota y te proponemos un plan de protección a la medida, sin que tengas que salir de tu oficina en Medellín.',
+  },
+];
+
+const serviceSchema = {
+  '@type': 'Service',
+  name: 'Ciberseguridad para empresas en Medellín',
+  serviceType: 'Ciberseguridad administrada',
+  provider: { '@id': `${SITE.url}/#organization` },
+  areaServed: 'Medellín',
+  description,
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Servicios de ciberseguridad para Medellín',
+    itemListElement: SERVICIOS.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s.nombre },
+    })),
+  },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Ciberseguridad', href: '/ciberseguridad' },
+    { name: 'Medellín', href: '/ciberseguridad/medellin' },
+  ]}
+  schemas={[serviceSchema]}
+>
+  <!-- HERO -->
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:pb-24 lg:pt-20">
+      <div class="animate-rise">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <a href="/ciberseguridad" class="hover:text-mid-600">Ciberseguridad</a>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Medellín</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          <span class="text-brand-gradient">Ciberseguridad</span> para empresas en Medellín
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+          Protección administrada de clase empresarial, prestada de forma remota y sin fricciones: SOC 24/7, hacking ético y arquitectura
+          local colombiana para que tu operación en Medellín esté vigilada todos los días del año.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a
+            href="/contacto"
+            class="rounded-xl bg-mid-500 px-8 py-4 text-center font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600"
+          >
+            Solicita tu diagnóstico gratuito
+          </a>
+          <a
+            href="/soc"
+            class="rounded-xl border border-frost-300 bg-white/70 px-8 py-4 text-center font-semibold text-cold-600 backdrop-blur transition-colors hover:border-mid-400 hover:text-mid-600"
+          >
+            Conoce nuestro SOC 24/7
+          </a>
+        </div>
+      </div>
+      <BrandImage
+        src="/images/heros/soc-analista.webp"
+        alt="Analista de LumaCloud monitoreando de forma remota la infraestructura de empresas en Medellín"
+        width={1280}
+        height={800}
+        overlay
+        priority
+        class="animate-rise [animation-delay:0.15s]"
+      />
+    </div>
+  </section>
+
+  <!-- SERVICIO REMOTO / ECOSISTEMA PAISA -->
+  <section class="bg-blueprint bg-frost-50 py-20">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+      <div class="scroll-reveal">
+        <h2 class="font-display text-4xl text-cold-600 sm:text-5xl">Seguridad de nivel empresarial, sin salir de Medellín</h2>
+        <div class="mt-3 w-16 brand-rule"></div>
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-ink-soft">
+          <p>
+            Medellín se consolidó como uno de los polos tecnológicos y de innovación de Colombia: software, BPO, industria y comercio
+            digital conviven en un ecosistema que crece rápido — y que, por lo mismo, se vuelve un objetivo cada vez más atractivo para
+            los ciberdelincuentes.
+          </p>
+          <p>
+            La buena noticia: no necesitas un proveedor con oficina en tu misma cuadra. Nuestro modelo es 100% administrado y remoto —
+            desplegamos la protección sobre tus endpoints y servidores a distancia, y nuestro
+            <a href="/soc" class="font-semibold text-mid-500 hover:text-mid-600">SOC 24/7</a> vigila tu infraestructura de forma
+            continua, con latencias bajas a nivel nacional gracias a nuestra arquitectura local colombiana.
+          </p>
+          <p>
+            Así, tu equipo en Medellín se concentra en hacer crecer el negocio mientras nosotros gestionamos la
+            <a href="/ciberseguridad" class="font-semibold text-mid-500 hover:text-mid-600">ciberseguridad</a>: detección, respuesta,
+            informes y mejora continua, todo sin desplazamientos ni tiempos muertos.
+          </p>
+        </div>
+        <ul class="mt-8 space-y-3">
+          {
+            VENTAJAS.map((b) => (
+              <li class="flex items-start gap-3 text-ink">
+                <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-mid-500 to-sky-500 text-white">
+                  <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2 6.5 4.5 9 10 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="text-[0.95rem] font-medium">{b}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="space-y-6">
+        <BrandImage
+          src="/images/heros/ciberseguridad-candado.webp"
+          alt="Ciberseguridad administrada para empresas de Medellín: candado sobre un circuito digital"
+          width={1280}
+          height={800}
+          overlay
+          class="scroll-reveal"
+        />
+        <div class="card-brand p-7">
+          <p class="font-display text-2xl text-cold-600">Onboarding sin fricciones</p>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            El despliegue de agentes, la configuración de políticas y las reuniones de seguimiento se hacen de forma virtual, junto a tu
+            equipo de TI. Empiezas a estar protegido sin pausar tu operación.
+          </p>
+          <a href="/contacto" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500 hover:text-mid-600">
+            Habla con un experto
+            <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <p class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Servicios para Medellín</p>
+    <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-5xl">Protección completa, gestionada por expertos</h2>
+    <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+    <div class="scroll-reveal mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        SERVICIOS.map((s) => (
+          <div class="card-brand p-7">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M10 2 3 5.5v5c0 4 3 6.5 7 7.5 4-1 7-3.5 7-7.5v-5L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                <path d="M7 10l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3 class="mt-5 text-lg font-bold text-ink">{s.nombre}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-mute">{s.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ENLACES DE SILO -->
+  <section class="mx-auto max-w-7xl px-4 pb-16 sm:px-6">
+    <h2 class="font-display text-3xl text-cold-600 sm:text-4xl">Profundiza en nuestra oferta</h2>
+    <div class="mt-8 grid gap-5 sm:grid-cols-3">
+      {
+        [
+          { href: '/ciberseguridad', label: 'Ciberseguridad administrada', desc: 'EDR, DLP, seguridad perimetral, WAF y email security en una sola plataforma.' },
+          { href: '/ciberseguridad/auditoria', label: 'Auditoría de seguridad', desc: 'Hacking ético y evaluación de vulnerabilidades con plan de remediación.' },
+          { href: '/soc', label: 'SOC 24/7', desc: 'Monitoreo continuo con SIEM, threat hunting y respuesta a incidentes.' },
+        ].map((l) => (
+          <a href={l.href} class="card-brand group p-7">
+            <h3 class="font-bold text-ink group-hover:text-mid-600">{l.label}</h3>
+            <p class="mt-2 text-sm text-ink-mute">{l.desc}</p>
+            <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500">
+              Ver más
+              <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="Protege tu empresa en Medellín hoy"
+    text="Agenda un diagnóstico gratuito: evaluamos tu exposición de forma remota y te proponemos un plan de protección administrado, sin que salgas de tu oficina."
+    ctaLabel="Solicita tu diagnóstico gratuito"
+  />
+</BaseLayout>

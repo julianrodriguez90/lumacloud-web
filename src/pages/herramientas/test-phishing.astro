@@ -1,0 +1,304 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Test de Phishing para tu Equipo | LumaCloud';
+const description =
+  'Pon a prueba tu ojo para el phishing: 6 correos simulados de casos reales en Colombia. Descubre qué señales de alerta se te escapan. Test gratuito, sin registro.';
+
+/**
+ * Escenarios realistas para Colombia. `phishing: true` = el correo es fraudulento.
+ * Las señales explican qué había que detectar.
+ */
+const ESCENARIOS = [
+  {
+    de: 'Bancolombia <notificaciones@bancolombia-seguro.co>',
+    asunto: 'Su cuenta será suspendida en 24 horas',
+    cuerpo:
+      'Estimado cliente: detectamos un inicio de sesión inusual. Para evitar la suspensión de su cuenta, verifique su identidad de inmediato en el siguiente enlace: http://bancolombia-verificacion.net/login. Si no lo hace en 24 horas, su cuenta será bloqueada permanentemente.',
+    phishing: true,
+    seniales: [
+      'El dominio del remitente no es el oficial (bancolombia-seguro.co en vez de bancolombia.com.co)',
+      'El enlace apunta a un dominio externo sin relación con el banco',
+      'Urgencia artificial: amenaza de bloqueo en 24 horas',
+      'Los bancos nunca piden verificar identidad por enlace de correo',
+    ],
+  },
+  {
+    de: 'DIAN <alertas@dian-colombia.info>',
+    asunto: 'Embargo en proceso — resolución adjunta N° 20260455',
+    cuerpo:
+      'Señor contribuyente: la Dirección de Impuestos ha iniciado proceso de embargo por deudas tributarias pendientes. Descargue la resolución oficial y el formulario de excepción en el archivo adjunto (Resolucion_20260455.zip) antes de 48 horas.',
+    phishing: true,
+    seniales: [
+      'El dominio real de la DIAN es dian.gov.co — nunca .info',
+      'Adjunto comprimido .zip: el vehículo clásico de malware',
+      'Miedo + urgencia: "embargo" y "48 horas" para que actúes sin pensar',
+      'La DIAN notifica por su portal oficial, no con zips por correo',
+    ],
+  },
+  {
+    de: 'Recursos Humanos <talento@tuempresa.com>',
+    asunto: 'Actualización de la política de teletrabajo — enero',
+    cuerpo:
+      'Hola equipo: les compartimos la política actualizada de teletrabajo que rige desde el próximo mes. La pueden consultar en la intranet, sección Documentos > Políticas. Cualquier duda, escríbannos por el canal de RR.HH. Saludos, Equipo de Talento Humano.',
+    phishing: false,
+    seniales: [
+      'Dominio interno legítimo y consistente',
+      'No pide credenciales ni datos personales',
+      'Dirige a la intranet conocida, no a un enlace externo',
+      'Sin urgencia artificial ni amenazas',
+    ],
+  },
+  {
+    de: 'Servientrega <rastreo@servientrega-envios.com>',
+    asunto: 'Su paquete está retenido — pague $8.900 para liberarlo',
+    cuerpo:
+      'Su envío N° CO-88213 no pudo ser entregado por dirección incompleta. Para reprogramar la entrega debe pagar una tarifa de re-despacho de $8.900 COP con su tarjeta en: https://servientrega-envios.com/pago. El paquete será devuelto en 72 horas.',
+    phishing: true,
+    seniales: [
+      'Dominio falso (el real es servientrega.com)',
+      'Pide pago con tarjeta por un valor pequeño: buscan tus datos de tarjeta, no los $8.900',
+      '¿Esperabas un paquete? Los atacantes envían esto masivamente',
+      'Urgencia: "72 horas o se devuelve"',
+    ],
+  },
+  {
+    de: 'Microsoft <account-security-noreply@accountprotection.microsoft.com>',
+    asunto: 'Nuevo inicio de sesión en Windows',
+    cuerpo:
+      'Detectamos un nuevo inicio de sesión en su cuenta desde un dispositivo Windows en Bogotá, Colombia. Si fue usted, puede ignorar este mensaje. Si no reconoce esta actividad, revise la actividad reciente de su cuenta desde el portal oficial de su cuenta Microsoft.',
+    phishing: false,
+    seniales: [
+      'Dominio oficial de notificaciones de Microsoft',
+      'No incluye enlaces de "verificación" con urgencia',
+      'Sugiere revisar desde el portal oficial, no desde un link del correo',
+      'Tono informativo, sin amenazas',
+    ],
+  },
+  {
+    de: 'Gerencia General <gerencia@tuempresa.co>',
+    asunto: 'Necesito un favor urgente y confidencial',
+    cuerpo:
+      'Hola, estoy en una reunión con un cliente y no puedo llamar. Necesito que compres 5 tarjetas de regalo de $200.000 cada una para unos clientes y me envíes los códigos por aquí. Es urgente y confidencial, no comentes con nadie hasta que cerremos el negocio. Gracias.',
+    phishing: true,
+    seniales: [
+      'Dominio parecido pero distinto (.co en vez de .com): typosquatting',
+      'Fraude del CEO clásico: autoridad + urgencia + confidencialidad',
+      'Pide tarjetas de regalo: irrastreables, favoritas de los estafadores',
+      '"No comentes con nadie": busca aislar a la víctima de verificación',
+    ],
+  },
+];
+
+const FAQS = [
+  {
+    q: '¿Qué es el phishing?',
+    a: 'Es un ataque de ingeniería social donde el atacante se hace pasar por una entidad confiable (banco, DIAN, tu jefe, un proveedor) para robarte credenciales, datos de tarjetas o instalarte malware, casi siempre por correo, SMS o WhatsApp.',
+  },
+  {
+    q: '¿Por qué el phishing sigue funcionando?',
+    a: 'Porque no ataca la tecnología sino a las personas: usa urgencia, miedo y autoridad para que actúes sin verificar. Por eso la capacitación del equipo es un control de seguridad tan importante como el firewall.',
+  },
+  {
+    q: '¿Cómo protejo a mi empresa del phishing?',
+    a: 'Con capas: email security que filtre lo malicioso antes de llegar, autenticación multifactor para que una credencial robada no baste, capacitación continua del equipo y un SOC que detecte y responda cuando algo se cuela.',
+  },
+  {
+    q: '¿Puedo hacer simulaciones de phishing reales con mi equipo?',
+    a: 'Sí. LumaCloud ofrece capacitación y concientización en ciberseguridad para empresas, incluyendo ejercicios controlados. Escríbenos y armamos un programa para tu equipo.',
+  },
+];
+
+const appSchema = {
+  '@type': 'SoftwareApplication',
+  name: 'Test de phishing de LumaCloud',
+  url: `${SITE.url}/herramientas/test-phishing`,
+  applicationCategory: 'SecurityApplication',
+  operatingSystem: 'Web',
+  description,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'COP' },
+  provider: { '@id': `${SITE.url}/#organization` },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Test de phishing', href: '/herramientas/test-phishing' },
+  ]}
+  schemas={[appSchema]}
+>
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto max-w-7xl px-4 pb-12 pt-14 sm:px-6 lg:pb-16 lg:pt-20">
+      <div class="animate-rise max-w-3xl">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <span>Herramientas</span>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Test de phishing</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          ¿Detectarías un <span class="text-brand-gradient">correo de phishing</span>?
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
+          Seis correos basados en fraudes reales que circulan en Colombia. Decide cuáles son legítimos y cuáles son trampas — y descubre qué
+          señales se te escaparon.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <div id="quiz">
+      <div class="flex items-center justify-between text-sm font-medium text-ink-mute">
+        <p>Correo <span id="q-num">1</span> de {ESCENARIOS.length}</p>
+        <p>Aciertos: <span id="q-score">0</span></p>
+      </div>
+      <div class="mt-2 h-2 overflow-hidden rounded-full bg-frost-200">
+        <div id="q-progress" class="bg-brand-gradient h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+      </div>
+
+      <!-- correo simulado -->
+      <div class="mt-6 overflow-hidden rounded-2xl border border-frost-300 bg-white shadow-card">
+        <div class="border-b border-frost-200 bg-frost-50 px-6 py-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-ink-mute">Bandeja de entrada</p>
+          <p class="mt-2 text-sm"><span class="font-semibold text-ink">De:</span> <span id="mail-de" class="text-ink-soft"></span></p>
+          <p class="mt-1 text-sm"><span class="font-semibold text-ink">Asunto:</span> <span id="mail-asunto" class="font-medium text-ink"></span></p>
+        </div>
+        <p id="mail-cuerpo" class="px-6 py-5 text-[0.95rem] leading-relaxed text-ink-soft"></p>
+      </div>
+
+      <div id="q-botones" class="mt-6 grid gap-4 sm:grid-cols-2">
+        <button
+          type="button"
+          data-answer="phishing"
+          class="rounded-xl border-2 border-red-200 bg-white px-6 py-4 font-semibold text-red-700 transition-all hover:-translate-y-0.5 hover:border-red-400 hover:shadow-card"
+        >
+          🚨 Es phishing
+        </button>
+        <button
+          type="button"
+          data-answer="legitimo"
+          class="rounded-xl border-2 border-emerald-200 bg-white px-6 py-4 font-semibold text-emerald-700 transition-all hover:-translate-y-0.5 hover:border-emerald-400 hover:shadow-card"
+        >
+          ✅ Es legítimo
+        </button>
+      </div>
+
+      <!-- feedback por pregunta -->
+      <div id="q-feedback" class="mt-6 hidden rounded-2xl border p-6" aria-live="polite">
+        <p id="q-veredicto" class="font-bold"></p>
+        <p class="mt-3 text-sm font-semibold text-ink">Señales que había que ver:</p>
+        <ul id="q-seniales" class="mt-2 space-y-1.5 text-sm text-ink-soft"></ul>
+        <button
+          type="button"
+          id="q-siguiente"
+          class="mt-5 rounded-xl bg-mid-500 px-6 py-3 font-semibold text-white transition-all hover:bg-mid-600"
+        >
+          Siguiente correo →
+        </button>
+      </div>
+    </div>
+
+    <!-- resultado final -->
+    <div id="resultado" class="hidden" aria-live="polite">
+      <div class="card-brand p-8 text-center sm:p-10">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Tu resultado</p>
+        <p class="font-display mt-4 text-7xl leading-none text-cold-600"><span id="r-score">0</span>/{ESCENARIOS.length}</p>
+        <p id="r-nivel" class="mt-3 text-xl font-bold text-ink"></p>
+        <p id="r-texto" class="mx-auto mt-3 max-w-md text-ink-mute"></p>
+        <div class="mx-auto mt-6 w-16 brand-rule"></div>
+        <p class="mt-6 font-semibold text-ink">Ahora imagina este test en toda tu empresa.</p>
+        <p class="mt-1 text-sm text-ink-mute">
+          Un solo clic equivocado basta. Capacita a tu equipo y filtra el phishing antes de que llegue a la bandeja.
+        </p>
+        <a
+          href="/contacto"
+          class="mt-6 inline-block rounded-xl bg-mid-500 px-8 py-4 font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600"
+        >
+          Agenda tu diagnóstico gratuito
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="El phishing no descansa"
+    text="Email security, MFA, capacitación y SOC 24/7: cerramos la puerta por donde entra la mayoría de los ataques."
+  />
+</BaseLayout>
+
+<script define:vars={{ escenarios: ESCENARIOS }}>
+  let idx = 0;
+  let score = 0;
+
+  const $ = (id) => document.getElementById(id);
+
+  function render() {
+    const e = escenarios[idx];
+    $('q-num').textContent = idx + 1;
+    $('q-progress').style.width = `${(idx / escenarios.length) * 100}%`;
+    $('mail-de').textContent = e.de;
+    $('mail-asunto').textContent = e.asunto;
+    $('mail-cuerpo').textContent = e.cuerpo;
+    $('q-feedback').classList.add('hidden');
+    $('q-botones').classList.remove('hidden');
+  }
+
+  function responder(respuesta) {
+    const e = escenarios[idx];
+    const acierto = (respuesta === 'phishing') === e.phishing;
+    if (acierto) {
+      score++;
+      $('q-score').textContent = score;
+    }
+    const fb = $('q-feedback');
+    fb.classList.remove('hidden', 'border-emerald-300', 'bg-emerald-50', 'border-red-300', 'bg-red-50');
+    fb.classList.add(...(acierto ? ['border-emerald-300', 'bg-emerald-50'] : ['border-red-300', 'bg-red-50']));
+    $('q-veredicto').textContent = acierto
+      ? `✅ Correcto: era ${e.phishing ? 'phishing' : 'un correo legítimo'}.`
+      : `❌ Te habrían atrapado: era ${e.phishing ? 'PHISHING' : 'un correo legítimo'}.`;
+    $('q-veredicto').className = 'font-bold ' + (acierto ? 'text-emerald-800' : 'text-red-800');
+    const ul = $('q-seniales');
+    ul.innerHTML = '';
+    for (const s of e.seniales) {
+      const li = document.createElement('li');
+      li.textContent = '• ' + s;
+      ul.appendChild(li);
+    }
+    $('q-botones').classList.add('hidden');
+    $('q-siguiente').textContent = idx === escenarios.length - 1 ? 'Ver mi resultado →' : 'Siguiente correo →';
+  }
+
+  document.querySelectorAll('#q-botones button').forEach((b) => b.addEventListener('click', () => responder(b.dataset.answer)));
+
+  $('q-siguiente').addEventListener('click', () => {
+    idx++;
+    if (idx < escenarios.length) {
+      render();
+      $('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      $('quiz').classList.add('hidden');
+      $('r-score').textContent = score;
+      const pct = score / escenarios.length;
+      $('r-nivel').textContent = pct >= 0.85 ? 'Ojo de halcón 🦅' : pct >= 0.6 ? 'Buen instinto, con vacíos' : 'Objetivo fácil ⚠️';
+      $('r-texto').textContent =
+        pct >= 0.85
+          ? 'Detectas bien las señales. Recuerda: los atacantes solo necesitan que UN colaborador falle una vez.'
+          : pct >= 0.6
+            ? 'Caíste en algunas trampas comunes. La buena noticia: estas señales se aprenden con práctica.'
+            : 'Varios de estos correos te habrían comprometido. Es el punto de partida perfecto para capacitar a tu equipo.';
+      $('resultado').classList.remove('hidden');
+      $('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+
+  render();
+</script>

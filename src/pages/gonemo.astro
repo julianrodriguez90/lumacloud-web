@@ -1,0 +1,204 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Gonemo: Agentes de IA para Empresas | LumaCloud';
+const description =
+  'Gonemo es la plataforma de agentes de IA de LumaCloud: crea agentes autónomos y seguros para tu empresa sin programar, con tus datos bajo control. Agenda una demo.';
+
+const CASOS = [
+  {
+    titulo: 'Operaciones y equipo',
+    texto: 'Coordinación de horarios, resúmenes de reuniones y búsqueda de información interna sin salir de tus canales.',
+  },
+  {
+    titulo: 'Atención al cliente',
+    texto: 'Soporte 24/7 con escalada inteligente: el agente resuelve lo repetitivo y pasa a tu equipo lo que importa.',
+  },
+  {
+    titulo: 'Ventas',
+    texto: 'Bots de generación de clientes potenciales que se sincronizan con tu CRM y capturan leads mientras duermes.',
+  },
+  {
+    titulo: 'Contenido y redes',
+    texto: 'Reutiliza contenido existente en publicaciones, genera respuestas y recibe ideas de contenido alineadas a tu marca.',
+  },
+];
+
+const DIFERENCIALES = [
+  {
+    titulo: 'Agentes autónomos, no solo bots',
+    texto: 'Tus agentes no solo responden: aprenden, actúan y mejoran con el tiempo.',
+  },
+  {
+    titulo: 'Multi-LLM y flexible',
+    texto: 'Usa tus modelos preferidos y cambia entre múltiples LLMs. Se integra con Slack, WhatsApp, Telegram, la web y herramientas internas.',
+  },
+  {
+    titulo: 'Sin programar',
+    texto: 'No necesitas ser desarrollador: define qué quieres lograr y Gonemo se encarga del resto.',
+  },
+  {
+    titulo: 'Tus datos, privados',
+    texto: 'Elige dónde se guardan tus datos. Mantenlos en tu empresa y bajo control, sin subidas inesperadas a nubes de terceros.',
+  },
+];
+
+const PASOS = [
+  { n: '01', titulo: 'Define tu agente', texto: 'Personalidad, propósito y objetivo.' },
+  { n: '02', titulo: 'Entrénalo con tu información', texto: 'Conecta datos, procesos y reglas de negocio.' },
+  { n: '03', titulo: 'Déjalo trabajar', texto: 'Intégralo en tus canales y deja que aprenda y mejore día a día.' },
+];
+
+const FAQS = [
+  {
+    q: '¿Qué es Gonemo?',
+    a: 'Gonemo es una plataforma de IA con agentes que permite a medianas empresas crear agentes de IA seguros y autónomos, sin necesidad de programación: se crean, se entrenan con tu información y trabajan en segundo plano para tu equipo.',
+  },
+  {
+    q: '¿Necesito saber programar para usar Gonemo?',
+    a: 'No. Defines la personalidad, el propósito y el objetivo del agente, lo entrenas con tus datos y lo integras en tus canales — sin escribir código.',
+  },
+  {
+    q: '¿Dónde quedan los datos de mi empresa?',
+    a: 'Tú eliges dónde se guardan. Los datos pueden mantenerse en tu empresa y bajo tu control, sin subidas inesperadas a la nube de terceros.',
+  },
+  {
+    q: '¿Con qué canales se integra?',
+    a: 'Con las principales aplicaciones: Slack, WhatsApp, Telegram, tu sitio web (widget o chatbot), aplicaciones de teléfono y herramientas internas. También admite conexiones externas como N8N.',
+  },
+];
+
+const schema = {
+  '@type': 'SoftwareApplication',
+  name: 'Gonemo',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  description,
+  provider: { '@id': `${SITE.url}/#organization` },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Gonemo', href: '/gonemo' },
+  ]}
+  schemas={[schema]}
+>
+  <!-- HERO oscuro: Gonemo es el producto más "futurista" del portafolio -->
+  <section class="bg-blueprint-dark relative overflow-hidden bg-ink">
+    <div class="pointer-events-none absolute -right-32 top-0 h-[28rem] w-[28rem] rounded-full bg-mid-500/20 blur-3xl" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute -left-24 bottom-0 h-80 w-80 rounded-full bg-sky-500/15 blur-3xl" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-7xl px-4 pb-20 pt-16 text-center sm:px-6 lg:pb-28 lg:pt-24">
+      <p class="animate-rise inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-sky-500">
+        Plataforma de agentes IA
+      </p>
+      <h1 class="font-display animate-rise mx-auto mt-6 max-w-4xl text-6xl leading-[0.95] text-white [animation-delay:0.08s] sm:text-7xl lg:text-8xl">
+        Crea agentes que <span class="text-brand-gradient">piensen como tú</span>
+      </h1>
+      <p class="animate-rise mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/70 [animation-delay:0.16s]">
+        Gonemo permite a los equipos de medianas empresas crear agentes de IA seguros y autónomos, sin programar. Créalos, entrénalos y
+        déjalos trabajar en segundo plano para respaldar tu estrategia, tu equipo y tus objetivos.
+      </p>
+      <div class="animate-rise mt-9 flex flex-col items-center justify-center gap-4 [animation-delay:0.24s] sm:flex-row">
+        <a
+          href="/contacto"
+          class="w-full rounded-xl bg-mid-500 px-8 py-4 font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.45)] transition-all hover:-translate-y-0.5 hover:bg-mid-400 sm:w-auto"
+        >
+          Agenda una demo
+        </a>
+        <a
+          href="#como-funciona"
+          class="w-full rounded-xl border border-white/20 px-8 py-4 font-semibold text-white transition-colors hover:border-sky-500 hover:text-sky-500 sm:w-auto"
+        >
+          Cómo funciona
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASOS DE USO -->
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <p class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Potencia el trabajo humano real</p>
+    <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-5xl">Un agente para cada área de tu empresa</h2>
+    <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+    <div class="scroll-reveal mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        CASOS.map((c) => (
+          <div class="card-brand p-7">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <rect x="3" y="5" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.5" />
+                <path d="M7 9h.01M13 9h.01M7.5 12.5s.9 1 2.5 1 2.5-1 2.5-1M10 2v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3 class="mt-5 font-bold text-ink">{c.titulo}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-mute">{c.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section id="como-funciona" class="bg-blueprint scroll-mt-24 bg-frost-50 py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <h2 class="font-display text-center text-4xl text-cold-600 sm:text-5xl">De la idea al agente en tres pasos</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-center text-ink-soft">
+        Desde «necesito una IA para esto» hasta «la IA realmente puede ayudarme».
+      </p>
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        {
+          PASOS.map((p) => (
+            <div class="card-brand relative overflow-hidden p-8">
+              <p class="font-display text-6xl leading-none text-frost-300">{p.n}</p>
+              <h3 class="mt-4 text-lg font-bold text-ink">{p.titulo}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ink-mute">{p.texto}</p>
+              <div class="brand-rule absolute inset-x-0 bottom-0 rounded-none" />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIALES -->
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <div class="grid items-start gap-12 lg:grid-cols-[1fr_1.3fr]">
+      <div class="lg:sticky lg:top-28">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">¿Qué tiene de diferente?</p>
+        <h2 class="font-display mt-3 text-4xl text-cold-600 sm:text-5xl">IA diseñada para aplicaciones comerciales reales</h2>
+        <div class="mt-3 w-16 brand-rule"></div>
+        <p class="mt-6 max-w-md leading-relaxed text-ink-soft">
+          Y con el respaldo de LumaCloud: la misma empresa que protege tu infraestructura con
+          <a href="/ciberseguridad" class="font-semibold text-mid-600 hover:underline">ciberseguridad administrada</a> y
+          <a href="/soc" class="font-semibold text-mid-600 hover:underline">SOC 24/7</a>.
+        </p>
+      </div>
+      <div class="scroll-reveal grid gap-4 sm:grid-cols-2">
+        {
+          DIFERENCIALES.map((d) => (
+            <div class="card-brand p-6">
+              <h3 class="font-bold text-ink">{d.titulo}</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-ink-mute">{d.texto}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="¿Listo para crear tu primer agente?"
+    text="Agenda una demo de Gonemo: te mostramos cómo un agente de IA puede trabajar para tu equipo desde la primera semana."
+    ctaLabel="Agenda una demo"
+  />
+</BaseLayout>

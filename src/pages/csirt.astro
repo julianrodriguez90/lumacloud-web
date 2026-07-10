@@ -1,0 +1,309 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BrandImage from '@/components/BrandImage.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'CSIRT — Equipo de Respuesta a Incidentes | LumaCloud';
+const description =
+  'CSIRT en Colombia: equipo de respuesta a incidentes de LumaCloud. Detección, contención y recuperación ante ciberataques con estándares NIST e ISO 27035.';
+
+const CAPACIDADES = [
+  {
+    nombre: 'Prevención',
+    texto: 'Identificamos vulnerabilidades en tu infraestructura antes de que sean explotadas por los atacantes.',
+  },
+  {
+    nombre: 'Detección',
+    texto: 'Monitoreo constante para descubrir amenazas en tiempo real, correlacionando datos de SIEM, sensores de red, endpoints, nube y threat intelligence.',
+  },
+  {
+    nombre: 'Respuesta',
+    texto: 'Contención y mitigación inmediata de ataques cibernéticos siguiendo protocolos establecidos, para evitar su propagación y limitar su impacto.',
+  },
+  {
+    nombre: 'Remediación',
+    texto: 'Restauramos la seguridad, aplicamos medidas correctivas y fortalecemos tu defensa para que la operación vuelva a la normalidad en el menor tiempo posible.',
+  },
+  {
+    nombre: 'Pentesting continuo y simulación de ataques',
+    texto: 'Evaluación continua de tu postura de seguridad mediante pruebas automatizadas y simuladas que reemplazan el modelo tradicional de pentesting puntual.',
+  },
+  {
+    nombre: 'Concientización',
+    texto: 'Programas estructurados para fortalecer tu primera línea de defensa: el usuario. Campañas educativas, talleres prácticos, simulaciones de phishing y materiales interactivos.',
+  },
+];
+
+const TIPOS_INCIDENTE = [
+  { nombre: 'Acceso no autorizado / Intrusión', texto: 'Acceso indebido a sistemas, redes o aplicaciones.' },
+  { nombre: 'Malware / Ransomware', texto: 'Software malicioso que afecta la disponibilidad, integridad o confidencialidad.' },
+  { nombre: 'Phishing / Suplantación', texto: 'Correos o mensajes falsos dirigidos a obtener credenciales o información sensible.' },
+  { nombre: 'Fuga de información', texto: 'Exposición o robo de datos confidenciales o sensibles.' },
+  { nombre: 'Denegación de servicio (DoS/DDoS)', texto: 'Ataques que afectan la disponibilidad de los servicios tecnológicos.' },
+  { nombre: 'Manipulación / Fraude digital', texto: 'Alteración de sistemas o datos con fines maliciosos.' },
+];
+
+const PRIORIDADES = [
+  { nivel: 'P1 — Alta prioridad', texto: 'Atención inmediata: ransomware, intrusión confirmada o fuga crítica.' },
+  { nivel: 'P2 — Prioridad media', texto: 'Atención en menos de 4 horas: afectación parcial o potencial de escalamiento.' },
+  { nivel: 'P3 — Prioridad baja', texto: 'Atención programada: incidentes sin impacto inmediato.' },
+  { nivel: 'P4 — Observación / mejora', texto: 'Casos informativos o que no representan amenaza directa.' },
+];
+
+const FAQS = [
+  {
+    q: '¿Qué es un CSIRT y para qué sirve?',
+    a: 'Un CSIRT (Computer Security Incident Response Team) es un equipo de respuesta a incidentes de seguridad informática. Monitorea, detecta, investiga y responde a incidentes de ciberseguridad en tiempo real, coordinando la contención, mitigación y recuperación para que la empresa vuelva a operar con normalidad en el menor tiempo posible.',
+  },
+  {
+    q: '¿Qué servicios ofrece el CSIRT de LumaCloud?',
+    a: 'Prevención mediante identificación de vulnerabilidades, detección con monitoreo constante, respuesta y contención inmediata de ataques, remediación, pentesting continuo con simulación de ataques y programas de concientización en ciberseguridad para tus usuarios.',
+  },
+  {
+    q: '¿Bajo qué estándares opera el CSIRT LUMA?',
+    a: 'Nuestro enfoque se basa en marcos internacionales como el NIST SP 800-61, ISO/IEC 27035 y las buenas prácticas del FIRST, garantizando una gestión de incidentes estructurada, efectiva y alineada con los estándares globales de ciberseguridad.',
+  },
+  {
+    q: '¿Cómo se relaciona el CSIRT con el SOC?',
+    a: 'El CSIRT LUMA está integrado al Centro de Operaciones de Seguridad (SOC): el SOC monitorea y genera alertas de forma continua, y el CSIRT lidera y coordina la respuesta cuando se confirma un incidente, tanto en entornos internos como en los servicios de nuestros clientes.',
+  },
+  {
+    q: '¿Qué pasa después de resolver un incidente?',
+    a: 'Realizamos una evaluación post mortem (post-incident review) para identificar causas raíz, lecciones aprendidas y oportunidades de mejora. Estos hallazgos alimentan un proceso continuo de fortalecimiento de las capacidades defensivas y preventivas de tu entorno tecnológico.',
+  },
+  {
+    q: '¿Necesito tener un equipo de seguridad propio para contratar el CSIRT?',
+    a: 'No. Sabemos que implementar estas capacidades internamente puede ser un desafío por falta de recursos o personal especializado. Nuestro CSIRT actúa como una extensión de tu equipo, proporcionando soporte integral y estratégico.',
+  },
+];
+
+const serviceSchema = {
+  '@type': 'Service',
+  name: 'CSIRT — Equipo de respuesta a incidentes de ciberseguridad',
+  serviceType: 'Respuesta a incidentes de ciberseguridad',
+  provider: { '@id': `${SITE.url}/#organization` },
+  areaServed: 'Colombia',
+  description,
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Servicios del CSIRT',
+    itemListElement: CAPACIDADES.map((c) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: c.nombre },
+    })),
+  },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'CSIRT', href: '/csirt' },
+  ]}
+  schemas={[serviceSchema]}
+>
+  <!-- HERO -->
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:pb-24 lg:pt-20">
+      <div class="animate-rise">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">CSIRT</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          CSIRT en Colombia: <span class="text-brand-gradient">respuesta a incidentes</span> de ciberseguridad
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+          El CSIRT de Luma (Computer Security Incident Response Team) es tu primera línea de defensa ante las amenazas cibernéticas.
+          Nuestro equipo de expertos monitorea, detecta, investiga y responde a incidentes de seguridad en tiempo real, garantizando la
+          protección continua de tu infraestructura y datos.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a
+            href="/contacto"
+            class="rounded-xl bg-mid-500 px-8 py-4 text-center font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600"
+          >
+            Habla con nuestro CSIRT
+          </a>
+          <a
+            href="/soc"
+            class="rounded-xl border border-frost-300 bg-white/70 px-8 py-4 text-center font-semibold text-cold-600 backdrop-blur transition-colors hover:border-mid-400 hover:text-mid-600"
+          >
+            Conoce nuestro SOC 24/7
+          </a>
+        </div>
+      </div>
+      <BrandImage
+        src="/images/heros/csirt-hacker.webp"
+        alt="Especialista del CSIRT analizando un incidente de ciberseguridad"
+        width={1280}
+        height={853}
+        overlay
+        priority
+        class="animate-rise [animation-delay:0.15s]"
+      />
+    </div>
+  </section>
+
+  <!-- QUÉ HACEMOS -->
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <p class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Qué hacemos</p>
+    <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-5xl">Detectar, analizar, contener, recuperar e investigar</h2>
+    <div class="mx-auto mt-3 w-16 brand-rule"></div>
+    <p class="mx-auto mt-6 max-w-2xl text-center text-base leading-relaxed text-ink-soft">
+      Gestionamos los eventos de seguridad de acuerdo con metodologías y estándares internacionales, para que tu empresa opere con
+      normalidad en el menor tiempo posible y con el menor impacto tolerable.
+    </p>
+
+    <div class="scroll-reveal mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        CAPACIDADES.map((c) => (
+          <div class="card-brand p-7">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M10 2 3 5.5v5c0 4 3 6.5 7 7.5 4-1 7-3.5 7-7.5v-5L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                <path d="M7 10l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3 class="mt-5 text-lg font-bold text-ink">{c.nombre}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-mute">{c.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- MISIÓN Y METODOLOGÍA -->
+  <section class="bg-blueprint bg-frost-50 py-20">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+      <div class="scroll-reveal">
+        <h2 class="font-display text-4xl text-cold-600 sm:text-5xl">Una extensión de tu equipo, bajo estándares internacionales</h2>
+        <div class="mt-3 w-16 brand-rule"></div>
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-ink-soft">
+          <p>
+            La misión del CSIRT Luma es proveer capacidades especializadas para la gestión de incidentes de seguridad de la información:
+            detección temprana, análisis avanzado, contención y recuperación frente a amenazas que afecten tu infraestructura digital.
+          </p>
+          <p>
+            Integrado a nuestro Centro de Operaciones de Seguridad (SOC), el CSIRT lidera y coordina el proceso de respuesta: identifica
+            actividades anómalas, analiza eventos y alertas, y correlaciona datos de sistemas SIEM, sensores de red, endpoints, servicios
+            en la nube y fuentes de inteligencia de amenazas.
+          </p>
+          <p>
+            Una vez resuelto el incidente, realizamos una evaluación post mortem para identificar causas raíz y lecciones aprendidas, y
+            recolectamos evidencia digital de manera controlada para análisis forense y cumplimiento legal cuando es necesario.
+          </p>
+        </div>
+        <ul class="mt-8 space-y-3">
+          {
+            [
+              'Marcos internacionales: NIST SP 800-61, ISO/IEC 27035 y buenas prácticas del FIRST',
+              'Roles y responsabilidades definidos para mantener la continuidad del servicio',
+              'Protección proactiva de redes públicas y acompañamiento en la resolución de alertas',
+              'Estadísticas gráficas históricas de los eventos gestionados',
+            ].map((b) => (
+              <li class="flex items-start gap-3 text-ink">
+                <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-mid-500 to-sky-500 text-white">
+                  <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2 6.5 4.5 9 10 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="text-[0.95rem] font-medium">{b}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="space-y-6">
+        <div class="card-brand scroll-reveal p-7">
+          <p class="font-display text-2xl text-cold-600">Prioridad de respuesta</p>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            Priorizamos la atención en función del nivel de criticidad del ataque y del valor de los activos afectados.
+          </p>
+          <ul class="mt-5 space-y-4">
+            {
+              PRIORIDADES.map((p) => (
+                <li class="border-l-2 border-mid-500 pl-4">
+                  <p class="font-semibold text-ink">{p.nivel}</p>
+                  <p class="text-sm text-ink-mute">{p.texto}</p>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="card-brand p-7">
+          <p class="font-display text-2xl text-cold-600">Boletines de seguridad</p>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            Nuestro CSIRT publica boletines y avisos de seguridad sobre vulnerabilidades críticas y amenazas activas, para que tu equipo
+            actúe antes de que sea tarde. Los encuentras en nuestro blog.
+          </p>
+          <a href="/blog" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500 hover:text-mid-600">
+            Lee los boletines de ciberseguridad
+            <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIPOS DE INCIDENTE -->
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <p class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Clasificación de incidentes</p>
+    <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-5xl">¿Qué tipos de incidentes gestionamos?</h2>
+    <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+    <div class="scroll-reveal mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        TIPOS_INCIDENTE.map((t) => (
+          <div class="card-brand p-7">
+            <h3 class="text-lg font-bold text-ink">{t.nombre}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-mute">{t.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+    <p class="mx-auto mt-8 max-w-2xl text-center text-sm leading-relaxed text-ink-mute">
+      Cada incidente se clasifica además por su impacto en el negocio (crítico, alto, medio o bajo) y por su comportamiento (evento
+      aislado, recurrente, activo o latente), lo que determina la urgencia y el tiempo de respuesta.
+    </p>
+  </section>
+
+  <!-- ENLACES DE SILO -->
+  <section class="mx-auto max-w-7xl px-4 pb-16 sm:px-6">
+    <h2 class="font-display text-3xl text-cold-600 sm:text-4xl">Completa tu estrategia de defensa</h2>
+    <div class="mt-8 grid gap-5 sm:grid-cols-3">
+      {
+        [
+          { href: '/soc', label: 'SOC 24/7', desc: 'Monitoreo continuo con SIEM, threat hunting y alertas en tiempo real.' },
+          { href: '/ciberseguridad', label: 'Ciberseguridad administrada', desc: 'EDR, DLP, seguridad perimetral, WAF y email security en una sola plataforma.' },
+          { href: '/blog', label: 'Boletines y análisis', desc: 'Avisos de seguridad sobre vulnerabilidades críticas y amenazas activas.' },
+        ].map((l) => (
+          <a href={l.href} class="card-brand group p-7">
+            <h3 class="font-bold text-ink group-hover:text-mid-600">{l.label}</h3>
+            <p class="mt-2 text-sm text-ink-mute">{l.desc}</p>
+            <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mid-500">
+              Ver más
+              <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="Tu aliado contra las ciberamenazas"
+    text="Descubre cómo nuestro CSIRT puede actuar como extensión de tu equipo, con soporte integral y estratégico ante cualquier incidente."
+    ctaLabel="Contáctanos para más información"
+  />
+</BaseLayout>

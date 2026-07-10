@@ -1,0 +1,326 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Calculadora RTO/RPO Gratuita | LumaCloud';
+const description =
+  'Calcula el RTO y RPO ideales para tu empresa y descubre qué estrategia de backup o DRP necesitas. Herramienta gratuita de LumaCloud, sin registro.';
+
+const FAQS = [
+  {
+    q: '¿Qué es el RPO (Recovery Point Objective)?',
+    a: 'El RPO es la cantidad máxima de datos —medida en tiempo— que tu empresa puede permitirse perder ante un incidente. Un RPO de 24 horas significa que, en el peor caso, pierdes lo trabajado desde el último backup diario; un RPO de minutos exige backup continuo o replicación.',
+  },
+  {
+    q: '¿Qué es el RTO (Recovery Time Objective)?',
+    a: 'El RTO es el tiempo máximo que tu operación puede estar detenida antes de que el impacto sea inaceptable. Define qué tan rápido debes recuperar sistemas y datos: desde restaurar un backup en horas hasta hacer failover a un sitio alterno en minutos con un DRP.',
+  },
+  {
+    q: '¿Cuál es la diferencia entre backup y DRP?',
+    a: 'El backup es la copia de tus datos; el DRP (Disaster Recovery Plan) es la capacidad de levantar tu operación completa —servidores, aplicaciones y datos— en otra infraestructura cuando la principal falla. El backup responde al RPO; el DRP, sobre todo, al RTO.',
+  },
+  {
+    q: '¿Esta calculadora reemplaza un análisis de impacto al negocio (BIA)?',
+    a: 'No. Es un punto de partida orientativo basado en tus tolerancias declaradas. Un BIA formal analiza procesos, dependencias y costos de inactividad reales. En LumaCloud lo hacemos como parte del diagnóstico gratuito de continuidad.',
+  },
+];
+
+const appSchema = {
+  '@type': 'SoftwareApplication',
+  name: 'Calculadora RTO/RPO de LumaCloud',
+  url: `${SITE.url}/herramientas/calculadora-rto-rpo`,
+  applicationCategory: 'SecurityApplication',
+  operatingSystem: 'Web',
+  description,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'COP' },
+  provider: { '@id': `${SITE.url}/#organization` },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Calculadora RTO/RPO', href: '/herramientas/calculadora-rto-rpo' },
+  ]}
+  schemas={[appSchema]}
+>
+  <!-- HERO -->
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto max-w-7xl px-4 pb-12 pt-14 sm:px-6 lg:pb-16 lg:pt-20">
+      <div class="animate-rise max-w-3xl">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <span>Herramientas</span>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Calculadora RTO/RPO</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          Calculadora de <span class="text-brand-gradient">RTO y RPO</span> para tu empresa
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
+          ¿Cuántos datos puedes perder y cuánto tiempo puedes estar fuera de línea? Responde cuatro preguntas y te recomendamos la
+          estrategia de backup o DRP que se ajusta a tu operación. Gratis y sin registro.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULADORA -->
+  <section class="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+    <div class="card-brand p-7 sm:p-9">
+      <h2 class="font-display text-3xl text-cold-600 sm:text-4xl">Calcula tu estrategia de recuperación</h2>
+      <div class="mt-3 w-16 brand-rule"></div>
+
+      <form id="form-rto" class="mt-8 grid gap-6 sm:grid-cols-2" novalidate>
+        <div>
+          <label for="volumen" class="text-sm font-semibold text-ink">Volumen de datos a proteger</label>
+          <div class="mt-1.5 flex gap-3">
+            <input
+              type="number"
+              id="volumen"
+              name="volumen"
+              min="1"
+              step="1"
+              value="500"
+              required
+              class="w-full rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+            />
+            <select
+              id="unidad"
+              name="unidad"
+              aria-label="Unidad de volumen"
+              class="w-28 shrink-0 rounded-xl border border-frost-300 bg-white px-3 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+            >
+              <option value="GB" selected>GB</option>
+              <option value="TB">TB</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label for="negocio" class="text-sm font-semibold text-ink">Tipo de negocio</label>
+          <select
+            id="negocio"
+            name="negocio"
+            class="mt-1.5 w-full rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+          >
+            <option value="3">Comercio electrónico / retail en línea</option>
+            <option value="3">Servicios financieros / fintech</option>
+            <option value="3">Salud</option>
+            <option value="2">Manufactura / logística</option>
+            <option value="2">Gobierno / sector público</option>
+            <option value="1" selected>Servicios profesionales</option>
+            <option value="1">Educación</option>
+            <option value="1">Otro</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="rpo-deseado" class="text-sm font-semibold text-ink">Tolerancia a pérdida de datos (horas)</label>
+          <input
+            type="number"
+            id="rpo-deseado"
+            name="rpo"
+            min="0"
+            max="168"
+            step="0.5"
+            value="24"
+            required
+            class="mt-1.5 w-full rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+          />
+          <p class="mt-1.5 text-xs text-ink-mute">¿Cuántas horas de trabajo podrías rehacer sin un impacto grave? (tu RPO objetivo)</p>
+        </div>
+
+        <div>
+          <label for="rto-deseado" class="text-sm font-semibold text-ink">Tolerancia a inactividad (horas)</label>
+          <input
+            type="number"
+            id="rto-deseado"
+            name="rto"
+            min="0"
+            max="168"
+            step="0.5"
+            value="24"
+            required
+            class="mt-1.5 w-full rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+          />
+          <p class="mt-1.5 text-xs text-ink-mute">¿Cuántas horas puede estar detenida tu operación sin consecuencias graves? (tu RTO objetivo)</p>
+        </div>
+
+        <div class="sm:col-span-2">
+          <button
+            type="submit"
+            class="w-full rounded-xl bg-mid-500 px-8 py-4 font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600 sm:w-auto"
+          >
+            Calcular mi estrategia
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- RESULTADO -->
+    <div id="resultado" class="mt-8 hidden" aria-live="polite">
+      <div class="card-brand border-mid-300 p-7 sm:p-9">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Estrategia recomendada</p>
+        <h3 id="res-titulo" class="font-display mt-2 text-3xl text-cold-600 sm:text-4xl"></h3>
+        <p id="res-texto" class="mt-4 text-base leading-relaxed text-ink-soft"></p>
+
+        <div class="mt-7 grid gap-4 sm:grid-cols-2">
+          <div class="rounded-2xl border border-frost-200 bg-frost-50 p-5">
+            <p class="text-xs font-semibold uppercase tracking-wider text-ink-mute">RPO resultante (pérdida máxima de datos)</p>
+            <p id="res-rpo" class="font-display mt-1 text-2xl text-cold-600"></p>
+          </div>
+          <div class="rounded-2xl border border-frost-200 bg-frost-50 p-5">
+            <p class="text-xs font-semibold uppercase tracking-wider text-ink-mute">RTO resultante (tiempo máximo de recuperación)</p>
+            <p id="res-rto" class="font-display mt-1 text-2xl text-cold-600"></p>
+          </div>
+        </div>
+
+        <p id="res-nota" class="mt-5 hidden rounded-xl border border-frost-200 bg-white px-4 py-3 text-sm leading-relaxed text-ink-mute"></p>
+
+        <div class="mt-8 rounded-2xl bg-gradient-to-br from-cold-600 to-mid-500 p-6 text-white sm:flex sm:items-center sm:justify-between sm:gap-6">
+          <div>
+            <p class="font-display text-2xl">¿Quieres validar estos números con un experto?</p>
+            <p class="mt-1 text-sm text-white/80">Revisamos tu caso real —procesos, sistemas y presupuesto— sin costo ni compromiso.</p>
+          </div>
+          <a
+            href="/contacto"
+            class="mt-4 inline-block shrink-0 rounded-xl bg-white px-6 py-3 font-semibold text-cold-600 transition-all hover:-translate-y-0.5 sm:mt-0"
+          >
+            Agenda tu diagnóstico gratuito
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATIVO -->
+  <section class="bg-blueprint bg-frost-50 py-16 lg:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <h2 class="font-display text-center text-4xl text-cold-600 sm:text-5xl">RTO y RPO explicados sin enredos</h2>
+      <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+      <div class="mt-12 grid gap-5 lg:grid-cols-3">
+        <div class="card-brand p-7">
+          <h3 class="text-lg font-bold text-ink">RPO: cuántos datos pierdes</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            El <strong>Recovery Point Objective</strong> mide, en tiempo, la máxima cantidad de información que puedes perder. Si tu último
+            backup fue anoche y el servidor falla hoy a mediodía, perdiste media jornada de trabajo: ese es tu RPO real. Entre más bajo lo
+            necesites, más frecuente debe ser la copia — de backup diario a replicación continua.
+          </p>
+        </div>
+        <div class="card-brand p-7">
+          <h3 class="text-lg font-bold text-ink">RTO: cuánto tardas en volver</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            El <strong>Recovery Time Objective</strong> mide cuánto tiempo puede estar caída tu operación antes de que el daño sea
+            inaceptable: ventas perdidas, incumplimientos con clientes, sanciones. Un RTO corto exige tener infraestructura alterna lista
+            para asumir la carga, no solo copias de los datos.
+          </p>
+        </div>
+        <div class="card-brand p-7">
+          <h3 class="text-lg font-bold text-ink">Por qué definirlos primero</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            RTO y RPO son decisiones de negocio, no técnicas: determinan cuánto invertir en continuidad. Sin definirlos, las empresas suelen
+            pagar de más por protección que no necesitan — o descubrir en plena crisis que su backup diario no alcanza. Esta calculadora te
+            da el punto de partida.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="Convierte el cálculo en un plan"
+    text="Agenda un diagnóstico gratuito de continuidad: analizamos tus sistemas reales y diseñamos la estrategia de backup o DRP que cumple tu RTO y RPO."
+    ctaLabel="Agenda tu diagnóstico gratuito"
+  />
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('form-rto') as HTMLFormElement | null;
+  const resultado = document.getElementById('resultado');
+  const resTitulo = document.getElementById('res-titulo');
+  const resTexto = document.getElementById('res-texto');
+  const resRpo = document.getElementById('res-rpo');
+  const resRto = document.getElementById('res-rto');
+  const resNota = document.getElementById('res-nota');
+
+  const ESTRATEGIAS = {
+    drp: {
+      titulo: 'DRP completo: replicación y failover a sitio alterno',
+      texto:
+        'Tu tolerancia a pérdida de datos o a inactividad es tan baja que un backup, por frecuente que sea, no alcanza. Necesitas replicar tus sistemas críticos a una infraestructura alterna capaz de asumir la operación en minutos (failover), con pruebas de recuperación periódicas y un plan de continuidad documentado.',
+      rpo: 'Cercano a cero (minutos)',
+      rto: 'Menos de 1 hora',
+    },
+    continuo: {
+      titulo: 'Backup continuo + replicación de sistemas críticos',
+      texto:
+        'Tu operación tolera pausas cortas, pero no puede perder un día de datos. La estrategia adecuada combina backup incremental frecuente (varias veces al día o continuo) con replicación de las cargas más críticas, para restaurar rápido sin montar un sitio alterno completo.',
+      rpo: 'Alrededor de 1 hora',
+      rto: 'Entre 2 y 8 horas',
+    },
+    diario: {
+      titulo: 'Backup diario gestionado con verificación',
+      texto:
+        'Tus tolerancias permiten una estrategia eficiente en costos: copia de seguridad diaria automatizada, cifrada y verificada, con retención definida y restauraciones de prueba periódicas para garantizar que el backup realmente funciona cuando lo necesites.',
+      rpo: 'Hasta 24 horas',
+      rto: 'Entre 12 y 24 horas',
+    },
+  };
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const volumen = Number((document.getElementById('volumen') as HTMLInputElement).value) || 0;
+    const unidad = (document.getElementById('unidad') as HTMLSelectElement).value;
+    const criticidad = Number((document.getElementById('negocio') as HTMLSelectElement).value) || 1;
+    const rpoDeseado = Number((document.getElementById('rpo-deseado') as HTMLInputElement).value);
+    const rtoDeseado = Number((document.getElementById('rto-deseado') as HTMLInputElement).value);
+
+    const volumenGB = unidad === 'TB' ? volumen * 1024 : volumen;
+
+    let clave: keyof typeof ESTRATEGIAS;
+    if (rpoDeseado <= 1 || rtoDeseado <= 4 || (criticidad === 3 && (rpoDeseado <= 4 || rtoDeseado <= 8))) {
+      clave = 'drp';
+    } else if (rpoDeseado <= 12 || rtoDeseado <= 24 || criticidad >= 2) {
+      clave = 'continuo';
+    } else {
+      clave = 'diario';
+    }
+
+    const est = ESTRATEGIAS[clave];
+    if (resTitulo) resTitulo.textContent = est.titulo;
+    if (resTexto) resTexto.textContent = est.texto;
+    if (resRpo) resRpo.textContent = est.rpo;
+    if (resRto) resRto.textContent = est.rto;
+
+    if (resNota) {
+      const notas: string[] = [];
+      if (volumenGB >= 5120) {
+        notas.push(
+          'Con más de 5 TB de datos, el tiempo de restauración depende mucho del ancho de banda disponible: conviene evaluar restauración local (appliance) o replicación para no depender solo de la descarga desde la nube.',
+        );
+      }
+      if (clave !== 'drp' && (rpoDeseado <= 1 || rtoDeseado <= 4)) {
+        notas.push('Tus tolerancias declaradas son muy exigentes: valida con un experto si parte de tus sistemas amerita replicación dedicada.');
+      }
+      if (notas.length) {
+        resNota.textContent = notas.join(' ');
+        resNota.classList.remove('hidden');
+      } else {
+        resNota.classList.add('hidden');
+      }
+    }
+
+    resultado?.classList.remove('hidden');
+    resultado?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
