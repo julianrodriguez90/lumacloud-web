@@ -1,25 +1,32 @@
 {
   "name": "lumacloud-web",
   "type": "module",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "generate-pseo": "tsx scripts/generate_pseo.ts"
+    "extract-wp": "node scripts/extract-wp.mjs",
+    "catalog-media": "node scripts/catalog-media.mjs",
+    "wp-to-collection": "node scripts/wp-to-collection.mjs",
+    "optimize-images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.2.1",
-    "@astrojs/tailwind": "^5.1.3",
-    "@supabase/supabase-js": "^2.45.4",
-    "astro": "^4.16.18",
-    "tailwindcss": "^3.4.17"
+    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/vercel": "^10.0.0",
+    "astro": "^6.4.8",
+    "resend": "^4.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.10.1",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "@astrojs/partytown": "^2.1.7",
+    "@fontsource-variable/inter": "^5.2.5",
+    "@fontsource/bebas-neue": "^5.2.5",
+    "@tailwindcss/vite": "~4.1.8",
+    "@types/node": "^22",
+    "sharp": "^0.34.0",
+    "tailwindcss": "~4.1.8",
+    "turndown": "^7.2.0",
+    "typescript": "^5"
   }
 }

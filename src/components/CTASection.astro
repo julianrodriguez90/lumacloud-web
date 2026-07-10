@@ -1,0 +1,43 @@
+---
+import { SITE } from '@/lib/site';
+
+interface Props {
+  title?: string;
+  text?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+const {
+  title = 'Protege tu empresa hoy',
+  text = 'Cuéntanos tu reto de seguridad o infraestructura y diseñamos una solución a tu medida. Sin costos ocultos ni sorpresas.',
+  ctaLabel = 'Habla con un experto',
+  ctaHref = '/contacto',
+} = Astro.props;
+---
+
+<section class="bg-blueprint-dark relative overflow-hidden bg-ink py-20">
+  <div class="pointer-events-none absolute left-1/2 top-0 h-px w-full max-w-4xl -translate-x-1/2 bg-gradient-to-r from-transparent via-sky-500/60 to-transparent" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute -left-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-mid-500/15 blur-3xl" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute -right-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-sky-500/10 blur-3xl" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
+    <h2 class="font-display text-4xl leading-none text-white sm:text-5xl md:text-6xl">{title}</h2>
+    <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">{text}</p>
+    <div class="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+      <a
+        href={ctaHref}
+        class="w-full rounded-xl bg-mid-500 px-8 py-4 text-base font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.45)] transition-all hover:-translate-y-0.5 hover:bg-mid-400 sm:w-auto"
+      >
+        {ctaLabel}
+      </a>
+      <a
+        href={SITE.whatsapp}
+        target="_blank"
+        rel="noopener"
+        class="w-full rounded-xl border border-white/20 px-8 py-4 text-base font-semibold text-white transition-colors hover:border-sky-500 hover:text-sky-500 sm:w-auto"
+      >
+        Escríbenos por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>

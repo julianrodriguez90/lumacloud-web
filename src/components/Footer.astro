@@ -1,0 +1,104 @@
+---
+import { SITE } from '@/lib/site';
+import { SERVICES, NAV } from '@/lib/nav';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-blueprint-dark relative overflow-hidden bg-ink text-white">
+  <div class="brand-rule"></div>
+  <div class="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-mid-500/10 blur-3xl" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+      <div>
+        <img src="/images/brand/logo-luma-blanco.webp" alt="LumaCloud" width="150" height="46" class="h-10 w-auto" loading="lazy" />
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
+          {SITE.description}
+        </p>
+        <div class="mt-6 flex gap-3">
+          {
+            [
+              { href: SITE.social.linkedin, label: 'LinkedIn', d: 'M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-8.5c0-2.03-.04-4.64-2.83-4.64-2.83 0-3.27 2.2-3.27 4.5V24H8V8z' },
+              { href: SITE.social.instagram, label: 'Instagram', d: 'M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.7 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.64-.07-4.85s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.7.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95C23.73 2.71 21.3.27 16.95.07 15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.4-11.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z' },
+              { href: SITE.social.youtube, label: 'YouTube', d: 'M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12z' },
+              { href: SITE.social.facebook, label: 'Facebook', d: 'M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.09 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.49h-2.8V24C19.62 23.09 24 18.1 24 12.07z' },
+            ].map((s) => (
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener"
+                aria-label={s.label}
+                class="flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 text-white/60 transition-colors hover:border-sky-500 hover:text-sky-500"
+              >
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d={s.d} />
+                </svg>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <nav aria-label="Servicios">
+        <h2 class="font-display text-lg tracking-wide text-sky-500">Servicios</h2>
+        <ul class="mt-4 space-y-2.5">
+          {
+            SERVICES.map((s) => (
+              <li>
+                <a href={s.href} class="text-sm text-white/60 transition-colors hover:text-white">
+                  {s.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label="Empresa">
+        <h2 class="font-display text-lg tracking-wide text-sky-500">Empresa</h2>
+        <ul class="mt-4 space-y-2.5">
+          {
+            [...NAV, { href: '/contacto', label: 'Contacto' }, { href: '/herramientas/evaluador-iso-27001', label: 'Herramientas gratuitas' }].map((item) => (
+              <li>
+                <a href={item.href} class="text-sm text-white/60 transition-colors hover:text-white">
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="font-display text-lg tracking-wide text-sky-500">Contacto</h2>
+        <ul class="mt-4 space-y-3 text-sm text-white/60">
+          <li>
+            <a href={`mailto:${SITE.email}`} class="transition-colors hover:text-white">{SITE.email}</a>
+          </li>
+          <li>
+            <a href={`tel:${SITE.phone}`} class="transition-colors hover:text-white">{SITE.phoneDisplay}</a>
+          </li>
+          <li>{SITE.address.street}, {SITE.address.city}</li>
+          <li>{SITE.address.country}</li>
+        </ul>
+        <a
+          href={SITE.whatsapp}
+          target="_blank"
+          rel="noopener"
+          class="mt-5 inline-flex items-center gap-2 rounded-xl border border-white/15 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:border-sky-500 hover:text-sky-500"
+        >
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.1 4.49.71.3 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.57-.35zM12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 6.99 2.9 9.83 9.83 0 0 1 2.9 7c0 5.45-4.44 9.87-9.9 9.87zm8.42-18.3A11.8 11.8 0 0 0 12.05 0C5.5 0 .16 5.33.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45c6.56 0 11.9-5.34 11.9-11.9 0-3.18-1.24-6.16-3.47-8.4z" />
+          </svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-14 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 text-xs text-white/40 sm:flex-row sm:items-center">
+      <p>© {year} {SITE.legalName} — {SITE.name}. Todos los derechos reservados.</p>
+      <p>Datacenters certificados TIER III y IV · CSIRT operativo · Bogotá, Colombia</p>
+    </div>
+  </div>
+</footer>

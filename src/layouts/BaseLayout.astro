@@ -1,0 +1,156 @@
+---
+import '@/styles/global.css';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { SITE, type Crumb } from '@/lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Ruta de imagen OG (1200×630) relativa al sitio; por defecto la genérica */
+  ogImage?: string;
+  breadcrumbs?: Crumb[];
+  /** Schemas JSON-LD adicionales específicos de la página */
+  schemas?: Record<string, unknown>[];
+  /** noindex para páginas utilitarias */
+  noindex?: boolean;
+}
+
+const { title, description, ogImage = '/images/og/default.webp', breadcrumbs = [], schemas = [], noindex = false } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname === '/' ? '/' : Astro.url.pathname.replace(/\/$/, ''), SITE.url).href;
+const ogImageUrl = new URL(ogImage, SITE.url).href;
+const GA4 = import.meta.env.PUBLIC_GA4_ID;
+
+const organizationSchema = {
+  '@type': 'Organization',
+  '@id': `${SITE.url}/#organization`,
+  name: SITE.name,
+  legalName: SITE.legalName,
+  url: SITE.url,
+  email: SITE.email,
+  telephone: SITE.phone,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.city,
+    addressCountry: 'CO',
+  },
+  sameAs: Object.values(SITE.social),
+  knowsAbout: [
+    'ciberseguridad empresarial',
+    'backup empresarial',
+    'cloud privado colombia',
+    'SOC as a Service',
+    'ISO 27001',
+    'Ley 1581',
+    'CSIRT',
+  ],
+};
+
+const localBusinessSchema = {
+  '@type': 'LocalBusiness',
+  '@id': `${SITE.url}/#localbusiness`,
+  name: SITE.name,
+  url: SITE.url,
+  telephone: SITE.phone,
+  email: SITE.email,
+  image: ogImageUrl,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.city,
+    addressCountry: 'CO',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: SITE.address.geo.lat, longitude: SITE.address.geo.lng },
+  areaServed: 'Colombia',
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '08:00',
+    closes: '18:00',
+  },
+};
+
+const websiteSchema = {
+  '@type': 'WebSite',
+  '@id': `${SITE.url}/#website`,
+  url: SITE.url,
+  name: SITE.name,
+  publisher: { '@id': `${SITE.url}/#organization` },
+};
+
+const breadcrumbSchema = breadcrumbs.length
+  ? {
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbs.map((c, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: c.name,
+        item: new URL(c.href, SITE.url).href,
+      })),
+    }
+  : null;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [organizationSchema, localBusinessSchema, websiteSchema, breadcrumbSchema, ...schemas].filter(Boolean),
+};
+---
+
+<!doctype html>
+<html lang="es-CO">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/bebas-neue.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="es_CO" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    {
+      GA4 && (
+        <>
+          <script type="text/partytown" src={`https://www.googletagmanager.com/gtag/js?id=${GA4}`} />
+          <script
+            type="text/partytown"
+            set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','${GA4}');`}
+          />
+        </>
+      )
+    }
+  </head>
+  <body class="min-h-screen antialiased">
+    <a
+      href="#contenido"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-mid-500 focus:px-4 focus:py-2 focus:text-white"
+    >
+      Ir al contenido
+    </a>
+    <Header />
+    <main id="contenido">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

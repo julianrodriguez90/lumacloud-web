@@ -1,0 +1,169 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "^/(.*)/$",
+			"headers": {
+				"Location": "/$1"
+			},
+			"status": 308
+		},
+		{
+			"src": "^/agente-gonemo$",
+			"headers": {
+				"Location": "/gonemo"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/agentes-ia-gonemo$",
+			"headers": {
+				"Location": "/gonemo"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/ciber-recuperacion$",
+			"headers": {
+				"Location": "/backup"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/ciberproteccion$",
+			"headers": {
+				"Location": "/ciberseguridad"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/contactenos$",
+			"headers": {
+				"Location": "/contacto"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/csirt/boletin_csirt$",
+			"headers": {
+				"Location": "/csirt"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/csirt/contacto_csirt$",
+			"headers": {
+				"Location": "/csirt"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/csirt/servicios_csirt$",
+			"headers": {
+				"Location": "/csirt"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/drp$",
+			"headers": {
+				"Location": "/backup"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/infraestructura-iaas$",
+			"headers": {
+				"Location": "/cloud"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/luma-360$",
+			"headers": {
+				"Location": "/"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/luma-cybersoc$",
+			"headers": {
+				"Location": "/soc"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/newsletter$",
+			"headers": {
+				"Location": "/blog"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/partners$",
+			"headers": {
+				"Location": "/quienes-somos"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/planes$",
+			"headers": {
+				"Location": "/contacto"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/plataforma-ia-lci$",
+			"headers": {
+				"Location": "/gonemo"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/servicios$",
+			"headers": {
+				"Location": "/#servicios"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/tienda$",
+			"headers": {
+				"Location": "/contacto"
+			},
+			"status": 301
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"src": "^/_server-islands/([^/]+?)$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/_image$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/contact$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/404/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/.*$",
+			"dest": "_render",
+			"status": 404
+		}
+	]
+}
