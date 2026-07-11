@@ -10,14 +10,22 @@ interface Props {
   height: number;
   /** overlay de gradiente de marca sobre la imagen */
   overlay?: boolean;
+  /** tratamiento duotono de marca (unifica fotografía stock) */
+  duotone?: boolean;
   /** imagen crítica above-the-fold (hero LCP) */
   priority?: boolean;
   class?: string;
 }
-const { src, alt, width, height, overlay = false, priority = false, class: className = '' } = Astro.props;
+const { src, alt, width, height, overlay = false, duotone = false, priority = false, class: className = '' } = Astro.props;
 ---
 
-<figure class:list={['relative overflow-hidden rounded-2xl shadow-[0_20px_50px_rgb(23_58_135/0.18)]', className]}>
+<figure
+  class:list={[
+    'relative overflow-hidden rounded-2xl shadow-[0_20px_50px_rgb(23_58_135/0.18)]',
+    duotone && 'img-duotone',
+    className,
+  ]}
+>
   <img
     src={src}
     alt={alt}

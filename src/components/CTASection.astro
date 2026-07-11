@@ -15,29 +15,39 @@ const {
 } = Astro.props;
 ---
 
-<section class="bg-blueprint-dark relative overflow-hidden bg-ink py-20">
+<section class="bg-blueprint-dark relative overflow-hidden bg-ink py-24">
   <div class="pointer-events-none absolute left-1/2 top-0 h-px w-full max-w-4xl -translate-x-1/2 bg-gradient-to-r from-transparent via-sky-500/60 to-transparent" aria-hidden="true"></div>
   <div class="pointer-events-none absolute -left-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-mid-500/15 blur-3xl" aria-hidden="true"></div>
   <div class="pointer-events-none absolute -right-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-sky-500/10 blur-3xl" aria-hidden="true"></div>
 
-  <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
-    <h2 class="font-display text-4xl leading-none text-white sm:text-5xl md:text-6xl">{title}</h2>
-    <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">{text}</p>
-    <div class="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+  <div class="relative mx-auto max-w-5xl px-4 sm:px-6">
+    <div class="mono-label flex items-center justify-center gap-3 text-sky-500">
+      <span class="blink-dot inline-block h-1.5 w-1.5 rounded-full bg-sky-500"></span>
+      SOC://ACTIVO · RESPUESTA &lt;24H
+    </div>
+    <h2 class="font-display mt-6 text-center text-5xl leading-[0.92] text-white sm:text-6xl md:text-7xl">{title}</h2>
+    <p class="mx-auto mt-6 max-w-2xl text-center text-base leading-relaxed text-white/70 sm:text-lg">{text}</p>
+    <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
       <a
         href={ctaHref}
-        class="w-full rounded-xl bg-mid-500 px-8 py-4 text-base font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.45)] transition-all hover:-translate-y-0.5 hover:bg-mid-400 sm:w-auto"
+        class="group flex w-full items-center justify-center gap-3 rounded-xl bg-mid-500 px-8 py-4 text-base font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-mid-400 sm:w-auto"
       >
         {ctaLabel}
+        <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
       </a>
       <a
         href={SITE.whatsapp}
         target="_blank"
         rel="noopener"
-        class="w-full rounded-xl border border-white/20 px-8 py-4 text-base font-semibold text-white transition-colors hover:border-sky-500 hover:text-sky-500 sm:w-auto"
+        class="w-full rounded-xl border border-white/20 px-8 py-4 text-center text-base font-semibold text-white transition-colors duration-300 hover:border-sky-500 hover:text-sky-500 sm:w-auto"
       >
         Escríbenos por WhatsApp
       </a>
     </div>
+    <p class="mono-label mt-10 text-center text-white/35">
+      BOGOTÁ D.C. 4.6972°N 74.0455°W · TIER III/IV · CSIRT OPERATIVO
+    </p>
   </div>
 </section>
