@@ -41,16 +41,18 @@ Un cambio sin su documentación actualizada está **incompleto**. Esto aplica ta
 - Schema por tipo: Service (silos, con `hasOfferCatalog`), Article (blog), SoftwareApplication (herramientas), AboutPage, ContactPage. FAQPage lo emite `FAQSection` automáticamente
 - Página nueva = revisar si necesita redirect desde una URL vieja del WP (`redirects.mjs`)
 
-## Diseño — v2 "Swiss-technical" (julio 2026)
+## Diseño
 
-**Dirección**: "el SOC hecho página" — retícula suiza con asimetría deliberada, secciones numeradas editoriales (01/, 02/…), acentos monospace (lenguaje terminal/SOC), duotono de marca en fotografía, precisión en cada detalle. Nada de estética "SaaS burbuja": radios contenidos, sombras secas, motion artesanal.
+- **Patrón de página de servicio: `src/pages/ciberseguridad/index.astro`** — replicar su estructura (hero split con BrandImage + breadcrumb inline, cards de subservicios, sección detalle con imagen, enlaces de silo, FAQSection 4-5 preguntas, CTASection).
+- Tokens en `src/styles/global.css` (@theme): `cold-*` #173A87 primario, `mid-*` #0073FF CTAs, `sky-*` #27CAFF acentos, `ink` #100E16 texto/footer, `frost-*` superficies claras.
+- Utilidades propias (usar, no reinventar): `font-display` (Bebas Neue caps), `brand-rule`, `text-brand-gradient`, `bg-blueprint`/`bg-blueprint-dark`, `bg-hero-mesh`, `card-brand`, `animate-rise` + `.stagger`, `scroll-reveal`, `prose-luma` (blog).
+- Componentes: `BaseLayout` (title, description, ogImage?, breadcrumbs?, schemas?, noindex?), `BrandImage` (overlay?, priority? → fetchpriority high para LCP), `CTASection`, `FAQSection`, `Testimonios`, `Header`, `Footer`.
+- Reglas duras: animaciones solo CSS · solo WebP en `public/images/` · todo `<img>` con width/height · herramientas de `/herramientas/` en JS vanilla cliente · footer oscuro.
 
-- **Tres voces tipográficas** (self-hosted en `public/fonts/`): Bebas Neue (`font-display`, títulos display caps, escala GRANDE), **Instrument Sans** (`--font-sans`, cuerpo — NO volver a Inter), **IBM Plex Mono** (`--font-mono`, labels/datos/eyebrows).
-- Tokens en `src/styles/global.css` (@theme): `cold-*` #173A87 primario, `mid-*` #0073FF CTAs, `sky-*` #27CAFF acentos, `ink` #100E16, `frost-*` superficies. La escala de radios está remapeada a valores precisos (2xl = 10px) — no usar rounded-full en cards.
-- Utilidades propias (usar, no reinventar): `mono-label` (eyebrow técnico — SIEMPRE en vez de `uppercase tracking-[…]`), `mono-data` (cifras/coordenadas), `font-display`, `brand-rule`, `text-brand-gradient`, `bg-blueprint`/`-dark`, `bg-hero-mesh`, `card-brand`, `corner-ticks` (marcas + de retícula), `img-duotone`, `link-tech` (subrayado deslizante), `animate-rise` + `.stagger`, `animate-wipe` (revelado de imagen), `scroll-reveal`, `animate-marquee`, `prose-luma`.
-- Componentes: `BaseLayout`, `SectionHeader` (num/eyebrow/title/lead — encabezado editorial numerado, usarlo en secciones nuevas en vez de headers centrados), `BrandImage` (overlay?, duotone?, priority?), `DiagramStack`/`DiagramRadar` (SVG técnicos hechos a mano ~2KB — preferirlos sobre fotos stock), `CTASection`, `FAQSection` (num?), `Testimonios` (num?, layout editorial), `Header`, `Footer` (wordmark gigante).
-- Detalles de firma: línea de estado mono en heros (`SOC://ACTIVO · BOG 4.6972°N`), fichas técnicas flotantes sobre imágenes (`IMG/01 — …`), listas editoriales con divisores en vez de grids de cards, carrusel scroll-snap en mobile para grids grandes.
-- Reglas duras: animaciones solo CSS (respetan reduced-motion) · solo WebP + width/height · fotografía SIEMPRE con `duotone` o `overlay` (nunca stock crudo) · herramientas en JS vanilla · footer oscuro · patrón de referencia actualizado: `src/pages/index.astro`.
+## Gotchas de diseño (decisiones del dueño — respetarlas)
+
+- **El diseño vigente es el v1** (hero split con imagen grande, Bebas Neue + Inter, headers centrados con brand-rule, cards con glow). Un rediseño v2 "Swiss-technical" (mono labels, hero editorial de imagen pequeña, diagramas SVG isométricos, layout plano/blanco) fue **rechazado explícitamente por el dueño** y revertido (ver `docs/ESTADO-PROYECTO.md`). No reintentar esa dirección; cualquier mejora visual se itera SOBRE el v1 y prefiere más color/profundidad, no minimalismo blanco.
+- Al dueño le gustan: imágenes grandes y protagonistas, chips flotantes sobre imágenes, gradientes de marca, fondos frost/oscuros alternados.
 
 ## Gotchas
 

@@ -42,15 +42,9 @@ Reemplazar el WordPress actual (LCP móvil 25.9s, 88% tráfico de marca, ~19 vis
 - [x] Formulario y las 3 herramientas probados end-to-end en navegador
 - [x] Mobile verificado · Peso de home ~320KB total
 
-### Elevación de diseño "$10K" — v2 Swiss-technical (2026-07-10)
-- [x] Tipografía: Inter → **Instrument Sans** (cuerpo) + **IBM Plex Mono** (labels/datos técnicos); Bebas Neue se mantiene como display de marca
-- [x] Sistema v2: radios precisos, sombras secas, motion artesanal (wipe, link-tech, marquee, blur-settle), duotono de marca para fotografía, corner-ticks
-- [x] Componentes nuevos: SectionHeader editorial numerado, DiagramStack y DiagramRadar (SVG técnicos hechos a mano, sustituyen stock)
-- [x] Home rediseñada: hero editorial gigante con línea de estado SOC, franja de métricas, marquee de vendors, testimonial pull-quote, footer con wordmark gigante
-- [x] Ajuste v2.1 por feedback del dueño ("muy plano y blanco"): mesh azul más presente, sección de arquitectura en oscuro, diferenciales como cards sobre frost, tiles de gradiente en servicios, sombras con más color
-- [x] Mobile diseñado (no encogido): carrusel scroll-snap de servicios, métricas 2-col
-- [ ] Propagar el patrón v2 a los heros de las páginas de silo (hoy heredan tipografía/tokens pero conservan el layout v1)
-- [ ] Reemplazar las fotos más stock de páginas internas con los diagramas SVG o duotono
+### ⚠️ Decisión de diseño (2026-07-10): rediseño v2 "Swiss-technical" DESCARTADO
+Se intentó una elevación de diseño (tipografía Instrument Sans + IBM Plex Mono, hero editorial con imagen pequeña, secciones numeradas estilo mono, diagramas SVG isométricos, lista editorial plana) y **el dueño la rechazó explícitamente**: "muy plano y muy blanco", "el hero se ve feo con esa imagen pequeña", "ese diagrama de las capas se ve horrible". Se revirtió todo (commits `e5e814a` y `8b3de6c`, revert en `933f57c`).
+**El diseño vigente es el v1**: hero split con imagen grande y chips flotantes, Bebas Neue + Inter, headers de sección centrados con brand-rule, cards con glow azul, bento de servicios con foto. **No reintentar la dirección v2 sin pedirlo el dueño.** Si se quiere elevar el diseño, iterar SOBRE el v1 (más color/profundidad está bien; minimalismo blanco y diagramas abstractos, no).
 
 ---
 

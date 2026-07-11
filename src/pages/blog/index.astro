@@ -25,7 +25,7 @@ const fmt = (d: Date) => d.toLocaleDateString('es-CO', { day: 'numeric', month: 
 <BaseLayout {title} {description} breadcrumbs={[{ name: 'Inicio', href: '/' }, { name: 'Blog', href: '/blog' }]}>
   <section class="bg-blueprint bg-hero-mesh border-b border-frost-200">
     <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-      <p class="mono-label text-mid-500">Blog LumaCloud</p>
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Blog LumaCloud</p>
       <h1 class="font-display mt-3 max-w-3xl text-5xl leading-[0.95] text-ink sm:text-7xl">
         Ciberseguridad y nube, <span class="text-brand-gradient">explicadas para tu negocio</span>
       </h1>
@@ -76,7 +76,7 @@ const fmt = (d: Date) => d.toLocaleDateString('es-CO', { day: 'numeric', month: 
             </div>
           )}
           <div class="flex flex-col justify-center p-8 lg:p-12">
-            <p class="mono-label text-mid-500">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-mid-500">
               Más reciente · {CATEGORIAS[destacado.data.category]}
             </p>
             <h2 class="mt-3 text-2xl font-bold leading-snug text-ink group-hover:text-mid-600 lg:text-3xl">{destacado.data.title}</h2>
@@ -106,7 +106,7 @@ const fmt = (d: Date) => d.toLocaleDateString('es-CO', { day: 'numeric', month: 
               <div class="bg-brand-gradient h-44 w-full opacity-80" />
             )}
             <div class="flex flex-1 flex-col p-6">
-              <p class="mono-label text-mid-500">{CATEGORIAS[post.data.category]}</p>
+              <p class="text-xs font-semibold uppercase tracking-[0.15em] text-mid-500">{CATEGORIAS[post.data.category]}</p>
               <h2 class="mt-2 flex-1 text-lg font-bold leading-snug text-ink group-hover:text-mid-600">{post.data.title}</h2>
               <p class="mt-4 text-sm text-ink-mute">{fmt(post.data.publishDate)}</p>
             </div>

@@ -26,3 +26,4 @@ pnpm-debug.log*
 LUMA - BrandBook.pdf
 scripts/originals/
 .claire/
+.vercel/
