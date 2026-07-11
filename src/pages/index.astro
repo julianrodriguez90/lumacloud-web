@@ -202,42 +202,47 @@ const FAQS = [
         SERVICES.filter((s) => s.href !== '/ciberseguridad').map((s, i) => (
           <a href={s.href} class="card-brand group flex min-w-[75%] snap-center flex-col p-7 sm:min-w-0">
             <div class="flex items-start justify-between">
+              <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white shadow-[0_4px_14px_rgb(0_115_255/0.3)]">
+                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M10 2 3 5.5v5c0 4 3 6.5 7 7.5 4-1 7-3.5 7-7.5v-5L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                </svg>
+              </div>
               <span class="mono-data text-sm text-mid-500">{String(i + 2).padStart(2, '0')}/</span>
-              <svg
-                class="h-4 w-4 -translate-x-1 translate-y-1 text-frost-300 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:text-mid-500 group-hover:opacity-100"
-                viewBox="0 0 16 16"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path d="M3 13 13 3M6 3h7v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
             </div>
-            <h3 class="mt-10 text-lg font-bold tracking-tight text-ink transition-colors group-hover:text-mid-600">{s.label}</h3>
+            <h3 class="mt-6 text-lg font-bold tracking-tight text-ink transition-colors group-hover:text-mid-600">{s.label}</h3>
             <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-mute">{s.desc}</p>
+            <span class="link-tech mt-5 inline-flex items-center gap-2 self-start text-sm font-semibold text-mid-500">
+              Ver más
+              <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
           </a>
         ))
       }
     </div>
   </section>
 
-  <!-- ======== 03 · SOLUCIÓN 360 (diagrama) ======== -->
-  <section class="bg-blueprint border-y border-frost-200 bg-frost-50 py-24">
-    <div class="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-2">
+  <!-- ======== 03 · SOLUCIÓN 360 (diagrama, sección oscura) ======== -->
+  <section class="bg-blueprint-dark relative overflow-hidden bg-ink py-24">
+    <div class="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-mid-500/15 blur-3xl" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute -left-24 bottom-0 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl" aria-hidden="true"></div>
+
+    <div class="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-2">
       <div>
         <SectionHeader
           num="03"
           eyebrow="Arquitectura"
           title="Capas que se defienden entre sí"
+          dark
         />
-        <div class="mt-8 space-y-4 text-base leading-relaxed text-ink-soft lg:pl-[13rem]">
+        <div class="mt-8 space-y-4 text-base leading-relaxed text-white/70 lg:pl-[13rem]">
           <p>
             Cada capa cubre a la anterior: si una amenaza cruza la ciberprotección, el SOC la detecta; si algo falla, el backup y el DRP
             devuelven la operación. Todo sobre infraestructura local con datacenters TIER III y IV.
           </p>
-          <p>
-            Un solo proveedor, una sola consola, un solo responsable — en lugar de cinco contratos que no se hablan entre sí.
-          </p>
-          <a href="/contacto" class="link-tech inline-flex items-center gap-2 pt-2 font-semibold text-mid-600">
+          <p>Un solo proveedor, una sola consola, un solo responsable — en lugar de cinco contratos que no se hablan entre sí.</p>
+          <a href="/contacto" class="link-tech inline-flex items-center gap-2 pt-2 font-semibold text-sky-500">
             Diseña tu arquitectura con nosotros
             <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
@@ -245,15 +250,15 @@ const FAQS = [
           </a>
         </div>
       </div>
-      <div class="scroll-reveal corner-ticks rounded-2xl border border-frost-300 bg-white p-6 sm:p-10">
+      <div class="scroll-reveal rounded-2xl border border-white/10 bg-white p-6 shadow-[0_24px_60px_rgb(0_115_255/0.2)] sm:p-10">
         <DiagramStack />
       </div>
     </div>
   </section>
 
   <!-- ======== 04 · POR QUÉ ELEGIRNOS ======== -->
-  <section class="mx-auto max-w-7xl px-4 py-24 sm:px-6">
-    <div class="grid items-start gap-14 lg:grid-cols-[1fr_1.5fr]">
+  <section class="bg-blueprint bg-frost-50 py-24">
+    <div class="mx-auto grid max-w-7xl items-start gap-14 px-4 sm:px-6 lg:grid-cols-[1fr_1.5fr]">
       <div class="lg:sticky lg:top-28">
         <SectionHeader num="04" eyebrow="Diferenciales" title="La decisión correcta para tu negocio" class="lg:!grid-cols-1 lg:!gap-2" />
         <p class="mt-6 max-w-md text-base leading-relaxed text-ink-soft">
@@ -261,7 +266,7 @@ const FAQS = [
         </p>
         <a
           href="/quienes-somos"
-          class="link-tech mt-8 inline-flex items-center gap-2 font-semibold text-cold-600"
+          class="mt-8 inline-flex items-center gap-2 rounded-xl border border-frost-300 bg-white px-6 py-3 text-sm font-semibold text-cold-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-mid-400 hover:text-mid-600 hover:shadow-card"
         >
           Conócenos
           <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -270,14 +275,13 @@ const FAQS = [
         </a>
       </div>
 
-      <!-- lista editorial con divisores, no grid de cards -->
-      <div class="scroll-reveal divide-y divide-frost-200 border-y border-frost-200">
+      <div class="scroll-reveal grid gap-4 sm:grid-cols-2">
         {
           DIFERENCIALES.map((d, i) => (
-            <div class="group grid gap-2 py-6 transition-colors duration-300 hover:bg-frost-50 sm:grid-cols-[4rem_14rem_1fr] sm:gap-6 sm:px-4">
-              <span class="mono-data text-sm text-mid-500">{String(i + 1).padStart(2, '0')}</span>
-              <h3 class="font-bold tracking-tight text-ink">{d.titulo}</h3>
-              <p class="text-sm leading-relaxed text-ink-mute">{d.texto}</p>
+            <div class="card-brand p-6">
+              <span class="mono-data text-sm font-medium text-sky-600">{String(i + 1).padStart(2, '0')}/</span>
+              <h3 class="mt-2 font-bold tracking-tight text-ink">{d.titulo}</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-ink-mute">{d.texto}</p>
             </div>
           ))
         }
