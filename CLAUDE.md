@@ -49,6 +49,11 @@ Un cambio sin su documentación actualizada está **incompleto**. Esto aplica ta
 - Componentes: `BaseLayout` (title, description, ogImage?, breadcrumbs?, schemas?, noindex?), `BrandImage` (overlay?, priority? → fetchpriority high para LCP), `CTASection`, `FAQSection`, `Testimonios`, `Header`, `Footer`.
 - Reglas duras: animaciones solo CSS · solo WebP en `public/images/` · todo `<img>` con width/height · herramientas de `/herramientas/` en JS vanilla cliente · footer oscuro.
 
+## Gotchas de diseño (decisiones del dueño — respetarlas)
+
+- **El diseño vigente es el v1** (hero split con imagen grande, Bebas Neue + Inter, headers centrados con brand-rule, cards con glow). Un rediseño v2 "Swiss-technical" (mono labels, hero editorial de imagen pequeña, diagramas SVG isométricos, layout plano/blanco) fue **rechazado explícitamente por el dueño** y revertido (ver `docs/ESTADO-PROYECTO.md`). No reintentar esa dirección; cualquier mejora visual se itera SOBRE el v1 y prefiere más color/profundidad, no minimalismo blanco.
+- Al dueño le gustan: imágenes grandes y protagonistas, chips flotantes sobre imágenes, gradientes de marca, fondos frost/oscuros alternados.
+
 ## Gotchas
 
 - **No subir a Astro 7 ni Tailwind 4.3+** sin probar (pins deliberados; `@astrojs/vercel@10` = Astro 6, @11 = Astro 7).

@@ -42,6 +42,10 @@ Reemplazar el WordPress actual (LCP móvil 25.9s, 88% tráfico de marca, ~19 vis
 - [x] Formulario y las 3 herramientas probados end-to-end en navegador
 - [x] Mobile verificado · Peso de home ~320KB total
 
+### ⚠️ Decisión de diseño (2026-07-10): rediseño v2 "Swiss-technical" DESCARTADO
+Se intentó una elevación de diseño (tipografía Instrument Sans + IBM Plex Mono, hero editorial con imagen pequeña, secciones numeradas estilo mono, diagramas SVG isométricos, lista editorial plana) y **el dueño la rechazó explícitamente**: "muy plano y muy blanco", "el hero se ve feo con esa imagen pequeña", "ese diagrama de las capas se ve horrible". Se revirtió todo (commits `e5e814a` y `8b3de6c`, revert en `933f57c`).
+**El diseño vigente es el v1**: hero split con imagen grande y chips flotantes, Bebas Neue + Inter, headers de sección centrados con brand-rule, cards con glow azul, bento de servicios con foto. **No reintentar la dirección v2 sin pedirlo el dueño.** Si se quiere elevar el diseño, iterar SOBRE el v1 (más color/profundidad está bien; minimalismo blanco y diagramas abstractos, no).
+
 ---
 
 ## 🔲 Qué nos hace falta
