@@ -6,10 +6,8 @@
 interface Props {
   faqs: { q: string; a: string }[];
   title?: string;
-  /** número de sección editorial, ej. "06" */
-  num?: string;
 }
-const { faqs, title = 'Preguntas frecuentes', num = 'FAQ' } = Astro.props;
+const { faqs, title = 'Preguntas frecuentes' } = Astro.props;
 
 const schema = {
   '@context': 'https://schema.org',
@@ -23,11 +21,8 @@ const schema = {
 ---
 
 <section class="mx-auto max-w-3xl px-4 py-20 sm:px-6">
-  <div class="flex items-baseline gap-4">
-    <span class="mono-data text-sm text-mid-500">{num} /</span>
-    <h2 class="font-display text-4xl text-cold-600 sm:text-5xl">{title}</h2>
-  </div>
-  <div class="mt-4 w-16 brand-rule"></div>
+  <h2 class="font-display text-center text-4xl text-cold-600 sm:text-5xl">{title}</h2>
+  <div class="mx-auto mt-3 w-16 brand-rule"></div>
 
   <div class="mt-10 space-y-3">
     {

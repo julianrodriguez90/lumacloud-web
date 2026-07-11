@@ -42,16 +42,6 @@ Reemplazar el WordPress actual (LCP móvil 25.9s, 88% tráfico de marca, ~19 vis
 - [x] Formulario y las 3 herramientas probados end-to-end en navegador
 - [x] Mobile verificado · Peso de home ~320KB total
 
-### Elevación de diseño "$10K" — v2 Swiss-technical (2026-07-10)
-- [x] Tipografía: Inter → **Instrument Sans** (cuerpo) + **IBM Plex Mono** (labels/datos técnicos); Bebas Neue se mantiene como display de marca
-- [x] Sistema v2: radios precisos, sombras secas, motion artesanal (wipe, link-tech, marquee, blur-settle), duotono de marca para fotografía, corner-ticks
-- [x] Componentes nuevos: SectionHeader editorial numerado, DiagramStack y DiagramRadar (SVG técnicos hechos a mano, sustituyen stock)
-- [x] Home rediseñada: hero editorial gigante con línea de estado SOC, franja de métricas, marquee de vendors, testimonial pull-quote, footer con wordmark gigante
-- [x] Ajuste v2.1 por feedback del dueño ("muy plano y blanco"): mesh azul más presente, sección de arquitectura en oscuro, diferenciales como cards sobre frost, tiles de gradiente en servicios, sombras con más color
-- [x] Mobile diseñado (no encogido): carrusel scroll-snap de servicios, métricas 2-col
-- [ ] Propagar el patrón v2 a los heros de las páginas de silo (hoy heredan tipografía/tokens pero conservan el layout v1)
-- [ ] Reemplazar las fotos más stock de páginas internas con los diagramas SVG o duotono
-
 ---
 
 ## 🔲 Qué nos hace falta

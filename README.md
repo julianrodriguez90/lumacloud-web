@@ -12,7 +12,7 @@ Sitio web nuevo de **LumaCloud** (Grupo Luma SAS — empresa colombiana de ciber
 - **El problema**: el WordPress actual tiene LCP móvil de **25.9s**, 88% de tráfico de marca y ~19 visitas orgánicas no-marca/mes. Los competidores (datos101.com, cloudseguro.co, hostdime.com.co) capturan 3-20× más keywords.
 - **La estrategia**: rediseño total en Astro (estático = rápido) + arquitectura de contenido en 5 silos SEO definida en `Plan_Maestro_pSEO_LumaCloud.docx` (diagnóstico Semrush, keywords con volumen/KD, roadmap de 12 meses).
 - **Regla editorial**: todo dato factual del sitio debe rastrearse al corpus extraído del WordPress (`content-source/`) o al BrandBook. **Nunca inventar cifras** ("X años de experiencia", "% de ahorro", "N clientes") — no tienen respaldo verificable.
-- **Marca** (de `LUMA - BrandBook.pdf`, 44 págs, no está en git por peso): colores Cold Blue `#173A87`, Mid Blue `#0073FF`, White Blue `#27CAFF`, Grey B `#100E16`; tipografías Bebas Neue (títulos) + Open Sans (modernizada en la web a Instrument Sans + IBM Plex Mono para acentos técnicos); esencia "Tranquilidad, Innovación, Seguridad"; arquetipo Creador; voz experta-cercana con tuteo.
+- **Marca** (de `LUMA - BrandBook.pdf`, 44 págs, no está en git por peso): colores Cold Blue `#173A87`, Mid Blue `#0073FF`, White Blue `#27CAFF`, Grey B `#100E16`; tipografías Bebas Neue (títulos) + Open Sans (modernizada a Inter en la web); esencia "Tranquilidad, Innovación, Seguridad"; arquetipo Creador; voz experta-cercana con tuteo.
 
 ## 2. Quick start
 
@@ -117,7 +117,7 @@ Definido en `src/styles/global.css` con `@theme` de Tailwind 4. **Página patró
 **Colores** (escala completa en global.css):
 `cold-600 #173A87` (primario/títulos) · `mid-500 #0073FF` (CTAs/acción) · `sky-500 #27CAFF` (acentos) · `ink #100E16` (texto/footer) · `frost-50..300` (superficies frías claras)
 
-**Tipografía — tres voces con roles** (self-hosted con preload): `font-display` = Bebas Neue en MAYÚSCULAS (H1/H2 display, escala grande); cuerpo = Instrument Sans Variable; `mono-label`/`mono-data` = IBM Plex Mono para eyebrows, labels, cifras y detalles técnicos (la voz "terminal/SOC" que da el carácter del sitio). **No usar Inter ni volver a headers centrados genéricos** — ver dirección v2 "Swiss-technical" en `CLAUDE.md`.
+**Tipografía**: `font-display` = Bebas Neue en MAYÚSCULAS con tracking (H1/H2 display); cuerpo = Inter Variable. Ambas self-hosted con preload.
 
 **Utilidades propias** (usarlas, no reinventar):
 | Utilidad | Qué hace |
