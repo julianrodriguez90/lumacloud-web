@@ -34,6 +34,8 @@ Ver `.env.example`: `RESEND_API_KEY` (formulario de contacto), `PUBLIC_GA4_ID` (
 
 ## Docs
 
+- **`docs/ESTADO-PROYECTO.md` — qué hicimos y qué falta (estado + roadmap, empezar por aquí)**
 - `docs/RESPALDO-WORDPRESS.md` — cómo respaldar el WP antes del cutover de DNS
 - `docs/superpowers/specs/2026-05-13-lumacloud-rebuild-design.md` — spec técnico del rebuild
 - `Plan_Maestro_pSEO_LumaCloud.docx` — estrategia SEO (silos, keywords, roadmap)
+- `CLAUDE.md` — convenciones, reglas de contenido y gotchas para sesiones con Claude
