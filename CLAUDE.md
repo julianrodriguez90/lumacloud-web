@@ -30,6 +30,9 @@ Un cambio sin su documentación actualizada está **incompleto**. Esto aplica ta
 4. Tono BrandBook: experto pero cercano, tuteo ("protege tu empresa"), directo, sin arrogancia. Español de Colombia.
 5. Los datos de empresa (dirección, teléfono, redes) viven SOLO en `src/lib/site.ts` — nunca hardcodearlos en páginas.
 6. En temas legales (Ley 1581, ISO): LumaCloud implementa controles técnicos; NO emite certificaciones ni da asesoría legal. Incluir disclaimer donde aplique.
+7. **Estadísticas externas citables** (verificadas contra la fuente primaria, se usan vía `StatCallout.astro` con link a la fuente):
+   - MinTIC / ColCERT — *Informe de Tendencias de Amenazas Cibernéticas 2025*: el fraude (phishing + uso no autorizado de cuentas de correo) representó el **79,8%** de los incidentes gestionados por ColCERT en 2024-2025 (835 casos de phishing, 784 de uso no autorizado de correo); ColCERT gestionó 697 incidentes en 2025 vs. 1.427 en 2024 (reducción del 48,84%), ampliando su monitoreo de 31 a ~1.300 entidades y 35.000 páginas web. Fuente: https://www.mintic.gov.co/portal/inicio/Sala-de-prensa/Noticias/433511
+   - Para añadir una nueva estadística externa: verificarla contra la página oficial primaria (no solo un resumen de búsqueda), añadirla aquí con la cifra exacta + URL, y usar `StatCallout`.
 
 ## Reglas SEO (por página, verificadas por auditoría)
 
@@ -45,8 +48,9 @@ Un cambio sin su documentación actualizada está **incompleto**. Esto aplica ta
 
 - **Patrón de página de servicio: `src/pages/ciberseguridad/index.astro`** — replicar su estructura (hero split con BrandImage + breadcrumb inline, cards de subservicios, sección detalle con imagen, enlaces de silo, FAQSection 4-5 preguntas, CTASection).
 - Tokens en `src/styles/global.css` (@theme): `cold-*` #173A87 primario, `mid-*` #0073FF CTAs, `sky-*` #27CAFF acentos, `ink` #100E16 texto/footer, `frost-*` superficies claras.
-- Utilidades propias (usar, no reinventar): `font-display` (Bebas Neue caps), `brand-rule`, `text-brand-gradient`, `bg-blueprint`/`bg-blueprint-dark`, `bg-hero-mesh`, `card-brand`, `animate-rise` + `.stagger`, `scroll-reveal`, `prose-luma` (blog).
-- Componentes: `BaseLayout` (title, description, ogImage?, breadcrumbs?, schemas?, noindex?), `BrandImage` (overlay?, priority? → fetchpriority high para LCP), `CTASection`, `FAQSection`, `Testimonios`, `Header`, `Footer`.
+- Utilidades propias (usar, no reinventar): `font-display` (Bebas Neue caps), `brand-rule`, `text-brand-gradient`, `bg-blueprint`/`bg-blueprint-dark`, `bg-hero-mesh`, `card-brand`, `animate-rise` + `.stagger`, `scroll-reveal`, `prose-luma` (blog), `animate-marquee` (loop continuo, pausa en hover — usar SIEMPRE con 2 copias del contenido, solo la 2ª con `aria-hidden`), `animate-rise-float` (entrada + flotación continua combinadas — **nunca** apilar `animate-rise` + `animate-float` por separado: ambas usan el shorthand `animation` y la segunda pisa a la primera), `parallax-hero` (scroll-driven `animation-timeline: scroll()`, envolver la imagen del hero).
+- **Patrón de stagger correcto**: `.stagger` en el contenedor (pone `animation-delay` por `nth-child`) + `.scroll-reveal` en CADA hijo individual (la animación real). `.scroll-reveal` solo en el contenedor = un solo bloque que revela junto, no cascada.
+- Componentes: `BaseLayout` (title, description, ogImage?, breadcrumbs?, schemas?, noindex?), `BrandImage` (overlay?, priority? → fetchpriority high para LCP), `StatCallout` (stat, label, source, sourceUrl — estadística citada externa, cifra debe estar en la lista de "Estadísticas externas citables" arriba), `CTASection`, `FAQSection`, `Testimonios`, `Header`, `Footer`.
 - Reglas duras: animaciones solo CSS · solo WebP en `public/images/` · todo `<img>` con width/height · herramientas de `/herramientas/` en JS vanilla cliente · footer oscuro.
 
 ## Gotchas de diseño (decisiones del dueño — respetarlas)

@@ -4,6 +4,7 @@ import BrandImage from '@/components/BrandImage.astro';
 import Testimonios from '@/components/Testimonios.astro';
 import CTASection from '@/components/CTASection.astro';
 import FAQSection from '@/components/FAQSection.astro';
+import StatCallout from '@/components/StatCallout.astro';
 import { SERVICES } from '@/lib/nav';
 
 const title = 'Ciberseguridad y Nube Empresarial en Colombia | LumaCloud';
@@ -100,20 +101,22 @@ const FAQS = [
       </div>
 
       <div class="animate-rise relative [animation-delay:0.2s]">
-        <BrandImage
-          src="/images/heros/home-datacenter.webp"
-          alt="Datacenter de LumaCloud con racks de servidores"
-          width={908}
-          height={605}
-          overlay
-          priority
-        />
-        <!-- chip flotante -->
-        <div class="absolute -bottom-6 -left-4 rounded-2xl border border-frost-200 bg-white/95 px-5 py-4 shadow-card-hover backdrop-blur sm:-left-8">
+        <div class="parallax-hero">
+          <BrandImage
+            src="/images/heros/home-datacenter.webp"
+            alt="Datacenter de LumaCloud con racks de servidores"
+            width={908}
+            height={605}
+            overlay
+            priority
+          />
+        </div>
+        <!-- chips flotantes: entrada escalonada (rise) + flotación continua sutil, una vez asentados -->
+        <div class="animate-rise-float absolute -bottom-6 -left-4 rounded-2xl border border-frost-200 bg-white/95 px-5 py-4 shadow-card-hover backdrop-blur [animation-delay:0.35s,1.05s] sm:-left-8">
           <p class="font-display text-3xl leading-none text-mid-500">24/7</p>
           <p class="mt-1 text-xs font-medium text-ink-mute">Monitoreo SOC continuo</p>
         </div>
-        <div class="absolute -right-3 -top-5 rounded-2xl border border-frost-200 bg-white/95 px-5 py-4 shadow-card-hover backdrop-blur sm:-right-6">
+        <div class="animate-rise-float absolute -right-3 -top-5 rounded-2xl border border-frost-200 bg-white/95 px-5 py-4 shadow-card-hover backdrop-blur [animation-delay:0.5s,1.2s] sm:-right-6">
           <p class="font-display text-3xl leading-none text-cold-600">TIER IV</p>
           <p class="mt-1 text-xs font-medium text-ink-mute">Datacenters certificados</p>
         </div>
@@ -121,16 +124,23 @@ const FAQS = [
     </div>
   </section>
 
-  <!-- ======== VENDORS / CONFIANZA ======== -->
+  <!-- ======== VENDORS / CONFIANZA (marquee) ======== -->
   <section class="border-y border-frost-200 bg-white py-8">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6">
-      <p class="text-center text-xs font-semibold uppercase tracking-[0.25em] text-ink-mute">Tecnología de clase mundial</p>
-      <div class="mt-5 flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
-        {
-          ['Acronis', 'Fortinet', 'Proxmox', 'VMware', 'Veeam'].map((v) => (
+    <p class="text-center text-xs font-semibold uppercase tracking-[0.25em] text-ink-mute">Tecnología de clase mundial</p>
+    <div class="relative mt-5 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
+      <div class="animate-marquee flex w-max items-center gap-16">
+        {/* copia real, accesible a lectores de pantalla */}
+        <div class="flex items-center gap-16">
+          {['Acronis', 'Fortinet', 'Proxmox', 'VMware', 'Veeam'].map((v) => (
             <span class="font-display text-2xl tracking-wider text-ink-mute/70 transition-colors hover:text-cold-600">{v}</span>
-          ))
-        }
+          ))}
+        </div>
+        {/* copia duplicada decorativa, solo para el loop visual continuo */}
+        <div class="flex items-center gap-16" aria-hidden="true">
+          {['Acronis', 'Fortinet', 'Proxmox', 'VMware', 'Veeam'].map((v) => (
+            <span class="font-display text-2xl tracking-wider text-ink-mute/70 transition-colors hover:text-cold-600">{v}</span>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -141,9 +151,9 @@ const FAQS = [
     <h2 class="font-display mt-3 text-center text-4xl text-cold-600 sm:text-6xl">Una solución 360 para tu operación</h2>
     <div class="mx-auto mt-3 w-16 brand-rule"></div>
 
-    <div class="scroll-reveal mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="stagger mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       <!-- celda grande: ciberseguridad -->
-      <a href="/ciberseguridad" class="card-brand group relative overflow-hidden sm:col-span-2 sm:row-span-2">
+      <a href="/ciberseguridad" class="card-brand scroll-reveal group relative overflow-hidden sm:col-span-2 sm:row-span-2">
         <img
           src="/images/heros/ciberseguridad-candado.webp"
           alt="Ciberseguridad empresarial: candado sobre circuito digital"
@@ -169,7 +179,7 @@ const FAQS = [
 
       {
         SERVICES.filter((s) => s.href !== '/ciberseguridad').map((s) => (
-          <a href={s.href} class="card-brand group flex flex-col p-7">
+          <a href={s.href} class="card-brand scroll-reveal group flex flex-col p-7">
             <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cold-600 to-mid-500 text-white shadow-[0_4px_14px_rgb(0_115_255/0.3)]">
               <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                 <path d="M10 2 3 5.5v5c0 4 3 6.5 7 7.5 4-1 7-3.5 7-7.5v-5L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
@@ -211,10 +221,10 @@ const FAQS = [
           </a>
         </div>
 
-        <div class="scroll-reveal grid gap-4 sm:grid-cols-2">
+        <div class="stagger grid gap-4 sm:grid-cols-2">
           {
             DIFERENCIALES.map((d, i) => (
-              <div class="card-brand p-6">
+              <div class="card-brand scroll-reveal p-6">
                 <p class="font-display text-xl text-sky-600">{String(i + 1).padStart(2, '0')}</p>
                 <h3 class="mt-2 font-bold text-ink">{d.titulo}</h3>
                 <p class="mt-1.5 text-sm leading-relaxed text-ink-mute">{d.texto}</p>
@@ -264,6 +274,18 @@ const FAQS = [
   </section>
 
   <Testimonios />
+
+  <!-- ======== ESTADÍSTICA CITADA ======== -->
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <StatCallout
+      stat="79,8%"
+      label="de los incidentes de ciberseguridad gestionados por el Estado colombiano en 2024-2025 fueron fraude: phishing y compromiso de cuentas de correo."
+      source="MinTIC / ColCERT — Informe de Tendencias de Amenazas Cibernéticas 2025"
+      sourceUrl="https://www.mintic.gov.co/portal/inicio/Sala-de-prensa/Noticias/433511:Colombia-fortalece-su-soberania-digital-durante-2025-logro-reducir-en-un-48-los-incidentes-ciberneticos"
+      class="scroll-reveal"
+    />
+  </section>
+
   <FAQSection faqs={FAQS} />
   <CTASection />
 </BaseLayout>

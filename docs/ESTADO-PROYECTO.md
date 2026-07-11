@@ -1,6 +1,6 @@
 # Estado del proyecto — rediseño lumacloud.co
 
-**Última actualización:** 2026-07-10 · Rama: `redesign/astro-rebuild`
+**Última actualización:** 2026-07-11 · Rama: `redesign/astro-rebuild`
 Documento interno de seguimiento (en el repo, no se publica en la web).
 
 ## Objetivo
@@ -45,6 +45,16 @@ Reemplazar el WordPress actual (LCP móvil 25.9s, 88% tráfico de marca, ~19 vis
 ### ⚠️ Decisión de diseño (2026-07-10): rediseño v2 "Swiss-technical" DESCARTADO
 Se intentó una elevación de diseño (tipografía Instrument Sans + IBM Plex Mono, hero editorial con imagen pequeña, secciones numeradas estilo mono, diagramas SVG isométricos, lista editorial plana) y **el dueño la rechazó explícitamente**: "muy plano y muy blanco", "el hero se ve feo con esa imagen pequeña", "ese diagrama de las capas se ve horrible". Se revirtió todo (commits `e5e814a` y `8b3de6c`, revert en `933f57c`).
 **El diseño vigente es el v1**: hero split con imagen grande y chips flotantes, Bebas Neue + Inter, headers de sección centrados con brand-rule, cards con glow azul, bento de servicios con foto. **No reintentar la dirección v2 sin pedirlo el dueño.** Si se quiere elevar el diseño, iterar SOBRE el v1 (más color/profundidad está bien; minimalismo blanco y diagramas abstractos, no).
+
+### Elevación de motion y credibilidad — inspirado en Delta Protect (2026-07-11)
+El dueño pidió comparar el sitio con [deltaprotect.com](https://www.deltaprotect.com/co/pais/empresa-ciberseguridad-colombia) (competidor colombiano premiado en Awwwards). Hallazgo: su "wow" viene de un globo 3D WebGL con scroll-jacking — técnica pesada (el navegador de inspección se colgó varias veces al intentar hacer scroll) que reintroduciría el problema de rendimiento que este rediseño resuelve. Se optó por profundizar el sistema de motion 100% CSS existente en vez de imitar el WebGL:
+- [x] Marquee CSS (`animate-marquee`) en la franja de vendors del home — loop continuo, pausa en hover, respeta reduced-motion, con copia accesible + copia decorativa
+- [x] Stagger real en grids de servicios, diferenciales y testimonios (antes `.scroll-reveal` estaba en el contenedor como bloque único; ahora `.stagger` en el contenedor + `.scroll-reveal` en cada card para cascada real)
+- [x] Chips flotantes del hero con entrada escalonada + flotación continua sutil (`animate-rise-float`, nueva utilidad combinada — **nota técnica**: no se puede apilar `animate-rise` + `animate-float` por separado porque ambas usan el shorthand `animation` y la segunda pisaría a la primera)
+- [x] Parallax sutil de la imagen del hero al hacer scroll (`parallax-hero`, `animation-timeline: scroll()` nativo)
+- [x] Nuevo componente `StatCallout.astro` (estadística citada con fuente) insertado en home (antes del CTA final) y en `/ciberseguridad` (junto a email security)
+- [x] Estadística real verificada contra la fuente primaria (MinTIC/ColCERT) y documentada en `CLAUDE.md` como "Estadística externa citable"
+- [x] Verificado en navegador: desktop, mobile 375px, animaciones combinadas confirmadas por computed style, cero JS nuevo, build limpio
 
 ---
 

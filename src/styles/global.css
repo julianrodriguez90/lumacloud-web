@@ -206,6 +206,57 @@
   }
 }
 
+/* Marquee continuo — franja de logos/vendors, pausa en hover, CSS puro */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@utility animate-marquee {
+  animation: marquee-x 28s linear infinite;
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* Flotación sutil — chips/fichas del hero, una vez asentados */
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@utility animate-float {
+  animation: float-soft 3.6s ease-in-out infinite;
+}
+
+/* Entrada (rise-in) + flotación continua combinadas en una sola declaración:
+   dos utilidades "animate-*" separadas NO se pueden apilar porque ambas usan
+   el shorthand `animation` y la segunda pisaría a la primera. Usar esta
+   utilidad + `[animation-delay:Xs,Ys]` para escalonar ambas fases a la vez. */
+@utility animate-rise-float {
+  animation:
+    rise-in 0.7s var(--ease-out-quart) both,
+    float-soft 3.6s ease-in-out infinite;
+}
+
+/* Parallax sutil de la imagen del hero al hacer scroll — nativo, cero JS */
+@keyframes parallax-drift {
+  from {
+    transform: translateY(0) scale(1);
+  }
+  to {
+    transform: translateY(18px) scale(1.03);
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  .parallax-hero {
+    animation: parallax-drift linear both;
+    animation-timeline: scroll();
+    animation-range: 0 60vh;
+  }
+}
+
 /* ---------- prosa de blog ---------- */
 .prose-luma {
   max-width: 68ch;

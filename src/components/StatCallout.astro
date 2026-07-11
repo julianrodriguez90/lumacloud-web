@@ -1,0 +1,31 @@
+---
+/**
+ * Estadística citada con fuente externa verificable — refuerza credibilidad
+ * (E-E-A-T) sin depender solo de datos propios de LumaCloud.
+ * Toda cifra usada aquí debe estar documentada en CLAUDE.md
+ * ("Estadísticas externas citables") con su fuente exacta.
+ */
+interface Props {
+  stat: string;
+  label: string;
+  source: string;
+  sourceUrl: string;
+  class?: string;
+}
+const { stat, label, source, sourceUrl, class: className = '' } = Astro.props;
+---
+
+<figure class:list={['card-brand flex flex-col items-start gap-1 p-7 sm:flex-row sm:items-center sm:gap-6', className]}>
+  <p class="font-display shrink-0 text-6xl leading-none text-brand-gradient sm:text-7xl">{stat}</p>
+  <figcaption class="text-sm leading-relaxed text-ink-soft">
+    <span class="block font-medium text-ink">{label}</span>
+    <a
+      href={sourceUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mt-1 inline-block text-xs text-ink-mute underline decoration-sky-500 decoration-1 underline-offset-2 transition-colors hover:text-mid-600"
+    >
+      Fuente: {source}
+    </a>
+  </figcaption>
+</figure>

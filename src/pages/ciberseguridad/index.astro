@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import BrandImage from '@/components/BrandImage.astro';
 import CTASection from '@/components/CTASection.astro';
 import FAQSection from '@/components/FAQSection.astro';
+import StatCallout from '@/components/StatCallout.astro';
 import { SITE } from '@/lib/site';
 
 const title = 'Soluciones de Ciberseguridad para Empresas | LumaCloud';
@@ -222,6 +223,17 @@ const serviceSchema = {
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- ESTADÍSTICA CITADA -->
+  <section class="mx-auto max-w-4xl px-4 py-4 sm:px-6">
+    <StatCallout
+      stat="79,8%"
+      label="de los incidentes de ciberseguridad gestionados por el Estado colombiano en 2024-2025 fueron fraude: phishing y compromiso de cuentas de correo — justo lo que cubre nuestro email security."
+      source="MinTIC / ColCERT — Informe de Tendencias de Amenazas Cibernéticas 2025"
+      sourceUrl="https://www.mintic.gov.co/portal/inicio/Sala-de-prensa/Noticias/433511:Colombia-fortalece-su-soberania-digital-durante-2025-logro-reducir-en-un-48-los-incidentes-ciberneticos"
+      class="scroll-reveal"
+    />
   </section>
 
   <!-- ENLACES DE SILO -->
