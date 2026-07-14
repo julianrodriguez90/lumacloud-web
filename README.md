@@ -128,11 +128,14 @@ Definido en `src/styles/global.css` con `@theme` de Tailwind 4. **Página patró
 | `bg-hero-mesh` | glows radiales azules para heros claros |
 | `card-brand` | card blanca con hover elevado + glow azul |
 | `animate-rise` (+ `.stagger` en el padre) | entrada al cargar |
-| `scroll-reveal` | entrada al hacer scroll (CSS `animation-timeline`, con @supports) |
+| `scroll-reveal` | entrada al hacer scroll (CSS `animation-timeline: view()`, con @supports). **Patrón correcto**: `.stagger` en el contenedor + `.scroll-reveal` en CADA hijo — si solo va en el contenedor, revela como un bloque único en vez de cascada |
+| `animate-marquee` | loop horizontal continuo, pausa en `:hover` (franja de vendors). Usar siempre con 2 copias del contenido, solo la 2ª con `aria-hidden="true"` |
+| `animate-rise-float` | entrada (rise) + flotación continua combinadas en una sola utilidad. **No apilar** `animate-rise` + un `animate-float` separado: ambas usan el shorthand CSS `animation` y la segunda pisaría a la primera — por eso existen combinadas |
+| `parallax-hero` | parallax sutil vía `animation-timeline: scroll()` nativo, envolver la imagen del hero |
 
-**Reglas duras**: animaciones solo CSS (cero JS de animación) · solo WebP en `public/images/` · todo `<img>` con `width`/`height` · imagen LCP del hero con `fetchpriority="high"` (prop `priority` de `BrandImage`) · footer siempre oscuro (`ink`).
+**Reglas duras**: animaciones solo CSS (cero JS de animación) · solo WebP en `public/images/` · todo `<img>` con `width`/`height` · imagen LCP del hero con `fetchpriority="high"` (prop `priority` de `BrandImage`) · footer siempre oscuro (`ink`) · **todo elemento interactivo (link, botón, radio, chip) con tap target ≥44×44px** (patrón `flex min-h-11 items-center`, verificado en auditoría mobile de julio 2026).
 
-**Componentes** (`src/components/`): `BaseLayout` (props: `title`, `description`, `ogImage?`, `breadcrumbs?`, `schemas?`, `noindex?`) · `BrandImage` (imagen con tratamiento de marca; props `overlay`, `priority`) · `CTASection` (cierre oscuro con CTA + WhatsApp) · `FAQSection` (acordeón `<details>` que emite schema FAQPage solo) · `Testimonios` (4 clientes verificados — NO agregar testimonios sin verificar).
+**Componentes** (`src/components/`): `BaseLayout` (props: `title`, `description`, `ogImage?`, `breadcrumbs?`, `schemas?`, `noindex?`) · `BrandImage` (imagen con tratamiento de marca; props `overlay`, `priority`) · `StatCallout` (estadística externa citada con fuente; props `stat`, `label`, `source`, `sourceUrl` — la cifra debe estar en la lista de "Estadísticas externas citables" de `CLAUDE.md`) · `CTASection` (cierre oscuro con CTA + WhatsApp) · `FAQSection` (acordeón `<details>` que emite schema FAQPage solo) · `Testimonios` (4 clientes verificados — NO agregar testimonios sin verificar) · `Header` (sticky, mega-menú desktop + drawer `<details>` mobile) · `Footer` (oscuro, links y redes con tap target 44px).
 
 ## 7. SEO — cómo está montado
 

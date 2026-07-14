@@ -4,6 +4,14 @@ Rediseño de lumacloud.co (Grupo Luma SAS — ciberseguridad y nube empresarial,
 
 **Antes de trabajar:** el contexto completo del proyecto está en `README.md` (arquitectura, pipeline, workflows) y el estado/pendientes en `docs/ESTADO-PROYECTO.md`. Para features nuevas, leer ambos primero.
 
+## 🔄 Cómo retomar el proyecto en una sesión nueva
+
+1. **Rama de trabajo: `master`** (única rama del repo). El rediseño se hizo originalmente en `redesign/astro-rebuild` vía PRs #2-#7, pero esa rama ya se fusionó por completo y fue **borrada** (local + remoto) tras quedar obsoleta — todo el trabajo posterior a la fusión se hace directo sobre `master`. Si en algún momento aparece de nuevo una rama de feature de larga duración, documentarlo aquí explícitamente para que no se repita esta confusión.
+2. `git log --oneline -5` para ver los últimos cambios; `git status` debe salir limpio y sincronizado con `origin/master`.
+3. `npm install && npm run dev` → sitio en `localhost:4321`.
+4. Leer `docs/ESTADO-PROYECTO.md` completo — es el documento vivo de qué está hecho y qué falta. Los dos frentes de trabajo abiertos ahora mismo son: (a) contenido SEO Fase 1 (8 artículos evergreen + ~11 subpáginas comerciales, ver sección "Qué nos hace falta") y (b) el checklist de lanzamiento a producción (respaldo WP, Resend, deploy, DNS).
+5. No asumir que el dueño quiere más cambios visuales grandes: ya hubo un rediseño (v2) explícitamente rechazado y revertido — ver "Gotchas de diseño" abajo antes de proponer nada estético.
+
 ## 📌 Regla de mantenimiento de documentación (obligatoria)
 
 Todo cambio que afecte el proyecto se documenta **en el mismo commit o PR**:
@@ -52,6 +60,7 @@ Un cambio sin su documentación actualizada está **incompleto**. Esto aplica ta
 - **Patrón de stagger correcto**: `.stagger` en el contenedor (pone `animation-delay` por `nth-child`) + `.scroll-reveal` en CADA hijo individual (la animación real). `.scroll-reveal` solo en el contenedor = un solo bloque que revela junto, no cascada.
 - Componentes: `BaseLayout` (title, description, ogImage?, breadcrumbs?, schemas?, noindex?), `BrandImage` (overlay?, priority? → fetchpriority high para LCP), `StatCallout` (stat, label, source, sourceUrl — estadística citada externa, cifra debe estar en la lista de "Estadísticas externas citables" arriba), `CTASection`, `FAQSection`, `Testimonios`, `Header`, `Footer`.
 - Reglas duras: animaciones solo CSS · solo WebP en `public/images/` · todo `<img>` con width/height · herramientas de `/herramientas/` en JS vanilla cliente · footer oscuro.
+- **Tap targets ≥44×44px en todo elemento interactivo** (links, botones, radios/checkboxes, chips de filtro): patrón `flex min-h-11 items-center` en el elemento clicable, no solo padding en el texto. Nace de la auditoría mobile de julio 2026 que encontró el menú móvil, el footer y los radios de `evaluador-iso-27001` muy por debajo del mínimo — no reintroducir links de solo-texto sin altura mínima garantizada.
 
 ## Gotchas de diseño (decisiones del dueño — respetarlas)
 
@@ -73,6 +82,6 @@ Un cambio sin su documentación actualizada está **incompleto**. Esto aplica ta
 
 1. `npm run build` sin errores
 2. Auditoría rápida sobre `dist/client/`: 1 H1 por página, title/description en rango, canonical presente
-3. Si el cambio es visual: verificar en el preview browser (desktop + mobile 375px)
+3. Si el cambio es visual: verificar en el preview browser (desktop + mobile 375px), incluyendo que cualquier link/botón/radio nuevo mida ≥44×44px (`el.getBoundingClientRect()` vía `javascript_tool`)
 4. Si toca herramientas o formulario: probarlos interactivamente en el navegador
 5. **Actualizar la documentación** (ver regla de mantenimiento arriba)

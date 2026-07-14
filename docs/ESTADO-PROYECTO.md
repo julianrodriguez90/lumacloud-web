@@ -1,7 +1,13 @@
 # Estado del proyecto — rediseño lumacloud.co
 
-**Última actualización:** 2026-07-11 · Rama: `redesign/astro-rebuild`
+**Última actualización:** 2026-07-11 · Rama: `master` (única rama del repo — `redesign/astro-rebuild` cumplió su ciclo vía PRs #2-#7 y fue borrada)
 Documento interno de seguimiento (en el repo, no se publica en la web).
+
+## 🧭 Resumen ejecutivo — si solo lees esto
+
+El rediseño completo de lumacloud.co (WordPress → Astro) **está terminado, verificado y listo para desplegar**: 112 páginas, blog de 88 posts, SEO técnico completo, sistema de diseño con motion pulido, y una auditoría de usabilidad mobile ya corregida. Nada de esto está en producción todavía — el sitio vive solo en este repo (`master`, sincronizado con GitHub) y en `localhost:4321`.
+
+**Lo que falta para lanzar** es 100% acción del dueño (respaldo del WP, cuenta de Resend, deploy a Vercel, cutover de DNS — ver checklist abajo). **Lo que falta para ganar en SEO** es contenido: 8 artículos evergreen + ~11 subpáginas comerciales de la Fase 1 del Plan Maestro, todavía sin escribir. Ninguno de los dos frentes requiere más trabajo de diseño o arquitectura — ambos son ejecución sobre una base ya sólida.
 
 ## Objetivo
 
@@ -106,3 +112,5 @@ Auditoría sistemática a 375px de las ~24 páginas + blog + herramientas (3 age
 | Keywords en top 10 | ~3 | 25+ |
 | URLs indexadas | ~15 | 90+ (hoy: 112 construidas) |
 | Leads orgánicos/mes | ~2 | 12+ |
+
+**Contexto de la brecha de autoridad**: lumacloud.co hoy tiene ~60 keywords indexadas vs. 200-1.200 de competidores directos (datos101.com, cloudseguro.co, hostdime.com.co). Ningún rediseño cierra esa brecha por sí solo — se cierra con los meses de contenido evergreen + backlinks de las Fases 1-2 de arriba. **No prometer posición #1 en términos genéricos ("ciberseguridad", "cloud") a corto plazo** — es una carrera de 12+ meses, no de una web nueva. Ver conversación registrada: el dueño preguntó esto explícitamente y se le dio una respuesta honesta sobre expectativas de SEO y conversión (no hay garantías sin datos reales post-lanzamiento).
