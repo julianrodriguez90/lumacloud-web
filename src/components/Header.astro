@@ -74,7 +74,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
       <!-- menú móvil -->
       <details class="relative lg:hidden">
         <summary
-          class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-lg border border-frost-300 text-ink [&::-webkit-details-marker]:hidden"
+          class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg border border-frost-300 text-ink [&::-webkit-details-marker]:hidden"
           aria-label="Abrir menú"
         >
           <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -83,11 +83,11 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
         </summary>
         <div class="absolute right-0 top-full z-50 mt-3 w-[calc(100vw-2rem)] max-w-sm overflow-hidden rounded-2xl border border-frost-200 bg-white shadow-card-hover">
           <div class="brand-rule"></div>
-          <nav class="flex flex-col p-3" aria-label="Menú móvil">
+          <nav class="flex flex-col gap-1 p-3" aria-label="Menú móvil">
             <span class="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wider text-ink-mute">Servicios</span>
             {
               SERVICES.map((s) => (
-                <a href={s.href} class="rounded-lg px-3 py-2 text-sm font-medium text-ink-soft hover:bg-frost-50 hover:text-mid-600">
+                <a href={s.href} class="flex min-h-11 items-center rounded-lg px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-frost-50 hover:text-mid-600">
                   {s.label}
                 </a>
               ))
@@ -95,12 +95,15 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
             <div class="my-2 h-px bg-frost-200"></div>
             {
               NAV.map((item) => (
-                <a href={item.href} class="rounded-lg px-3 py-2 text-sm font-medium text-ink-soft hover:bg-frost-50 hover:text-mid-600">
+                <a href={item.href} class="flex min-h-11 items-center rounded-lg px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-frost-50 hover:text-mid-600">
                   {item.label}
                 </a>
               ))
             }
-            <a href="/contacto" class="mt-3 rounded-xl bg-mid-500 px-4 py-3 text-center text-sm font-semibold text-white hover:bg-mid-600">
+            <a
+              href="/contacto"
+              class="mt-2 flex min-h-11 items-center justify-center rounded-xl bg-mid-500 px-4 py-3 text-center text-sm font-semibold text-white hover:bg-mid-600"
+            >
               Habla con un experto
             </a>
           </nav>

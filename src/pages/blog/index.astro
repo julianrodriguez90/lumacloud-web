@@ -41,7 +41,7 @@ const fmt = (d: Date) => d.toLocaleDateString('es-CO', { day: 'numeric', month: 
       <input type="radio" name="cat" id="cat-todas" class="peer/todas sr-only" checked />
       <label
         for="cat-todas"
-        class="cursor-pointer rounded-full border border-frost-300 px-4 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:border-mid-400 hover:text-mid-600"
+        class="flex min-h-11 cursor-pointer items-center rounded-full border border-frost-300 px-4 text-sm font-medium text-ink-soft transition-colors hover:border-mid-400 hover:text-mid-600"
       >
         Todas
       </label>
@@ -51,7 +51,7 @@ const fmt = (d: Date) => d.toLocaleDateString('es-CO', { day: 'numeric', month: 
             <input type="radio" name="cat" id={`cat-${key}`} class:list={[`peer/${key}`, 'sr-only']} />
             <label
               for={`cat-${key}`}
-              class="cursor-pointer rounded-full border border-frost-300 px-4 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:border-mid-400 hover:text-mid-600"
+              class="flex min-h-11 cursor-pointer items-center rounded-full border border-frost-300 px-4 text-sm font-medium text-ink-soft transition-colors hover:border-mid-400 hover:text-mid-600"
             >
               {label}
             </label>
@@ -70,7 +70,7 @@ const fmt = (d: Date) => d.toLocaleDateString('es-CO', { day: 'numeric', month: 
                 alt={destacado.data.imageAlt ?? destacado.data.title}
                 width={1400}
                 height={800}
-                class="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-105 lg:h-full"
+                class="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105 lg:aspect-auto lg:h-full"
                 fetchpriority="high"
               />
             </div>

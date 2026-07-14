@@ -56,6 +56,16 @@ El dueño pidió comparar el sitio con [deltaprotect.com](https://www.deltaprote
 - [x] Estadística real verificada contra la fuente primaria (MinTIC/ColCERT) y documentada en `CLAUDE.md` como "Estadística externa citable"
 - [x] Verificado en navegador: desktop, mobile 375px, animaciones combinadas confirmadas por computed style, cero JS nuevo, build limpio
 
+### Auditoría y corrección de usabilidad mobile (2026-07-11)
+Auditoría sistemática a 375px de las ~24 páginas + blog + herramientas (3 agentes en paralelo, cross-validación de hallazgos). **Cero overflow horizontal y cero grids rotos en todo el sitio** — el layout base es sólido. Se corrigieron los tap targets y un bug de recorte de imagen:
+- [x] Menú móvil (`Header.astro`): links de 36px sin espacio → 44px con gap real entre filas; botón hamburguesa 40×40 → 44×44
+- [x] Footer (`Footer.astro`): links de servicios/empresa/contacto (~17px) → 44px; iconos sociales 36×36 → 44×44; texto de copyright 12px → 14px
+- [x] `/contacto`: links de teléfono/email/herramientas gratuitas (~17-20px) → 44px — la página de mayor conversión del sitio
+- [x] `/herramientas/evaluador-iso-27001`: radios "Sí/No" (el peor caso, 20px de alto) rediseñados como pills completas de 44px con estado activo visual (`has-[:checked]`)
+- [x] `/blog`: chips de filtro de categoría 34px → 44px; imagen del post destacado recortaba el título horneado en la imagen por mismatch de aspect-ratio (`h-64` fijo vs imagen real 1400×788) → `aspect-video` (coincide casi exacto con la proporción real, cero recorte)
+- [x] Verificado por computed style (`getBoundingClientRect`) y visualmente en navegador — todos los tap targets confirmados en ≥44px
+- [ ] Pendiente menor identificado (no bloqueante): `/blog` no pagina — los ~88 posts se renderizan todos en un solo DOM; `/quienes-somos` (~12.500px) y `/csirt` (~10.300px) son las páginas más largas del sitio, sin ancla de navegación interna — evaluar si vale la pena paginar/segmentar en una iteración futura
+
 ---
 
 ## 🔲 Qué nos hace falta
@@ -86,6 +96,7 @@ El dueño pidió comparar el sitio con [deltaprotect.com](https://www.deltaprote
 - [ ] Revisar/afinar manualmente la categoría de algunos posts del blog (la asignación es heurística)
 - [ ] Curar más imágenes del catálogo (`content-source/MEDIA-CATALOG.md`) para dar variedad visual a subpáginas
 - [ ] Página índice de `/herramientas/` (hoy solo existen las 3 herramientas sueltas)
+- [ ] Paginar `/blog` (hoy ~88 posts en un solo DOM) y evaluar acortar/segmentar `/quienes-somos` y `/csirt` (las páginas más largas del sitio en mobile)
 
 ## KPIs objetivo (Plan Maestro, Fase 1 al mes 4)
 
