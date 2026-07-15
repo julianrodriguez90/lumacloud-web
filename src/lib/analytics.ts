@@ -1,5 +1,5 @@
 /**
- * Helper de analítica GA4 (gtag vía Partytown) + captura de atribución.
+ * Helper de analítica GA4 (gtag async estándar) + captura de atribución.
  * Cliente only. Los scripts inline (define:vars) usan window.lumaTrack.
  */
 

@@ -25,7 +25,7 @@ Reemplazar el WordPress actual (LCP móvil 25.9s, 88% tráfico de marca, ~19 vis
 - [x] Páginas Gonemo rescatadas por scraping (Elementor rompe el REST API)
 
 ### Fases 1-2 — Fundación técnica y sistema de diseño
-- [x] Astro 6.4 + Tailwind 4.1 + adaptador Vercel + sitemap + Partytown (GA4)
+- [x] Astro 6.4 + Tailwind 4.1 + adaptador Vercel + sitemap + Partytown (GA4) — *Partytown eliminado el 2026-07-15: nunca ejecutó los scripts; GA4 pasó a gtag async estándar*
 - [x] Sistema de diseño BrandBook: azules de marca, Bebas Neue + Inter self-hosted, patrón blueprint, bento grids, cards con glow, animaciones CSS puro
 - [x] Componentes: BaseLayout (SEO + JSON-LD completo), Header con mega-menú, Footer, BrandImage, CTASection, FAQSection, Testimonios
 - [x] Endpoint `/api/contact` con Resend + honeypot anti-spam
@@ -97,6 +97,7 @@ Decisión del dueño (2026-07-15): más herramientas serias/validadas para clien
 - [ ] **Respaldo WP** con el admin (ver `docs/RESPALDO-WORDPRESS.md`): exportar WXR + UpdraftPlus
 - [ ] **Resend**: crear cuenta, verificar dominio lumacloud.co, poner `RESEND_API_KEY` en Vercel
 - [x] `PUBLIC_GA4_ID` en Vercel (2026-07-15, `G-4HP5K1LWCY`, Production and Preview) — falta marcar `generate_lead` como key event en GA4
+- [x] **Fix GA4** (2026-07-15): al configurar el ID real se descubrió que Partytown nunca ejecutaba los scripts de GA (sin hits, sin cookies, en dev y en Vercel). Se eliminó Partytown y GA4 pasó a gtag async estándar — verificado con hits reales a `google-analytics.com/g/collect`. **Requiere redeploy en Vercel.**
 - [x] **Zoho CRM**: credenciales self-client copiadas a las env vars de Vercel (2026-07-15) — aplican desde el próximo deploy
 - [ ] Push + deploy a Vercel y validar en URL de preview (probar formulario real, redirects con `curl -I`)
 - [ ] PageSpeed Insights sobre el preview: confirmar LCP <2.5s móvil

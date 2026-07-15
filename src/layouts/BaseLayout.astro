@@ -131,11 +131,10 @@ const jsonLd = {
     {
       GA4 && (
         <>
-          <script is:inline>window.dataLayer=window.dataLayer||[];window.gtag=function(){window.dataLayer.push(arguments);};</script>
-          <script type="text/partytown" src={`https://www.googletagmanager.com/gtag/js?id=${GA4}`} />
+          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA4}`} />
           <script
-            type="text/partytown"
-            set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','${GA4}');`}
+            is:inline
+            set:html={`window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','${GA4}');`}
           />
         </>
       )

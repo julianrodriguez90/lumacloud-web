@@ -71,6 +71,7 @@ Un cambio sin su documentación actualizada está **incompleto**. Esto aplica ta
 ## Gotchas
 
 - **No subir a Astro 7 ni Tailwind 4.3+** sin probar (pins deliberados; `@astrojs/vercel@10` = Astro 6, @11 = Astro 7).
+- **No reintroducir Partytown**: se eliminó el 2026-07-15 porque nunca ejecutó los scripts de GA4 (quedaban en `type="text/partytown"` sin pasar a `-x`, sin hits ni cookies, tanto en dev como en Vercel). GA4 carga con gtag async estándar en BaseLayout.
 - WP REST `/wp-json/wp/v2/pages` da **500 en lotes** — `extract-wp.mjs` baja IDs uno a uno. Las páginas Gonemo/LCI solo salen por scraping HTML (guardadas como `.html` en `content-source/pages/`).
 - `redirects-posts.generated.mjs` es GENERADO — no editar a mano; `redirects.mjs` (páginas) sí es manual. Los 301 solo se ven en `.vercel/output/config.json`, no funcionan en `npm run preview`.
 - Gitignored por peso: `LUMA - BrandBook.pdf` (20MB), `scripts/originals/` (251MB), `.claire/`. Si no existen localmente, re-descargar con `npm run extract-wp` (el BrandBook lo tiene Julián).

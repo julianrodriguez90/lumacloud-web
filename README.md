@@ -28,7 +28,7 @@ Variables de entorno (`.env`, ver `.env.example`):
 | Variable | Para qué | Estado |
 |---|---|---|
 | `RESEND_API_KEY` | Envío de leads por email a info@lumacloud.co | ⚠️ Pendiente: crear cuenta en resend.com y verificar dominio |
-| `PUBLIC_GA4_ID` | Google Analytics 4 (se inyecta vía Partytown; sin la variable no se carga nada) | ⚠️ Pendiente |
+| `PUBLIC_GA4_ID` | Google Analytics 4 (gtag async; sin la variable no se carga nada) | ✅ Configurada en Vercel (2026-07-15) |
 | `ZOHO_CLIENT_ID` | Zoho CRM: creación de Leads desde los formularios | ⚠️ Pendiente: self-client en api-console.zoho.com |
 | `ZOHO_CLIENT_SECRET` | Zoho CRM (par del client id) | ⚠️ Pendiente |
 | `ZOHO_REFRESH_TOKEN` | Zoho CRM: token permanente (scope `ZohoCRM.modules.leads.CREATE`) | ⚠️ Pendiente |
@@ -42,7 +42,7 @@ Variables de entorno (`.env`, ver `.env.example`):
 | Tailwind CSS | `~4.1.8` (**no subir a 4.3+**) | El spec original documentó que 4.3+ rompe con Astro 6. Tokens vía `@theme` en CSS |
 | `@astrojs/vercel` | `^10` | v10 = Astro 6, v11 = Astro 7. Materializa los redirects en `.vercel/output/config.json` |
 | `@astrojs/sitemap` | ^3.7 | Sitemap automático en build (112 URLs) |
-| `@astrojs/partytown` | ^2.1 | GA4 fuera del hilo principal (cero impacto en LCP/INP) |
+| ~~`@astrojs/partytown`~~ | eliminado 2026-07-15 | Nunca ejecutó los scripts de GA4 (ni en dev ni en Vercel); GA4 pasó a gtag async estándar |
 | Resend | ^4 | Email del formulario. Único código server-side del sitio |
 | sharp | ^0.34 | Optimización de imágenes a WebP (scripts, no runtime) |
 | turndown | ^7.2 | HTML→Markdown en la migración del blog |
@@ -55,7 +55,7 @@ Variables de entorno (`.env`, ver `.env.example`):
 ```
 ├── CLAUDE.md                     ← reglas para sesiones con IA (leer primero)
 ├── README.md                     ← este archivo
-├── astro.config.mjs              ← site, adapter vercel, sitemap, partytown, redirects
+├── astro.config.mjs              ← site, adapter vercel, sitemap, redirects
 ├── redirects.mjs                 ← redirects 301 de PÁGINAS del WP (editable a mano)
 ├── redirects-posts.generated.mjs ← redirects 301 de POSTS (GENERADO — no editar)
 ├── Plan_Maestro_pSEO_LumaCloud.docx  ← estrategia SEO completa (keywords, silos, KPIs)
@@ -163,7 +163,7 @@ Todos los leads del sitio pasan por `src/pages/api/contact.ts` (único endpoint 
 
 ### Analítica GA4 (eventos)
 
-`src/lib/analytics.ts` expone `track()` (gtag vía Partytown) y captura atribución (UTMs, landing, referrer) en `sessionStorage`, que viaja con cada lead. Listener global en `BaseLayout` para elementos con `data-track`. Los scripts inline (`define:vars`) usan `window.lumaTrack`.
+`src/lib/analytics.ts` expone `track()` (gtag async estándar, cargado en BaseLayout) y captura atribución (UTMs, landing, referrer) en `sessionStorage`, que viaja con cada lead. Listener global en `BaseLayout` para elementos con `data-track`. Los scripts inline (`define:vars`) usan `window.lumaTrack`.
 
 | Evento | Cuándo | Parámetros |
 |---|---|---|
