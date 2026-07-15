@@ -1,0 +1,148 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CTASection from '@/components/CTASection.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Herramientas Gratuitas de Ciberseguridad | LumaCloud';
+const description =
+  'Herramientas gratuitas para empresas: evalúa tu madurez en ciberseguridad, calcula tu RTO/RPO y el costo de downtime, mide tu brecha ISO 27001 y prueba tu ojo contra el phishing.';
+
+const HERRAMIENTAS = [
+  {
+    href: '/herramientas/evaluacion-ciberseguridad',
+    nombre: 'Evaluación de madurez en ciberseguridad',
+    desc: 'Mide tu madurez con las 6 funciones de NIST CSF 2.0: puntaje por función y brechas priorizadas.',
+    obtienes: 'Nivel de madurez + hoja de ruta',
+    tiempo: '3 minutos',
+    silo: { href: '/ciberseguridad', label: 'Ciberseguridad' },
+  },
+  {
+    href: '/herramientas/calculadora-costo-downtime',
+    nombre: 'Calculadora de costo de downtime',
+    desc: 'Cuánto pierde tu empresa por cada hora de sistemas caídos, con la metodología de un BIA.',
+    obtienes: 'Costo/hora + escenarios 4/24/72h',
+    tiempo: '2 minutos',
+    silo: { href: '/backup', label: 'Backup y ciberrecuperación' },
+  },
+  {
+    href: '/herramientas/calculadora-rto-rpo',
+    nombre: 'Calculadora RTO/RPO',
+    desc: 'Define cuánta pérdida de datos y cuánto tiempo de inactividad tolera tu operación, y qué estrategia exige.',
+    obtienes: 'Estrategia de backup o DRP recomendada',
+    tiempo: '2 minutos',
+    silo: { href: '/backup', label: 'Backup y ciberrecuperación' },
+  },
+  {
+    href: '/herramientas/evaluador-iso-27001',
+    nombre: 'Evaluador de brecha ISO 27001',
+    desc: 'Diez controles clave del Anexo A: sabe qué tan preparada está tu empresa para certificarse.',
+    obtienes: '% de preparación + brechas prioritarias',
+    tiempo: '2 minutos',
+    silo: { href: '/cumplimiento/iso-27001', label: 'Cumplimiento' },
+  },
+  {
+    href: '/herramientas/test-phishing',
+    nombre: 'Test de phishing',
+    desc: 'Seis correos basados en fraudes reales que circulan en Colombia: ¿los detectarías?',
+    obtienes: 'Score de detección + señales que se te escaparon',
+    tiempo: '3 minutos',
+    silo: { href: '/soc', label: 'SOC 24/7' },
+  },
+];
+
+const collectionSchema = {
+  '@type': 'CollectionPage',
+  '@id': `${SITE.url}/herramientas#webpage`,
+  url: `${SITE.url}/herramientas`,
+  name: title,
+  description,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: HERRAMIENTAS.map((h, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: h.nombre,
+      url: `${SITE.url}${h.href}`,
+    })),
+  },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Herramientas', href: '/herramientas' },
+  ]}
+  schemas={[collectionSchema]}
+>
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto max-w-7xl px-4 pb-12 pt-14 sm:px-6 lg:pb-16 lg:pt-20">
+      <div class="animate-rise max-w-3xl">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Herramientas</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          Herramientas gratuitas de <span class="text-brand-gradient">ciberseguridad y continuidad</span>
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
+          Diagnósticos exprés construidos sobre marcos reconocidos (NIST CSF, ISO 27001, ISO 22301) para que llegues a cualquier
+          conversación de seguridad con números en la mano. Sin registro y sin costo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
+    <div class="stagger grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {
+        HERRAMIENTAS.map((h) => (
+          <article class="scroll-reveal card-brand flex flex-col p-7">
+            <h2 class="text-lg font-bold text-ink">
+              <a href={h.href} class="hover:text-mid-600">
+                {h.nombre}
+              </a>
+            </h2>
+            <p class="mt-2 text-sm leading-relaxed text-ink-mute">{h.desc}</p>
+            <dl class="mt-4 space-y-1 text-sm">
+              <div class="flex gap-2">
+                <dt class="font-semibold text-ink">Obtienes:</dt>
+                <dd class="text-ink-mute">{h.obtienes}</dd>
+              </div>
+              <div class="flex gap-2">
+                <dt class="font-semibold text-ink">Tiempo:</dt>
+                <dd class="text-ink-mute">{h.tiempo}</dd>
+              </div>
+            </dl>
+            <div class="mt-auto pt-5">
+              <a
+                href={h.href}
+                data-track="cta_click"
+                data-track-cta={`hub-${h.href.split('/').pop()}`}
+                class="inline-flex min-h-11 items-center rounded-xl bg-mid-500 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-mid-600"
+              >
+                Usar herramienta →
+              </a>
+              <a href={h.silo.href} class="ml-3 inline-flex min-h-11 items-center text-sm font-semibold text-mid-500 hover:text-mid-600">
+                {h.silo.label}
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="mx-auto mt-12 max-w-3xl text-center text-sm leading-relaxed text-ink-mute">
+      Todos los resultados son orientativos: el paso siguiente natural es validarlos contra tu infraestructura real con un
+      <a href="/contacto" class="font-semibold text-mid-500 hover:text-mid-600">diagnóstico gratuito</a> de nuestro equipo.
+    </p>
+  </section>
+
+  <CTASection
+    title="¿Ya tienes tu diagnóstico?"
+    text="Convierte el resultado de cualquiera de estas herramientas en un plan concreto con un experto de LumaCloud."
+  />
+</BaseLayout>

@@ -59,7 +59,7 @@ const year = new Date().getFullYear();
         <h2 class="font-display text-lg tracking-wide text-sky-500">Empresa</h2>
         <ul class="mt-2">
           {
-            [...NAV, { href: '/contacto', label: 'Contacto' }, { href: '/herramientas/evaluador-iso-27001', label: 'Herramientas gratuitas' }].map((item) => (
+            [...NAV, { href: '/contacto', label: 'Contacto' }].map((item) => (
               <li>
                 <a href={item.href} class="flex min-h-11 items-center text-sm text-white/60 transition-colors hover:text-white">
                   {item.label}
