@@ -78,9 +78,9 @@ Spec: `docs/superpowers/specs/2026-07-14-analitica-zoho-design.md` · Plan: `doc
 - [x] `/api/contact` generalizado: despacha en paralelo a Resend y Zoho CRM (Lead en módulo Leads vía `src/lib/zoho.ts`, OAuth self-client); éxito si al menos un canal funciona; acepta leads de herramientas (`source`, `tool_result`)
 - [x] Captura de leads en las 3 herramientas gratuitas: `ToolLeadForm.astro` (email + empresa, opcional, dentro del resultado) — cada herramienta reporta su score al CRM
 - [x] Verificado: build limpio, batería curl del endpoint (400/200/503 según caso), envíos y eventos probados en navegador (desktop + mobile 375px, tap targets 44px)
-- [ ] **Pendiente del dueño (Zoho)**: admin crea Self Client en api-console.zoho.com (scope `ZohoCRM.modules.leads.CREATE`), entregar Client ID + Secret + grant code por canal seguro y confirmar DC → intercambiar por refresh token → 3 env vars en Vercel (ver README §2)
+- [x] **Credenciales Zoho** (2026-07-15): Self Client creado (DC `.com`), grant code intercambiado por refresh token, credenciales en `.env` local (gitignored). ⚠️ Falta copiarlas a Vercel al momento del deploy (`ZOHO_CLIENT_ID`, `ZOHO_CLIENT_SECRET`, `ZOHO_REFRESH_TOKEN` — valores en el `.env` local de Julián).
+- [x] **Prueba E2E Zoho** (2026-07-15): POST real a `/api/contact` con solo Zoho configurado → 200, Lead creado en el CRM. Lead de prueba a borrar en Zoho: email `prueba-integracion@lumacloud.co`, empresa "PRUEBA INTEGRACION WEB - BORRAR".
 - [ ] **Pendiente del dueño (GA4)**: marcar `generate_lead` como key event en la propiedad GA4
-- [ ] Prueba E2E post-credenciales: envío real → Lead visible en Zoho → borrarlo
 
 ### Nuevas herramientas enterprise + hub (2026-07-15)
 Decisión del dueño (2026-07-15): más herramientas serias/validadas para clientes grandes. Plan aprobado en conversación; asesor de migración a la nube y diagnóstico Ley 1581 quedaron para una ola futura.
@@ -97,7 +97,7 @@ Decisión del dueño (2026-07-15): más herramientas serias/validadas para clien
 - [ ] **Respaldo WP** con el admin (ver `docs/RESPALDO-WORDPRESS.md`): exportar WXR + UpdraftPlus
 - [ ] **Resend**: crear cuenta, verificar dominio lumacloud.co, poner `RESEND_API_KEY` en Vercel
 - [ ] `PUBLIC_GA4_ID` en Vercel (GA4 ya está cableado vía Partytown) + marcar `generate_lead` como key event
-- [ ] **Zoho CRM**: credenciales self-client (`ZOHO_CLIENT_ID/SECRET/REFRESH_TOKEN`) en Vercel — sin ellas los leads solo llegan por email
+- [ ] **Zoho CRM**: copiar las credenciales self-client (`ZOHO_CLIENT_ID/SECRET/REFRESH_TOKEN`, ya obtenidas y probadas E2E el 2026-07-15, viven en el `.env` local) a las env vars de Vercel
 - [ ] Push + deploy a Vercel y validar en URL de preview (probar formulario real, redirects con `curl -I`)
 - [ ] PageSpeed Insights sobre el preview: confirmar LCP <2.5s móvil
 - [ ] **Cutover DNS** en el registrador (WP queda como respaldo, idealmente en subdominio privado)
