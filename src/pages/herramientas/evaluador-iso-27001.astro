@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CTASection from '@/components/CTASection.astro';
 import FAQSection from '@/components/FAQSection.astro';
+import ToolLeadForm from '@/components/ToolLeadForm.astro';
 import { SITE } from '@/lib/site';
 
 const title = 'Evaluador de Brecha ISO 27001 Gratis | LumaCloud';
@@ -127,6 +128,7 @@ const appSchema = {
           <div id="iso-barra" class="bg-brand-gradient h-full rounded-full transition-all duration-700" style="width: 0%"></div>
         </div>
         <div id="iso-gaps" class="mt-8 space-y-3"></div>
+        <ToolLeadForm tool="tool-iso" />
         <div class="mt-8 rounded-2xl bg-frost-50 p-6 text-center">
           <p class="font-semibold text-ink">¿Quieres cerrar estas brechas con un plan concreto?</p>
           <p class="mt-1 text-sm text-ink-mute">Te ayudamos a implementar los controles técnicos que ISO 27001 exige.</p>
@@ -208,6 +210,9 @@ const appSchema = {
       }
     }
     document.getElementById('iso-resultado').classList.remove('hidden');
+    const leadBox = document.getElementById('tool-lead');
+    if (leadBox) leadBox.dataset.result = `Score: ${score}% — brechas: ${gaps.map((g) => g.id).join(', ') || 'ninguna'}`;
+    window.lumaTrack?.('tool_complete', { tool: 'tool-iso', score });
     document.getElementById('iso-resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 </script>

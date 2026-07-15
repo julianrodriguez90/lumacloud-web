@@ -1,0 +1,115 @@
+---
+/**
+ * Captura opcional de lead al final de una herramienta gratuita.
+ * Colocarlo DENTRO del contenedor de resultado (que ya está hidden hasta calcular).
+ * El script de la herramienta debe setear dataset.result al mostrar el resultado.
+ */
+interface Props {
+  tool: 'tool-iso' | 'tool-rto' | 'tool-phishing';
+}
+const { tool } = Astro.props;
+---
+
+<div id="tool-lead" data-source={tool} class="mt-8 rounded-2xl border border-mid-200 bg-white p-6 text-left">
+  <p class="font-bold text-ink">Recibe tu diagnóstico y próximos pasos</p>
+  <p class="mt-1 text-sm leading-relaxed text-ink-mute">
+    Déjanos tu email y un experto te envía recomendaciones concretas según tu resultado. Sin spam ni llamadas insistentes.
+  </p>
+  <form id="tool-lead-form" class="mt-4 grid gap-3 sm:grid-cols-[1.2fr_1fr_auto]" novalidate>
+    <div class="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+      <label for="tl-website">No llenes este campo</label>
+      <input type="text" id="tl-website" name="website" tabindex="-1" autocomplete="off" />
+    </div>
+    <div>
+      <label for="tl-email" class="sr-only">Email corporativo</label>
+      <input
+        type="email"
+        id="tl-email"
+        name="email"
+        required
+        maxlength="200"
+        autocomplete="email"
+        placeholder="Email corporativo *"
+        class="min-h-11 w-full rounded-xl border border-frost-300 bg-white px-4 py-2.5 text-sm text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+      />
+    </div>
+    <div>
+      <label for="tl-empresa" class="sr-only">Empresa</label>
+      <input
+        type="text"
+        id="tl-empresa"
+        name="empresa"
+        maxlength="200"
+        autocomplete="organization"
+        placeholder="Empresa (opcional)"
+        class="min-h-11 w-full rounded-xl border border-frost-300 bg-white px-4 py-2.5 text-sm text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+      />
+    </div>
+    <button
+      type="submit"
+      id="tool-lead-submit"
+      class="min-h-11 rounded-xl bg-mid-500 px-6 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-mid-600 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+    >
+      Recibir diagnóstico
+    </button>
+  </form>
+  <p id="tool-lead-status" role="status" aria-live="polite" class="mt-3 hidden text-sm font-medium"></p>
+</div>
+
+<script>
+  import { track, appendAttribution } from '@/lib/analytics';
+
+  const root = document.getElementById('tool-lead');
+  const form = document.getElementById('tool-lead-form') as HTMLFormElement | null;
+  const statusEl = document.getElementById('tool-lead-status');
+  const submitBtn = document.getElementById('tool-lead-submit') as HTMLButtonElement | null;
+
+  function showStatus(message: string, ok: boolean) {
+    if (!statusEl) return;
+    statusEl.classList.remove('hidden', 'text-cold-600', 'text-red-700');
+    statusEl.classList.add(ok ? 'text-cold-600' : 'text-red-700');
+    statusEl.textContent = message;
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity() || !root) return;
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando…';
+    }
+
+    const body = new FormData(form);
+    body.append('source', root.dataset.source ?? '');
+    body.append('tool_result', root.dataset.result ?? '');
+    appendAttribution(body);
+
+    const formId = root.dataset.source ?? 'tool';
+    try {
+      const res = await fetch('/api/contact', { method: 'POST', body });
+      let data: { ok?: boolean; error?: string } = {};
+      try {
+        data = await res.json();
+      } catch {
+        /* respuesta sin JSON */
+      }
+      if (res.ok && data.ok) {
+        form.reset();
+        showStatus('¡Listo! Te enviaremos tu diagnóstico en horario hábil.', true);
+        track('generate_lead', { form_id: formId, tool_score: root.dataset.result });
+      } else {
+        showStatus(data.error ?? 'No pudimos registrar tu email. Escríbenos a info@lumacloud.co.', false);
+        track('form_error', { form_id: formId, error_type: res.status >= 500 ? 'server' : 'validation' });
+      }
+    } catch {
+      showStatus('Error de conexión. Intenta de nuevo o escríbenos a info@lumacloud.co.', false);
+      track('form_error', { form_id: formId, error_type: 'network' });
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Recibir diagnóstico';
+      }
+    }
+  });
+</script>
