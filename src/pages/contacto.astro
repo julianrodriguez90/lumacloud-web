@@ -273,6 +273,8 @@ const contactSchema = {
 </BaseLayout>
 
 <script>
+  import { track, appendAttribution } from '@/lib/analytics';
+
   const form = document.getElementById('form-contacto') as HTMLFormElement | null;
   const status = document.getElementById('form-status');
   const submitBtn = document.getElementById('form-submit') as HTMLButtonElement | null;
@@ -296,8 +298,12 @@ const contactSchema = {
       submitBtn.textContent = 'Enviando…';
     }
 
+    const body = new FormData(form);
+    appendAttribution(body);
+    const servicio = String(body.get('servicio') ?? '');
+
     try {
-      const res = await fetch('/api/contact', { method: 'POST', body: new FormData(form) });
+      const res = await fetch('/api/contact', { method: 'POST', body });
       let data: { ok?: boolean; error?: string } = {};
       try {
         data = await res.json();
@@ -308,11 +314,14 @@ const contactSchema = {
       if (res.ok && data.ok) {
         form.reset();
         showStatus('¡Mensaje enviado! Te contactaremos muy pronto en horario hábil.', true);
+        track('generate_lead', { form_id: 'contacto', servicio });
       } else {
         showStatus(data.error ?? 'No pudimos enviar tu mensaje. Intenta de nuevo o escríbenos a info@lumacloud.co.', false);
+        track('form_error', { form_id: 'contacto', error_type: res.status >= 500 ? 'server' : 'validation' });
       }
     } catch {
       showStatus('Error de conexión. Verifica tu red e intenta de nuevo, o escríbenos a info@lumacloud.co.', false);
+      track('form_error', { form_id: 'contacto', error_type: 'network' });
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
