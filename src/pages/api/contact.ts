@@ -10,6 +10,8 @@ const TOOL_LABELS: Record<string, string> = {
   'tool-iso': 'Evaluador ISO 27001',
   'tool-rto': 'Calculadora RTO/RPO',
   'tool-phishing': 'Test de phishing',
+  'tool-madurez': 'Evaluador de madurez en ciberseguridad',
+  'tool-downtime': 'Calculadora de costo de downtime',
 };
 
 const ATTRIBUTION_KEYS = [
