@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CTASection from '@/components/CTASection.astro';
 import FAQSection from '@/components/FAQSection.astro';
+import ToolLeadForm from '@/components/ToolLeadForm.astro';
 import { SITE } from '@/lib/site';
 
 const title = 'Calculadora RTO/RPO Gratuita | LumaCloud';
@@ -183,6 +184,8 @@ const appSchema = {
 
         <p id="res-nota" class="mt-5 hidden rounded-xl border border-frost-200 bg-white px-4 py-3 text-sm leading-relaxed text-ink-mute"></p>
 
+        <ToolLeadForm tool="tool-rto" />
+
         <div class="mt-8 rounded-2xl bg-gradient-to-br from-cold-600 to-mid-500 p-6 text-white sm:flex sm:items-center sm:justify-between sm:gap-6">
           <div>
             <p class="font-display text-2xl">¿Quieres validar estos números con un experto?</p>
@@ -243,6 +246,8 @@ const appSchema = {
 </BaseLayout>
 
 <script>
+  import { track } from '@/lib/analytics';
+
   const form = document.getElementById('form-rto') as HTMLFormElement | null;
   const resultado = document.getElementById('resultado');
   const resTitulo = document.getElementById('res-titulo');
@@ -301,6 +306,10 @@ const appSchema = {
     if (resTexto) resTexto.textContent = est.texto;
     if (resRpo) resRpo.textContent = est.rpo;
     if (resRto) resRto.textContent = est.rto;
+
+    const leadBox = document.getElementById('tool-lead');
+    if (leadBox) leadBox.dataset.result = `Estrategia: ${est.titulo} | RPO deseado: ${rpoDeseado}h, RTO deseado: ${rtoDeseado}h`;
+    track('tool_complete', { tool: 'tool-rto', score: clave });
 
     if (resNota) {
       const notas: string[] = [];

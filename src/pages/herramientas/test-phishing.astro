@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CTASection from '@/components/CTASection.astro';
 import FAQSection from '@/components/FAQSection.astro';
+import ToolLeadForm from '@/components/ToolLeadForm.astro';
 import { SITE } from '@/lib/site';
 
 const title = 'Test de Phishing para tu Equipo | LumaCloud';
@@ -224,6 +225,7 @@ const appSchema = {
         >
           Agenda tu diagnóstico gratuito
         </a>
+        <ToolLeadForm tool="tool-phishing" />
       </div>
     </div>
   </section>
@@ -296,6 +298,9 @@ const appSchema = {
             ? 'Caíste en algunas trampas comunes. La buena noticia: estas señales se aprenden con práctica.'
             : 'Varios de estos correos te habrían comprometido. Es el punto de partida perfecto para capacitar a tu equipo.';
       $('resultado').classList.remove('hidden');
+      const leadBox = $('tool-lead');
+      if (leadBox) leadBox.dataset.result = `Aciertos: ${score}/${escenarios.length}`;
+      window.lumaTrack?.('tool_complete', { tool: 'tool-phishing', score });
       $('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   });
