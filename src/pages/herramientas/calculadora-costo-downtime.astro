@@ -1,0 +1,319 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import ToolLeadForm from '@/components/ToolLeadForm.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Calculadora de Costo de Downtime | LumaCloud';
+const description =
+  'Calcula gratis cuánto le cuesta a tu empresa cada hora de inactividad de sistemas: ingresos perdidos + productividad, con la metodología BIA. Sin registro.';
+
+const FAQS = [
+  {
+    q: '¿Qué es un BIA (Análisis de Impacto al Negocio)?',
+    a: 'Es el ejercicio formal —definido en estándares de continuidad como ISO 22301— que identifica los procesos críticos de una organización y cuantifica el impacto de una interrupción en el tiempo. Sus resultados definen los RTO/RPO y justifican la inversión en continuidad. Esta calculadora es una versión exprés de su componente financiero.',
+  },
+  {
+    q: '¿Por qué el downtime cuesta más de lo que parece?',
+    a: 'Porque a los ingresos que dejas de facturar se suman la nómina de los equipos que no pueden trabajar, los incumplimientos con clientes y el daño reputacional. La pérdida de datos causa daños tangibles, como los financieros, e intangibles, como la reputación de la empresa — y esos últimos no aparecen en esta calculadora, así que tu costo real es mayor.',
+  },
+  {
+    q: '¿Qué hago con este número?',
+    a: 'Compáralo contra lo que inviertes en continuidad. Si una hora de inactividad cuesta más que un mes de backup gestionado o DRP, la decisión se justifica sola. Usa el resultado junto con la calculadora RTO/RPO para definir qué estrategia necesitas.',
+  },
+  {
+    q: '¿Este cálculo reemplaza un BIA formal?',
+    a: 'No. Es una estimación orientativa basada en los datos que tú declaras. Un BIA formal analiza procesos, dependencias entre sistemas y costos reales de inactividad por área. En LumaCloud lo hacemos como parte del diagnóstico gratuito de continuidad.',
+  },
+];
+
+const appSchema = {
+  '@type': 'SoftwareApplication',
+  name: 'Calculadora de costo de downtime de LumaCloud',
+  url: `${SITE.url}/herramientas/calculadora-costo-downtime`,
+  applicationCategory: 'SecurityApplication',
+  operatingSystem: 'Web',
+  description,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'COP' },
+  provider: { '@id': `${SITE.url}/#organization` },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Herramientas', href: '/herramientas' },
+    { name: 'Calculadora de costo de downtime', href: '/herramientas/calculadora-costo-downtime' },
+  ]}
+  schemas={[appSchema]}
+>
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto max-w-7xl px-4 pb-12 pt-14 sm:px-6 lg:pb-16 lg:pt-20">
+      <div class="animate-rise max-w-3xl">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <a href="/herramientas" class="hover:text-mid-600">Herramientas</a>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Costo de downtime</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          Calculadora de <span class="text-brand-gradient">costo de downtime</span>
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
+          ¿Cuánto pierde tu empresa por cada hora con los sistemas caídos? Calcula el impacto financiero de una interrupción con la
+          metodología de un Análisis de Impacto al Negocio (BIA), con tus propios números. Gratis y sin registro.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+    <div class="card-brand p-7 sm:p-9">
+      <h2 class="font-display text-3xl text-cold-600 sm:text-4xl">Tus números, tu impacto</h2>
+      <div class="mt-3 w-16 brand-rule"></div>
+      <p class="mt-4 text-sm leading-relaxed text-ink-mute">
+        Todos los valores los declaras tú — no asumimos promedios de industria. Fórmula transparente: <strong>costo por hora = ingresos
+        perdidos por hora + productividad perdida por hora</strong>.
+      </p>
+
+      <form id="form-downtime" class="mt-8 grid gap-6 sm:grid-cols-2" novalidate>
+        <div>
+          <label for="ingresos" class="text-sm font-semibold text-ink">Ingresos anuales (COP, millones) <span class="text-mid-600">*</span></label>
+          <input
+            type="number"
+            id="ingresos"
+            min="1"
+            step="1"
+            required
+            placeholder="Ej: 5000 = $5.000 millones"
+            class="mt-1.5 w-full rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+          />
+        </div>
+        <div>
+          <label for="dependencia" class="text-sm font-semibold text-ink">% de la operación que depende de sistemas <span class="text-mid-600">*</span></label>
+          <select
+            id="dependencia"
+            required
+            class="mt-1.5 w-full rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+          >
+            <option value="">Selecciona una opción</option>
+            <option value="100">100% — sin sistemas no facturamos nada</option>
+            <option value="75">75% — la mayoría de la operación se detiene</option>
+            <option value="50">50% — la mitad puede seguir manual</option>
+            <option value="25">25% — solo procesos de apoyo</option>
+          </select>
+        </div>
+        <div>
+          <label for="jornada" class="text-sm font-semibold text-ink">Jornada de operación <span class="text-mid-600">*</span></label>
+          <select
+            id="jornada"
+            required
+            class="mt-1.5 w-full rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+          >
+            <option value="">Selecciona una opción</option>
+            <option value="2080">Horario hábil (8×5 ≈ 2.080 h/año)</option>
+            <option value="8760">Continua (24×7 = 8.760 h/año)</option>
+          </select>
+        </div>
+        <div>
+          <label for="empleados" class="text-sm font-semibold text-ink">Empleados que dependen de los sistemas <span class="text-mid-600">*</span></label>
+          <input
+            type="number"
+            id="empleados"
+            min="1"
+            step="1"
+            required
+            placeholder="Ej: 120"
+            class="mt-1.5 w-full rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+          />
+        </div>
+        <div>
+          <label for="costo-hora" class="text-sm font-semibold text-ink">Costo laboral promedio por hora (COP) <span class="text-mid-600">*</span></label>
+          <input
+            type="number"
+            id="costo-hora"
+            min="1"
+            step="1"
+            required
+            placeholder="Ej: 25000"
+            class="mt-1.5 w-full rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+          />
+          <p class="mt-1.5 text-xs text-ink-mute">Aproximación: costo mensual por empleado (salario + carga) ÷ 220 horas.</p>
+        </div>
+        <div>
+          <label for="frecuencia" class="text-sm font-semibold text-ink">Incidentes graves esperados por año (opcional)</label>
+          <input
+            type="number"
+            id="frecuencia"
+            min="0"
+            step="0.5"
+            placeholder="Ej: 2 (déjalo vacío si no lo sabes)"
+            class="mt-1.5 w-full rounded-xl border border-frost-300 bg-white px-4 py-3 text-ink transition-colors focus:border-mid-400 focus:outline-none focus:ring-2 focus:ring-mid-500/20"
+          />
+          <p class="mt-1.5 text-xs text-ink-mute">Según tu propia experiencia (caídas, ransomware, fallas eléctricas). No lo estimamos por ti.</p>
+        </div>
+        <div class="sm:col-span-2">
+          <button
+            type="submit"
+            class="w-full rounded-xl bg-mid-500 px-8 py-4 font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600 sm:w-auto"
+          >
+            Calcular mi costo de downtime
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- RESULTADO -->
+    <div id="resultado" class="mt-8 hidden" aria-live="polite">
+      <div class="card-brand border-mid-300 p-7 sm:p-9">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Impacto estimado de una interrupción</p>
+        <div class="mt-4 flex flex-wrap items-end gap-x-4 gap-y-1">
+          <p class="font-display text-5xl leading-none text-cold-600 sm:text-6xl"><span id="res-hora">$0</span></p>
+          <p class="pb-1 text-lg font-bold text-ink">por cada hora caída</p>
+        </div>
+        <p class="mt-3 text-sm leading-relaxed text-ink-mute">
+          Ingresos perdidos: <strong id="res-ingresos-h">$0</strong>/hora · Productividad perdida: <strong id="res-productividad-h">$0</strong>/hora
+        </p>
+
+        <div class="mt-7 grid gap-4 sm:grid-cols-3">
+          <div class="rounded-2xl border border-frost-200 bg-frost-50 p-5">
+            <p class="text-xs font-semibold uppercase tracking-wider text-ink-mute">Incidente corto (4 h)</p>
+            <p id="res-4h" class="font-display mt-1 text-2xl text-cold-600"></p>
+          </div>
+          <div class="rounded-2xl border border-frost-200 bg-frost-50 p-5">
+            <p class="text-xs font-semibold uppercase tracking-wider text-ink-mute">Un día completo (24 h)</p>
+            <p id="res-24h" class="font-display mt-1 text-2xl text-cold-600"></p>
+          </div>
+          <div class="rounded-2xl border border-frost-200 bg-frost-50 p-5">
+            <p class="text-xs font-semibold uppercase tracking-wider text-ink-mute">Incidente mayor (72 h)</p>
+            <p id="res-72h" class="font-display mt-1 text-2xl text-cold-600"></p>
+          </div>
+        </div>
+
+        <p id="res-anual" class="mt-5 hidden rounded-xl border border-frost-200 bg-white px-4 py-3 text-sm leading-relaxed text-ink-mute"></p>
+
+        <p class="mt-5 rounded-xl border border-frost-200 bg-white px-4 py-3 text-sm leading-relaxed text-ink-mute">
+          Este cálculo cubre solo el impacto directo (ingresos + nómina). No incluye sanciones, incumplimientos contractuales ni daño
+          reputacional — tu costo real es mayor. Si este número te duele, tu <strong>RTO debe ser mucho menor que 24 horas</strong>:
+          defínelo con la <a href="/herramientas/calculadora-rto-rpo" class="font-semibold text-mid-500 hover:text-mid-600">calculadora RTO/RPO</a>
+          o profundiza en <a href="/blog/el-impacto-financiero-de-un-drp-cuanto-puede-costarte-no-estar-preparado" class="font-semibold text-mid-500 hover:text-mid-600">el impacto financiero de un DRP</a>.
+        </p>
+
+        <ToolLeadForm tool="tool-downtime" />
+
+        <div class="mt-8 rounded-2xl bg-gradient-to-br from-cold-600 to-mid-500 p-6 text-white sm:flex sm:items-center sm:justify-between sm:gap-6">
+          <div>
+            <p class="font-display text-2xl">¿Quieres bajar este número con un plan real?</p>
+            <p class="mt-1 text-sm text-white/80">Un BIA formal analiza tus procesos y sistemas reales — lo hacemos sin costo ni compromiso.</p>
+          </div>
+          <a
+            href="/contacto"
+            class="mt-4 inline-block shrink-0 rounded-xl bg-white px-6 py-3 font-semibold text-cold-600 transition-all hover:-translate-y-0.5 sm:mt-0"
+          >
+            Agenda tu diagnóstico gratuito
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATIVO -->
+  <section class="bg-blueprint bg-frost-50 py-16 lg:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <h2 class="font-display text-center text-4xl text-cold-600 sm:text-5xl">Cómo se calcula (y qué no incluye)</h2>
+      <div class="mx-auto mt-3 w-16 brand-rule"></div>
+
+      <div class="mt-12 grid gap-5 lg:grid-cols-3">
+        <div class="card-brand p-7">
+          <h3 class="text-lg font-bold text-ink">Ingresos perdidos por hora</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            Tus ingresos anuales, multiplicados por el porcentaje de la operación que depende de sistemas, divididos entre las horas que
+            realmente operas al año (2.080 si trabajas 8×5, 8.760 si operas 24×7). Es la facturación que no ocurre mientras los sistemas
+            están caídos.
+          </p>
+        </div>
+        <div class="card-brand p-7">
+          <h3 class="text-lg font-bold text-ink">Productividad perdida por hora</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            Los empleados que no pueden trabajar siguen costando: número de personas afectadas por su costo laboral promedio por hora. En
+            interrupciones largas este componente crece silenciosamente — la nómina corre aunque la operación no.
+          </p>
+        </div>
+        <div class="card-brand p-7">
+          <h3 class="text-lg font-bold text-ink">Lo que NO está en el número</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-mute">
+            Sanciones regulatorias, penalidades contractuales, pérdida de clientes y daño reputacional. Un BIA formal —parte de un plan de
+            continuidad según ISO 22301— los evalúa proceso por proceso. Esta calculadora te da el piso del costo, no el techo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="Convierte el costo en un plan"
+    text="Backup gestionado, DRP y replicación con RTO/RPO garantizados: diseñamos la estrategia de continuidad que tu número justifica."
+    ctaLabel="Agenda tu diagnóstico gratuito"
+  />
+</BaseLayout>
+
+<script>
+  import { track } from '@/lib/analytics';
+
+  const form = document.getElementById('form-downtime') as HTMLFormElement | null;
+  const resultado = document.getElementById('resultado');
+
+  const fmtCOP = (n: number) =>
+    '$' +
+    Math.round(n).toLocaleString('es-CO', { maximumFractionDigits: 0 }) +
+    ' COP';
+
+  // Cifras grandes legibles: millones con 1 decimal
+  const fmtCompact = (n: number) => (n >= 1_000_000 ? '$' + (n / 1_000_000).toLocaleString('es-CO', { maximumFractionDigits: 1 }) + ' M COP' : fmtCOP(n));
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const ingresosMillones = Number((document.getElementById('ingresos') as HTMLInputElement).value) || 0;
+    const dependencia = Number((document.getElementById('dependencia') as HTMLSelectElement).value) || 0;
+    const horasAnio = Number((document.getElementById('jornada') as HTMLSelectElement).value) || 2080;
+    const empleados = Number((document.getElementById('empleados') as HTMLInputElement).value) || 0;
+    const costoHoraLaboral = Number((document.getElementById('costo-hora') as HTMLInputElement).value) || 0;
+    const frecuencia = Number((document.getElementById('frecuencia') as HTMLInputElement).value) || 0;
+
+    const ingresosAnuales = ingresosMillones * 1_000_000;
+    const ingresosPorHora = (ingresosAnuales * (dependencia / 100)) / horasAnio;
+    const productividadPorHora = empleados * costoHoraLaboral;
+    const costoPorHora = ingresosPorHora + productividadPorHora;
+
+    (document.getElementById('res-hora') as HTMLElement).textContent = fmtCompact(costoPorHora);
+    (document.getElementById('res-ingresos-h') as HTMLElement).textContent = fmtCompact(ingresosPorHora);
+    (document.getElementById('res-productividad-h') as HTMLElement).textContent = fmtCompact(productividadPorHora);
+    (document.getElementById('res-4h') as HTMLElement).textContent = fmtCompact(costoPorHora * 4);
+    (document.getElementById('res-24h') as HTMLElement).textContent = fmtCompact(costoPorHora * 24);
+    (document.getElementById('res-72h') as HTMLElement).textContent = fmtCompact(costoPorHora * 72);
+
+    const anualEl = document.getElementById('res-anual');
+    if (anualEl) {
+      if (frecuencia > 0) {
+        anualEl.textContent = `Con los ${frecuencia} incidente(s) grave(s) al año que declaraste (asumiendo 24 h de duración cada uno), tu exposición anual estimada es de ${fmtCompact(costoPorHora * 24 * frecuencia)}.`;
+        anualEl.classList.remove('hidden');
+      } else {
+        anualEl.classList.add('hidden');
+      }
+    }
+
+    resultado?.classList.remove('hidden');
+    const leadBox = document.getElementById('tool-lead');
+    if (leadBox)
+      leadBox.dataset.result = `Costo/hora: ${fmtCompact(costoPorHora)} | 24h: ${fmtCompact(costoPorHora * 24)}${frecuencia > 0 ? ` | Exposición anual: ${fmtCompact(costoPorHora * 24 * frecuencia)}` : ''}`;
+    track('tool_complete', { tool: 'tool-downtime', score: Math.round(costoPorHora) });
+    resultado?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
