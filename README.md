@@ -27,8 +27,12 @@ Variables de entorno (`.env`, ver `.env.example`):
 
 | Variable | Para qué | Estado |
 |---|---|---|
-| `RESEND_API_KEY` | Envío del formulario de contacto a info@lumacloud.co | ⚠️ Pendiente: crear cuenta en resend.com y verificar dominio |
+| `RESEND_API_KEY` | Envío de leads por email a info@lumacloud.co | ⚠️ Pendiente: crear cuenta en resend.com y verificar dominio |
 | `PUBLIC_GA4_ID` | Google Analytics 4 (se inyecta vía Partytown; sin la variable no se carga nada) | ⚠️ Pendiente |
+| `ZOHO_CLIENT_ID` | Zoho CRM: creación de Leads desde los formularios | ⚠️ Pendiente: self-client en api-console.zoho.com |
+| `ZOHO_CLIENT_SECRET` | Zoho CRM (par del client id) | ⚠️ Pendiente |
+| `ZOHO_REFRESH_TOKEN` | Zoho CRM: token permanente (scope `ZohoCRM.modules.leads.CREATE`) | ⚠️ Pendiente |
+| `ZOHO_ACCOUNTS_URL` / `ZOHO_API_URL` | Solo si el DC de Zoho no es `.com` (defaults: accounts.zoho.com / www.zohoapis.com) | Opcional |
 
 ## 3. Stack y por qué
 
@@ -146,10 +150,30 @@ Definido en `src/styles/global.css` con `@theme` de Tailwind 4. **Página patró
 - **AI-SEO**: `robots.txt` permite GPTBot/ClaudeBot/PerplexityBot/CCBot; `llms.txt` en formato llmstxt.org (H1 + blockquote + secciones con links Markdown — un validador externo exige ese formato exacto).
 - **Herramientas gratuitas** como imanes de links/leads: calculadora RTO/RPO, evaluador ISO 27001, test de phishing. JS vanilla en cliente (sin backend) — la versión conectada a IA/RAG es Fase 2.
 
-## 8. Formulario de contacto
+## 8. Leads: formularios → Resend + Zoho CRM
 
-`src/pages/contacto.astro` (UI) → POST a `src/pages/api/contact.ts` (único endpoint server-side, `prerender = false`) → Resend → info@lumacloud.co.
-Campos: nombre*, email*, empresa, teléfono, servicio (select), mensaje* + honeypot oculto `website` (anti-spam). Sin `RESEND_API_KEY` responde 503 con mensaje amigable que muestra el email — comportamiento esperado en dev.
+Todos los leads del sitio pasan por `src/pages/api/contact.ts` (único endpoint server-side, `prerender = false`), que despacha **en paralelo** a dos canales (`Promise.allSettled`):
+
+1. **Resend** → email a info@lumacloud.co (respaldo; asunto indica la fuente)
+2. **Zoho CRM** → crea un Lead vía `src/lib/zoho.ts` (OAuth self-client, módulo Leads; `Lead_Source` = utm_source o "Sitio web", atribución en `Description`)
+
+Éxito si al menos un canal funciona; el fallo del otro queda en logs de Vercel. Sin ningún canal configurado responde 503 con mensaje amigable — comportamiento esperado en dev.
+
+**Fuentes de lead** (campo `source`): `contacto` (formulario completo: nombre*, email*, empresa, teléfono, servicio, mensaje*), y `tool-iso` / `tool-rto` / `tool-phishing` (componente `ToolLeadForm.astro` dentro del resultado de cada herramienta: email* + empresa, con el resultado en `tool_result`). Todos con honeypot oculto `website` (anti-spam).
+
+### Analítica GA4 (eventos)
+
+`src/lib/analytics.ts` expone `track()` (gtag vía Partytown) y captura atribución (UTMs, landing, referrer) en `sessionStorage`, que viaja con cada lead. Listener global en `BaseLayout` para elementos con `data-track`. Los scripts inline (`define:vars`) usan `window.lumaTrack`.
+
+| Evento | Cuándo | Parámetros |
+|---|---|---|
+| `generate_lead` | Envío exitoso de cualquier formulario | `form_id`, `servicio`, `tool_score` |
+| `form_error` | Envío fallido | `form_id`, `error_type` |
+| `contact_click` | Clic en WhatsApp/tel/email | `method`, `location` |
+| `tool_complete` | Herramienta muestra resultado | `tool`, `score` |
+| `cta_click` | Clic en CTAs principales | `cta`, `page` |
+
+En GA4 hay que marcar `generate_lead` como *key event* (paso manual en la propiedad).
 
 ## 9. Workflows comunes
 

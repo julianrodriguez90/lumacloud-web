@@ -1,6 +1,6 @@
 # Estado del proyecto — rediseño lumacloud.co
 
-**Última actualización:** 2026-07-11 · Rama: `master` (única rama del repo — `redesign/astro-rebuild` cumplió su ciclo vía PRs #2-#7 y fue borrada)
+**Última actualización:** 2026-07-14 · Rama: `master` (única rama del repo — `redesign/astro-rebuild` cumplió su ciclo vía PRs #2-#7 y fue borrada)
 Documento interno de seguimiento (en el repo, no se publica en la web).
 
 ## 🧭 Resumen ejecutivo — si solo lees esto
@@ -72,6 +72,16 @@ Auditoría sistemática a 375px de las ~24 páginas + blog + herramientas (3 age
 - [x] Verificado por computed style (`getBoundingClientRect`) y visualmente en navegador — todos los tap targets confirmados en ≥44px
 - [ ] Pendiente menor identificado (no bloqueante): `/blog` no pagina — los ~88 posts se renderizan todos en un solo DOM; `/quienes-somos` (~12.500px) y `/csirt` (~10.300px) son las páginas más largas del sitio, sin ancla de navegación interna — evaluar si vale la pena paginar/segmentar en una iteración futura
 
+### Analítica avanzada + leads a Zoho CRM (2026-07-14)
+Spec: `docs/superpowers/specs/2026-07-14-analitica-zoho-design.md` · Plan: `docs/superpowers/plans/2026-07-14-analitica-zoho.md`
+- [x] GA4 por eventos: `src/lib/analytics.ts` (track + atribución UTM/landing/referrer en sessionStorage) + listener global `data-track` en BaseLayout; eventos `generate_lead`, `form_error`, `contact_click`, `tool_complete`, `cta_click` (taxonomía en README §8)
+- [x] `/api/contact` generalizado: despacha en paralelo a Resend y Zoho CRM (Lead en módulo Leads vía `src/lib/zoho.ts`, OAuth self-client); éxito si al menos un canal funciona; acepta leads de herramientas (`source`, `tool_result`)
+- [x] Captura de leads en las 3 herramientas gratuitas: `ToolLeadForm.astro` (email + empresa, opcional, dentro del resultado) — cada herramienta reporta su score al CRM
+- [x] Verificado: build limpio, batería curl del endpoint (400/200/503 según caso), envíos y eventos probados en navegador (desktop + mobile 375px, tap targets 44px)
+- [ ] **Pendiente del dueño (Zoho)**: admin crea Self Client en api-console.zoho.com (scope `ZohoCRM.modules.leads.CREATE`), entregar Client ID + Secret + grant code por canal seguro y confirmar DC → intercambiar por refresh token → 3 env vars en Vercel (ver README §2)
+- [ ] **Pendiente del dueño (GA4)**: marcar `generate_lead` como key event en la propiedad GA4
+- [ ] Prueba E2E post-credenciales: envío real → Lead visible en Zoho → borrarlo
+
 ---
 
 ## 🔲 Qué nos hace falta
@@ -79,7 +89,8 @@ Auditoría sistemática a 375px de las ~24 páginas + blog + herramientas (3 age
 ### Para lanzar (bloqueantes — acciones del dueño)
 - [ ] **Respaldo WP** con el admin (ver `docs/RESPALDO-WORDPRESS.md`): exportar WXR + UpdraftPlus
 - [ ] **Resend**: crear cuenta, verificar dominio lumacloud.co, poner `RESEND_API_KEY` en Vercel
-- [ ] `PUBLIC_GA4_ID` en Vercel (GA4 ya está cableado vía Partytown)
+- [ ] `PUBLIC_GA4_ID` en Vercel (GA4 ya está cableado vía Partytown) + marcar `generate_lead` como key event
+- [ ] **Zoho CRM**: credenciales self-client (`ZOHO_CLIENT_ID/SECRET/REFRESH_TOKEN`) en Vercel — sin ellas los leads solo llegan por email
 - [ ] Push + deploy a Vercel y validar en URL de preview (probar formulario real, redirects con `curl -I`)
 - [ ] PageSpeed Insights sobre el preview: confirmar LCP <2.5s móvil
 - [ ] **Cutover DNS** en el registrador (WP queda como respaldo, idealmente en subdominio privado)
