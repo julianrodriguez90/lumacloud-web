@@ -131,6 +131,7 @@ const jsonLd = {
     {
       GA4 && (
         <>
+          <script is:inline>window.dataLayer=window.dataLayer||[];window.gtag=function(){window.dataLayer.push(arguments);};</script>
           <script type="text/partytown" src={`https://www.googletagmanager.com/gtag/js?id=${GA4}`} />
           <script
             type="text/partytown"
@@ -152,5 +153,23 @@ const jsonLd = {
       <slot />
     </main>
     <Footer />
+    <script>
+      import { initAttribution, track } from '@/lib/analytics';
+
+      window.lumaTrack = track;
+      initAttribution();
+
+      document.addEventListener('click', (e) => {
+        const el = (e.target as Element | null)?.closest?.('[data-track]') as HTMLElement | null;
+        if (!el?.dataset.track) return;
+        const params: Record<string, string> = { page: location.pathname };
+        for (const [key, value] of Object.entries(el.dataset)) {
+          if (key !== 'track' && key.startsWith('track') && value) {
+            params[key.slice(5).toLowerCase()] = value;
+          }
+        }
+        track(el.dataset.track, params);
+      });
+    </script>
   </body>
 </html>
