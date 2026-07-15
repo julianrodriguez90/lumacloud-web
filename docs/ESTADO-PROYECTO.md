@@ -1,6 +1,6 @@
 # Estado del proyecto — rediseño lumacloud.co
 
-**Última actualización:** 2026-07-14 · Rama: `master` (única rama del repo — `redesign/astro-rebuild` cumplió su ciclo vía PRs #2-#7 y fue borrada)
+**Última actualización:** 2026-07-15 · Rama: `master` (única rama del repo — `redesign/astro-rebuild` cumplió su ciclo vía PRs #2-#7 y fue borrada)
 Documento interno de seguimiento (en el repo, no se publica en la web).
 
 ## 🧭 Resumen ejecutivo — si solo lees esto
@@ -82,6 +82,13 @@ Spec: `docs/superpowers/specs/2026-07-14-analitica-zoho-design.md` · Plan: `doc
 - [ ] **Pendiente del dueño (GA4)**: marcar `generate_lead` como key event en la propiedad GA4
 - [ ] Prueba E2E post-credenciales: envío real → Lead visible en Zoho → borrarlo
 
+### Nuevas herramientas enterprise + hub (2026-07-15)
+Decisión del dueño (2026-07-15): más herramientas serias/validadas para clientes grandes. Plan aprobado en conversación; asesor de migración a la nube y diagnóstico Ley 1581 quedaron para una ola futura.
+- [x] **Evaluador de madurez en ciberseguridad** (`/herramientas/evaluacion-ciberseguridad`) — cierra la herramienta faltante del Silo 1 del Plan Maestro (keyword KD 10). Metodología NIST CSF 2.0: 12 preguntas × 6 funciones, score por función, brechas priorizadas con el servicio que las cierra, StatCallout ColCERT.
+- [x] **Calculadora de costo de downtime** (`/herramientas/calculadora-costo-downtime`) — BIA express (ISO 22301/NIST SP 800-34) con fórmula transparente y datos 100% declarados por el usuario (sin benchmarks inventados); escenarios 4/24/72h + exposición anual opcional; interlinking con RTO/RPO y el post del impacto financiero del DRP. Herramienta extra-plan.
+- [x] **Hub `/herramientas/`** con las 5 herramientas (schema CollectionPage+ItemList) + "Herramientas" en el menú principal (nav.ts) y links actualizados en Footer y /contacto — cierra el pendiente de la página índice.
+- [x] Ambas herramientas capturan leads (sources `tool-madurez`, `tool-downtime`) y emiten eventos GA4; verificadas en build, curl, browser desktop + mobile 375px (tap targets 44px) y matemática validada a mano.
+
 ---
 
 ## 🔲 Qué nos hace falta
@@ -100,7 +107,7 @@ Spec: `docs/superpowers/specs/2026-07-14-analitica-zoho-design.md` · Plan: `doc
 - [ ] **8 artículos evergreen KD<20** (~3.400 búsquedas/mes; la brecha de mayor retorno — el blog migrado es noticioso, no evergreen):
   `que-es-phishing` (1.200/mes) · `tipos-ataques-ciberneticos` (890) · `ciberseguridad-colombia-2026` (380) · `ransomware-colombia` (310) · `phishing-colombia-empresas` (290) · `backup-nube-vs-local` (120) · `ciberseguridad-pymes-colombia` (120) · `plan-drp-colombia` (90)
 - [ ] **~11 subpáginas comerciales** de segunda ola: `/infraestructura/data-center` (560/mes), `/infraestructura/colocation` (210), `/cloud/iaas`, `/cloud/paas`, `/backup/corporativo`, `/backup/automatizado`, `/soc/siem`, `/soc/monitoreo`, `/soc/gestion-incidentes`, `/ciberseguridad/proteccion-datos`, `/servicios/capacitacion-ciberseguridad`
-- [ ] Herramienta faltante del Silo 1: triager de madurez en ciberseguridad (`/herramientas/evaluacion-ciberseguridad`)
+- [x] Herramienta faltante del Silo 1: triager de madurez en ciberseguridad (`/herramientas/evaluacion-ciberseguridad`) — hecha 2026-07-15 (ver sección "Nuevas herramientas enterprise")
 - [ ] OG images específicas por página clave (hoy todas usan `/images/og/default.webp`)
 
 ### Fase 2 del Plan Maestro (meses 5-12 — no empezar antes del lanzamiento)

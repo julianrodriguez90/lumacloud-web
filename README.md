@@ -148,7 +148,7 @@ Definido en `src/styles/global.css` con `@theme` de Tailwind 4. **Página patró
 - **JSON-LD** (en BaseLayout, todas las páginas): Organization + LocalBusiness (geo Bogotá) + WebSite + BreadcrumbList. Por tipo: Service (páginas de silo), Article (blog), SoftwareApplication (herramientas), FAQPage (automático vía FAQSection), Review (testimonios), AboutPage/ContactPage.
 - **Redirects 301**: 108 en total. Posts (`/{slug}` → `/blog/{slug}`) en `redirects-posts.generated.mjs` (regenerar con `node scripts/generate-redirects.mjs`); páginas viejas del WP mapeadas a mano en `redirects.mjs`. Se materializan en `.vercel/output/config.json` al hacer build — verificar ahí, no funcionan en `npm run preview`.
 - **AI-SEO**: `robots.txt` permite GPTBot/ClaudeBot/PerplexityBot/CCBot; `llms.txt` en formato llmstxt.org (H1 + blockquote + secciones con links Markdown — un validador externo exige ese formato exacto).
-- **Herramientas gratuitas** como imanes de links/leads: calculadora RTO/RPO, evaluador ISO 27001, test de phishing. JS vanilla en cliente (sin backend) — la versión conectada a IA/RAG es Fase 2.
+- **Herramientas gratuitas** como imanes de links/leads (hub en `/herramientas`): evaluación de madurez NIST CSF, calculadora de costo de downtime, calculadora RTO/RPO, evaluador ISO 27001, test de phishing. JS vanilla en cliente (sin backend) — la versión conectada a IA/RAG es Fase 2.
 
 ## 8. Leads: formularios → Resend + Zoho CRM
 
@@ -159,7 +159,7 @@ Todos los leads del sitio pasan por `src/pages/api/contact.ts` (único endpoint 
 
 Éxito si al menos un canal funciona; el fallo del otro queda en logs de Vercel. Sin ningún canal configurado responde 503 con mensaje amigable — comportamiento esperado en dev.
 
-**Fuentes de lead** (campo `source`): `contacto` (formulario completo: nombre*, email*, empresa, teléfono, servicio, mensaje*), y `tool-iso` / `tool-rto` / `tool-phishing` (componente `ToolLeadForm.astro` dentro del resultado de cada herramienta: email* + empresa, con el resultado en `tool_result`). Todos con honeypot oculto `website` (anti-spam).
+**Fuentes de lead** (campo `source`): `contacto` (formulario completo: nombre*, email*, empresa, teléfono, servicio, mensaje*), y `tool-iso` / `tool-rto` / `tool-phishing` / `tool-madurez` / `tool-downtime` (componente `ToolLeadForm.astro` dentro del resultado de cada herramienta: email* + empresa, con el resultado en `tool_result`). Todos con honeypot oculto `website` (anti-spam). Las claves de `TOOL_LABELS` en `src/pages/api/contact.ts` definen los `source` válidos; una herramienta nueva requiere añadir su clave ahí y al union de `Props.tool` en `ToolLeadForm.astro`.
 
 ### Analítica GA4 (eventos)
 
