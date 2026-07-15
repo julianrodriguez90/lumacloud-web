@@ -1,0 +1,398 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import StatCallout from '@/components/StatCallout.astro';
+import ToolLeadForm from '@/components/ToolLeadForm.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Herramienta de Evaluación de Ciberseguridad | LumaCloud';
+const description =
+  'Evalúa gratis la madurez en ciberseguridad de tu empresa con las 6 funciones de NIST CSF 2.0: puntaje por función, nivel de madurez y brechas priorizadas en 3 minutos.';
+
+// Las 6 funciones de NIST CSF 2.0 (marco público del NIST, dominio público/CC0).
+// Recomendaciones vinculadas SOLO a capacidades documentadas en content-source/
+// (SOC/FortiSIEM, ciberprotección Acronis/EDR/DLP, DRP/ciber-recuperación, CSIRT, capacitación).
+const FUNCIONES = [
+  { id: 'gobernar', label: 'Gobernar', desc: 'Estrategia, roles y políticas de riesgo' },
+  { id: 'identificar', label: 'Identificar', desc: 'Activos, riesgos y vulnerabilidades' },
+  { id: 'proteger', label: 'Proteger', desc: 'Controles que previenen incidentes' },
+  { id: 'detectar', label: 'Detectar', desc: 'Monitoreo y descubrimiento de amenazas' },
+  { id: 'responder', label: 'Responder', desc: 'Gestión y contención de incidentes' },
+  { id: 'recuperar', label: 'Recuperar', desc: 'Restauración de la operación' },
+];
+
+const PREGUNTAS = [
+  // GOBERNAR
+  {
+    id: 'gov-politica',
+    fn: 'gobernar',
+    q: '¿La dirección aprobó una política de ciberseguridad con roles y responsabilidades definidos?',
+    gap: 'Sin una política aprobada por la dirección, la ciberseguridad depende de esfuerzos individuales: no hay presupuesto, prioridades ni responsables claros cuando algo falla.',
+  },
+  {
+    id: 'gov-riesgos',
+    fn: 'gobernar',
+    q: '¿El riesgo de ciberseguridad se evalúa y reporta periódicamente a la alta gerencia (no solo a TI)?',
+    gap: 'El riesgo cibernético es un riesgo de negocio. Si la gerencia no lo ve, las decisiones de inversión en seguridad llegan después del incidente, no antes.',
+  },
+  // IDENTIFICAR
+  {
+    id: 'id-activos',
+    fn: 'identificar',
+    q: '¿Mantienen un inventario actualizado de activos tecnológicos (servidores, aplicaciones, datos, dispositivos)?',
+    gap: 'No puedes proteger lo que no sabes que existe. El inventario de activos es el punto de partida de cualquier análisis de riesgos.',
+  },
+  {
+    id: 'id-vulnerabilidades',
+    fn: 'identificar',
+    q: '¿Identifican y priorizan vulnerabilidades técnicas de forma periódica (escaneos, pruebas de seguridad)?',
+    gap: 'Las vulnerabilidades sin gestionar son la puerta de entrada más barata para un atacante: se explotan de forma automatizada y masiva.',
+  },
+  // PROTEGER
+  {
+    id: 'pr-accesos',
+    fn: 'proteger',
+    q: '¿Los accesos usan autenticación multifactor (MFA) y se revocan cuando alguien se retira?',
+    gap: 'Una credencial robada sin MFA equivale a la llave de la empresa. Las cuentas huérfanas de excolaboradores son un hallazgo constante en auditorías.',
+  },
+  {
+    id: 'pr-endpoint',
+    fn: 'proteger',
+    q: '¿Los equipos y servidores tienen protección de endpoint moderna (EDR/anti-ransomware), más allá del antivirus tradicional?',
+    gap: 'El antivirus de firmas no detecta ataques modernos. La protección de endpoint actual combina detección por comportamiento, anti-ransomware y prevención de exploits.',
+  },
+  // DETECTAR
+  {
+    id: 'de-monitoreo',
+    fn: 'detectar',
+    q: '¿Centralizan y monitorean los eventos de seguridad de sus sistemas (SIEM, alertas correlacionadas)?',
+    gap: 'Sin monitoreo centralizado, un atacante puede permanecer semanas dentro de la red sin que nadie lo note: los rastros existen, pero nadie los está mirando.',
+  },
+  {
+    id: 'de-24x7',
+    fn: 'detectar',
+    q: '¿Alguien revisa y responde a esas alertas fuera del horario laboral (monitoreo 24/7 propio o tercerizado)?',
+    gap: 'Los ataques no ocurren en horario de oficina. Una alerta crítica que espera al lunes es una brecha consumada.',
+  },
+  // RESPONDER
+  {
+    id: 're-plan',
+    fn: 'responder',
+    q: '¿Existe un procedimiento documentado de respuesta a incidentes con roles y canales de comunicación definidos?',
+    gap: 'Sin un plan de respuesta, cada incidente se improvisa: más daño, más tiempo de contención y decisiones críticas tomadas bajo pánico.',
+  },
+  {
+    id: 're-equipo',
+    fn: 'responder',
+    q: '¿Cuentan con un equipo de respuesta a incidentes (propio o como servicio) capaz de analizar, contener e investigar?',
+    gap: 'Detectar, analizar, contener, recuperar e investigar exige especialistas. Pocas empresas pueden mantener ese equipo internamente.',
+  },
+  // RECUPERAR
+  {
+    id: 'rc-backup',
+    fn: 'recuperar',
+    q: '¿Tienen copias de seguridad protegidas contra ransomware (inmutables o fuera de línea) y han PROBADO restaurarlas?',
+    gap: 'El ransomware moderno busca y cifra también los backups. Una copia inmutable y probada es la diferencia entre un mal día y el cierre de la operación.',
+  },
+  {
+    id: 'rc-drp',
+    fn: 'recuperar',
+    q: '¿Existe un plan de recuperación ante desastres (DRP) con RTO/RPO definidos y probado en el último año?',
+    gap: 'Sin DRP probado, nadie sabe cuánto tardará la empresa en volver a operar tras un incidente grave — y cada hora de inactividad cuesta.',
+  },
+];
+
+// Servicio LumaCloud que cierra cada función (capacidades del corpus content-source/)
+const SERVICIOS_FN: Record<string, { texto: string; href: string; label: string }> = {
+  gobernar: { texto: 'Te acompañamos a estructurar la gestión del riesgo con controles alineados a ISO 27001.', href: '/cumplimiento/iso-27001', label: 'Cumplimiento ISO 27001' },
+  identificar: { texto: 'Nuestros servicios profesionales incluyen hacking ético y evaluación de infraestructura.', href: '/servicios-profesionales', label: 'Servicios profesionales' },
+  proteger: { texto: 'Ciberprotección integral: EDR, anti-ransomware, DLP, seguridad perimetral y WAF.', href: '/ciberseguridad', label: 'Ciberseguridad administrada' },
+  detectar: { texto: 'SOC 24/7 con SIEM, threat hunting e inteligencia de amenazas (FortiSIEM, Mandiant, VirusTotal).', href: '/soc', label: 'SOC 24/7' },
+  responder: { texto: 'Nuestro CSIRT actúa como extensión de tu equipo: detecta, analiza, contiene e investiga incidentes.', href: '/csirt', label: 'CSIRT LumaCloud' },
+  recuperar: { texto: 'Backup con almacenamiento inmutable, DRP y replicación con RTO/RPO garantizados.', href: '/backup', label: 'Backup y ciberrecuperación' },
+};
+
+const FAQS = [
+  {
+    q: '¿Qué es la madurez en ciberseguridad?',
+    a: 'Es el grado en que una organización gestiona la ciberseguridad de forma estructurada y repetible, en lugar de reactiva. Una empresa madura no solo tiene herramientas: tiene políticas, procesos, monitoreo y planes probados que funcionan de forma consistente.',
+  },
+  {
+    q: '¿Qué es NIST CSF 2.0?',
+    a: 'El Cybersecurity Framework del NIST (Instituto Nacional de Estándares y Tecnología de EE. UU.) es uno de los marcos de referencia más adoptados del mundo para gestionar el riesgo cibernético. Su versión 2.0 organiza la ciberseguridad en seis funciones: Gobernar, Identificar, Proteger, Detectar, Responder y Recuperar.',
+  },
+  {
+    q: '¿Esta evaluación equivale a una auditoría de ciberseguridad?',
+    a: 'No. Es una autoevaluación orientativa sobre 12 prácticas clave del marco. Una auditoría o análisis de brecha formal revisa evidencias, procesos y sistemas reales. Úsala como termómetro inicial y punto de partida para la conversación con un experto.',
+  },
+  {
+    q: '¿Qué hago con el resultado?',
+    a: 'Prioriza las funciones con menor puntaje: son tu mayor exposición. Puedes agendar un diagnóstico gratuito con LumaCloud para validar el resultado contra tu infraestructura real y convertir las brechas en un plan concreto.',
+  },
+  {
+    q: '¿En qué se diferencia del evaluador ISO 27001?',
+    a: 'Este mide tu madurez operativa general con el marco NIST CSF (qué tan bien gestionas el ciclo completo del riesgo). El evaluador ISO 27001 mide tu preparación frente a los controles específicos de ese estándar de cara a una certificación. Son complementarios.',
+  },
+];
+
+const appSchema = {
+  '@type': 'SoftwareApplication',
+  name: 'Evaluador de madurez en ciberseguridad de LumaCloud',
+  url: `${SITE.url}/herramientas/evaluacion-ciberseguridad`,
+  applicationCategory: 'SecurityApplication',
+  operatingSystem: 'Web',
+  description,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'COP' },
+  provider: { '@id': `${SITE.url}/#organization` },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Herramientas', href: '/herramientas' },
+    { name: 'Evaluación de ciberseguridad', href: '/herramientas/evaluacion-ciberseguridad' },
+  ]}
+  schemas={[appSchema]}
+>
+  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+    <div class="mx-auto max-w-7xl px-4 pb-12 pt-14 sm:px-6 lg:pb-16 lg:pt-20">
+      <div class="animate-rise max-w-3xl">
+        <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+          <a href="/" class="hover:text-mid-600">Inicio</a>
+          <span class="mx-2">/</span>
+          <a href="/herramientas" class="hover:text-mid-600">Herramientas</a>
+          <span class="mx-2">/</span>
+          <span class="font-medium text-cold-600">Evaluación de ciberseguridad</span>
+        </nav>
+        <h1 class="font-display mt-5 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          Herramienta de <span class="text-brand-gradient">evaluación de ciberseguridad</span>
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
+          Mide la madurez de tu empresa con las 6 funciones de NIST CSF 2.0 — el marco de referencia más adoptado del mundo. Doce preguntas,
+          3 minutos, y sales con tu puntaje por función y tus brechas priorizadas. Gratis y sin registro.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+    <div class="card-brand p-7 sm:p-9">
+      <h2 class="font-display text-3xl text-cold-600 sm:text-4xl">Responde sobre tu empresa hoy</h2>
+      <div class="mt-3 w-16 brand-rule"></div>
+      <p class="mt-4 text-sm leading-relaxed text-ink-mute">
+        Dos preguntas por cada función del marco. Responde con honestidad: "En parte" cuenta cuando existe la práctica pero no está
+        formalizada ni se aplica de manera consistente.
+      </p>
+
+      <form id="form-madurez" class="mt-8 space-y-8" novalidate>
+        {
+          FUNCIONES.map((fn) => (
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.15em] text-mid-500">
+                {fn.label} <span class="font-normal normal-case tracking-normal text-ink-mute">— {fn.desc}</span>
+              </p>
+              <div class="mt-3 space-y-4">
+                {PREGUNTAS.filter((p) => p.fn === fn.id).map((p) => (
+                  <fieldset class="rounded-2xl border border-frost-200 p-5">
+                    <legend class="px-2 text-sm font-semibold text-ink">{p.q}</legend>
+                    <div class="mt-3 flex flex-col gap-2 sm:flex-row">
+                      <label class="flex min-h-11 flex-1 cursor-pointer items-center gap-2.5 rounded-lg border border-frost-300 px-4 py-2.5 text-sm text-ink-soft transition-colors has-[:checked]:border-mid-400 has-[:checked]:bg-mid-50 has-[:checked]:text-mid-700">
+                        <input type="radio" name={p.id} value="0" class="h-4 w-4 shrink-0 accent-mid-500" required />
+                        No
+                      </label>
+                      <label class="flex min-h-11 flex-1 cursor-pointer items-center gap-2.5 rounded-lg border border-frost-300 px-4 py-2.5 text-sm text-ink-soft transition-colors has-[:checked]:border-mid-400 has-[:checked]:bg-mid-50 has-[:checked]:text-mid-700">
+                        <input type="radio" name={p.id} value="1" class="h-4 w-4 shrink-0 accent-mid-500" />
+                        En parte
+                      </label>
+                      <label class="flex min-h-11 flex-1 cursor-pointer items-center gap-2.5 rounded-lg border border-frost-300 px-4 py-2.5 text-sm text-ink-soft transition-colors has-[:checked]:border-mid-400 has-[:checked]:bg-mid-50 has-[:checked]:text-mid-700">
+                        <input type="radio" name={p.id} value="2" class="h-4 w-4 shrink-0 accent-mid-500" />
+                        Sí, formalizado
+                      </label>
+                    </div>
+                  </fieldset>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+        <button
+          type="submit"
+          class="w-full rounded-xl bg-mid-500 px-8 py-4 font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600 sm:w-auto"
+        >
+          Calcular mi madurez
+        </button>
+        <p id="madurez-error" class="hidden text-sm font-medium text-red-600" role="alert">
+          Responde todas las preguntas para calcular tu resultado.
+        </p>
+      </form>
+
+      <!-- RESULTADO -->
+      <div id="madurez-resultado" class="mt-10 hidden border-t border-frost-200 pt-8" aria-live="polite">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Tu resultado</p>
+        <div class="mt-4 flex items-end gap-4">
+          <p class="font-display text-7xl leading-none text-cold-600"><span id="madurez-score">0</span>%</p>
+          <p id="madurez-nivel" class="pb-2 text-lg font-bold text-ink"></p>
+        </div>
+        <div class="mt-4 h-3 overflow-hidden rounded-full bg-frost-200">
+          <div id="madurez-barra" class="bg-brand-gradient h-full rounded-full transition-all duration-700" style="width: 0%"></div>
+        </div>
+
+        <p class="mt-8 font-bold text-ink">Puntaje por función</p>
+        <div id="madurez-funciones" class="mt-3 space-y-3"></div>
+
+        <div id="madurez-gaps" class="mt-8 space-y-3"></div>
+
+        <ToolLeadForm tool="tool-madurez" />
+
+        <div class="mt-8 rounded-2xl bg-frost-50 p-6 text-center">
+          <p class="font-semibold text-ink">¿Quieres convertir estas brechas en un plan concreto?</p>
+          <p class="mt-1 text-sm text-ink-mute">Validamos tu resultado contra tu infraestructura real, sin costo ni compromiso.</p>
+          <a
+            href="/contacto"
+            class="mt-4 inline-block rounded-xl bg-mid-500 px-7 py-3.5 font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-mid-600"
+          >
+            Agenda tu diagnóstico gratuito
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATIVO -->
+  <section class="bg-frost-50 py-16">
+    <div class="prose-luma mx-auto max-w-3xl px-4 sm:px-6">
+      <h2>¿Qué evalúa esta herramienta?</h2>
+      <p>
+        Las 12 preguntas corresponden a prácticas clave de las seis funciones de <strong>NIST CSF 2.0</strong>: Gobernar (estrategia y
+        políticas), Identificar (activos y vulnerabilidades), Proteger (accesos y endpoints), Detectar (monitoreo y alertas), Responder
+        (gestión de incidentes) y Recuperar (backup y DRP). Juntas cubren el ciclo completo de gestión del riesgo cibernético.
+      </p>
+      <p>
+        El resultado es orientativo: una evaluación formal de madurez revisa evidencias, procesos y sistemas reales. Si tu empresa apunta a
+        certificarse, complementa este resultado con el <a href="/herramientas/evaluador-iso-27001">evaluador de brecha ISO 27001</a>; si tu
+        mayor duda es la continuidad, empieza por la <a href="/herramientas/calculadora-rto-rpo">calculadora RTO/RPO</a>.
+      </p>
+    </div>
+    <div class="mx-auto mt-10 max-w-3xl px-4 sm:px-6">
+      <StatCallout
+        stat="79,8%"
+        label="de los incidentes gestionados por ColCERT en 2024-2025 fueron fraude: phishing y uso no autorizado de cuentas de correo"
+        source="MinTIC / ColCERT — Informe de Tendencias de Amenazas Cibernéticas 2025"
+        sourceUrl="https://www.mintic.gov.co/portal/inicio/Sala-de-prensa/Noticias/433511"
+      />
+    </div>
+  </section>
+
+  <FAQSection faqs={FAQS} />
+  <CTASection
+    title="Sube tu nivel de madurez"
+    text="Ciberprotección administrada, SOC 24/7, CSIRT y backup inmutable: cubrimos las seis funciones del marco con un solo aliado."
+  />
+</BaseLayout>
+
+<script define:vars={{ preguntas: PREGUNTAS, funciones: FUNCIONES, servicios: SERVICIOS_FN }}>
+  const form = document.getElementById('form-madurez');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const errorEl = document.getElementById('madurez-error');
+    if ([...data.keys()].length < preguntas.length) {
+      errorEl.classList.remove('hidden');
+      return;
+    }
+    errorEl.classList.add('hidden');
+
+    // puntaje 0-2 por pregunta; máximo por función = 4 (2 preguntas)
+    const porFuncion = {};
+    for (const fn of funciones) porFuncion[fn.id] = 0;
+    let total = 0;
+    for (const p of preguntas) {
+      const val = Number(data.get(p.id)) || 0;
+      porFuncion[p.fn] += val;
+      total += val;
+    }
+    const score = Math.round((total / (preguntas.length * 2)) * 100);
+
+    document.getElementById('madurez-score').textContent = score;
+    document.getElementById('madurez-barra').style.width = score + '%';
+    document.getElementById('madurez-nivel').textContent =
+      score >= 70 ? 'Madurez gestionada' : score >= 40 ? 'Madurez en desarrollo' : 'Madurez inicial';
+
+    // barras por función
+    const fnEl = document.getElementById('madurez-funciones');
+    fnEl.innerHTML = '';
+    for (const fn of funciones) {
+      const pct = Math.round((porFuncion[fn.id] / 4) * 100);
+      const row = document.createElement('div');
+      const head = document.createElement('div');
+      head.className = 'flex items-center justify-between text-sm';
+      const name = document.createElement('span');
+      name.className = 'font-semibold text-ink';
+      name.textContent = fn.label;
+      const val = document.createElement('span');
+      val.className = 'text-ink-mute';
+      val.textContent = pct + '%';
+      head.append(name, val);
+      const barBg = document.createElement('div');
+      barBg.className = 'mt-1 h-2 overflow-hidden rounded-full bg-frost-200';
+      const bar = document.createElement('div');
+      bar.className = 'bg-brand-gradient h-full rounded-full transition-all duration-700';
+      bar.style.width = pct + '%';
+      barBg.appendChild(bar);
+      row.append(head, barBg);
+      fnEl.appendChild(row);
+    }
+
+    // brechas priorizadas (respuestas 0 primero, luego 1), con el servicio que las cierra
+    const gapsEl = document.getElementById('madurez-gaps');
+    gapsEl.innerHTML = '';
+    const brechas = preguntas
+      .map((p) => ({ ...p, val: Number(data.get(p.id)) || 0 }))
+      .filter((p) => p.val < 2)
+      .sort((a, b) => a.val - b.val);
+
+    if (brechas.length === 0) {
+      gapsEl.innerHTML =
+        '<p class="text-ink-soft text-sm">No detectamos brechas en las prácticas evaluadas. El siguiente paso natural es validar la madurez con una evaluación formal sobre evidencias.</p>';
+    } else {
+      const titulo = document.createElement('p');
+      titulo.className = 'font-bold text-ink';
+      titulo.textContent = `Brechas priorizadas (${brechas.length}):`;
+      gapsEl.appendChild(titulo);
+      for (const b of brechas) {
+        const srv = servicios[b.fn];
+        const div = document.createElement('div');
+        div.className = 'rounded-xl border border-frost-200 bg-white p-4';
+        const q = document.createElement('p');
+        q.className = 'text-sm font-semibold text-cold-600';
+        q.textContent = (b.val === 0 ? '● ' : '◐ ') + b.q;
+        const a = document.createElement('p');
+        a.className = 'mt-1 text-sm text-ink-mute';
+        a.textContent = b.gap;
+        div.append(q, a);
+        if (srv) {
+          const s = document.createElement('p');
+          s.className = 'mt-2 text-sm text-ink-soft';
+          const link = document.createElement('a');
+          link.href = srv.href;
+          link.className = 'font-semibold text-mid-500 hover:text-mid-600';
+          link.textContent = srv.label + ' →';
+          s.append(srv.texto + ' ', link);
+          div.appendChild(s);
+        }
+        gapsEl.appendChild(div);
+      }
+    }
+
+    document.getElementById('madurez-resultado').classList.remove('hidden');
+    const resumenFn = funciones.map((fn) => `${fn.label}: ${Math.round((porFuncion[fn.id] / 4) * 100)}%`).join(', ');
+    const leadBox = document.getElementById('tool-lead');
+    if (leadBox) leadBox.dataset.result = `Madurez: ${score}% (${resumenFn})`;
+    window.lumaTrack?.('tool_complete', { tool: 'tool-madurez', score });
+    document.getElementById('madurez-resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
