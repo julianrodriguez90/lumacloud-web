@@ -96,8 +96,8 @@ Decisión del dueño (2026-07-15): más herramientas serias/validadas para clien
 ### Para lanzar (bloqueantes — acciones del dueño)
 - [ ] **Respaldo WP** con el admin (ver `docs/RESPALDO-WORDPRESS.md`): exportar WXR + UpdraftPlus
 - [ ] **Resend**: crear cuenta, verificar dominio lumacloud.co, poner `RESEND_API_KEY` en Vercel
-- [ ] `PUBLIC_GA4_ID` en Vercel (GA4 ya está cableado vía Partytown) + marcar `generate_lead` como key event
-- [ ] **Zoho CRM**: copiar las credenciales self-client (`ZOHO_CLIENT_ID/SECRET/REFRESH_TOKEN`, ya obtenidas y probadas E2E el 2026-07-15, viven en el `.env` local) a las env vars de Vercel
+- [x] `PUBLIC_GA4_ID` en Vercel (2026-07-15, `G-4HP5K1LWCY`, Production and Preview) — falta marcar `generate_lead` como key event en GA4
+- [x] **Zoho CRM**: credenciales self-client copiadas a las env vars de Vercel (2026-07-15) — aplican desde el próximo deploy
 - [ ] Push + deploy a Vercel y validar en URL de preview (probar formulario real, redirects con `curl -I`)
 - [ ] PageSpeed Insights sobre el preview: confirmar LCP <2.5s móvil
 - [ ] **Cutover DNS** en el registrador (WP queda como respaldo, idealmente en subdominio privado)
