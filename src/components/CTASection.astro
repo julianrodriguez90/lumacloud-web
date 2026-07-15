@@ -26,6 +26,8 @@ const {
     <div class="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
       <a
         href={ctaHref}
+        data-track="cta_click"
+        data-track-cta="cta-section"
         class="w-full rounded-xl bg-mid-500 px-8 py-4 text-base font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.45)] transition-all hover:-translate-y-0.5 hover:bg-mid-400 sm:w-auto"
       >
         {ctaLabel}
@@ -34,6 +36,9 @@ const {
         href={SITE.whatsapp}
         target="_blank"
         rel="noopener"
+        data-track="contact_click"
+        data-track-method="whatsapp"
+        data-track-location="cta-section"
         class="w-full rounded-xl border border-white/20 px-8 py-4 text-base font-semibold text-white transition-colors hover:border-sky-500 hover:text-sky-500 sm:w-auto"
       >
         Escríbenos por WhatsApp

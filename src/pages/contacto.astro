@@ -173,7 +173,7 @@ const contactSchema = {
             </span>
             <div>
               <p class="text-sm font-semibold text-ink">Teléfono</p>
-              <a href={`tel:${SITE.phone}`} class="inline-flex min-h-11 items-center text-sm text-ink-mute transition-colors hover:text-mid-600">{SITE.phoneDisplay}</a>
+              <a href={`tel:${SITE.phone}`} data-track="contact_click" data-track-method="tel" data-track-location="contacto" class="inline-flex min-h-11 items-center text-sm text-ink-mute transition-colors hover:text-mid-600">{SITE.phoneDisplay}</a>
             </div>
           </li>
           <li class="flex items-start gap-4">
@@ -185,7 +185,7 @@ const contactSchema = {
             </span>
             <div>
               <p class="text-sm font-semibold text-ink">Email</p>
-              <a href={`mailto:${SITE.email}`} class="inline-flex min-h-11 items-center text-sm text-ink-mute transition-colors hover:text-mid-600">{SITE.email}</a>
+              <a href={`mailto:${SITE.email}`} data-track="contact_click" data-track-method="email" data-track-location="contacto" class="inline-flex min-h-11 items-center text-sm text-ink-mute transition-colors hover:text-mid-600">{SITE.email}</a>
             </div>
           </li>
           <li class="flex items-start gap-4">
@@ -223,6 +223,9 @@ const contactSchema = {
         href={SITE.whatsapp}
         target="_blank"
         rel="noopener"
+        data-track="contact_click"
+        data-track-method="whatsapp"
+        data-track-location="contacto"
         class="card-brand group flex items-center gap-4 p-7 transition-colors hover:border-mid-300"
       >
         <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-mid-500 to-sky-500 text-white">

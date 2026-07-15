@@ -66,6 +66,8 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
     <div class="flex items-center gap-3">
       <a
         href="/contacto"
+        data-track="cta_click"
+        data-track-cta="header-contacto"
         class="hidden rounded-xl bg-mid-500 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_4px_14px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600 hover:shadow-[0_6px_20px_rgb(0_115_255/0.45)] sm:inline-block"
       >
         Habla con un experto
@@ -102,6 +104,8 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
             }
             <a
               href="/contacto"
+              data-track="cta_click"
+              data-track-cta="header-contacto"
               class="mt-2 flex min-h-11 items-center justify-center rounded-xl bg-mid-500 px-4 py-3 text-center text-sm font-semibold text-white hover:bg-mid-600"
             >
               Habla con un experto
