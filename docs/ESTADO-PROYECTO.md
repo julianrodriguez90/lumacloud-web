@@ -5,7 +5,7 @@ Documento interno de seguimiento (en el repo, no se publica en la web).
 
 ## 🧭 Resumen ejecutivo — si solo lees esto
 
-El rediseño completo de lumacloud.co (WordPress → Astro) **está terminado, verificado y listo para desplegar**: 116 URLs en el sitemap, blog de 88 posts, SEO técnico completo, sistema de diseño con motion pulido, y una auditoría de usabilidad mobile ya corregida. Nada de esto está en producción todavía — el sitio vive solo en este repo (`master`) y en `localhost:4321`.
+El rediseño completo de lumacloud.co (WordPress → Astro) **está terminado, verificado y listo para desplegar**: 117 URLs en el sitemap, blog de 88 posts, SEO técnico completo, sistema de diseño con motion pulido, y una auditoría de usabilidad mobile ya corregida. Nada de esto está en producción todavía — el sitio vive solo en este repo (`master`) y en `localhost:4321`.
 
 **Lo que falta para lanzar** es 100% acción del dueño (respaldo del WP, cuenta de Resend, deploy a Vercel, cutover de DNS — ver checklist abajo). **Lo que falta para ganar en SEO** es contenido: 8 artículos evergreen + ~11 subpáginas comerciales de la Fase 1 del Plan Maestro, todavía sin escribir. Ninguno de los dos frentes requiere más trabajo de diseño o arquitectura — ambos son ejecución sobre una base ya sólida.
 
@@ -33,19 +33,19 @@ Reemplazar el WordPress actual (LCP móvil 25.9s, 88% tráfico de marca, ~19 vis
 ### Fase 3 — Páginas core (28 URLs)
 - [x] Home + quienes-somos + contacto + 404
 - [x] Páginas de silos: ciberseguridad (5: hub, consultoría, auditoría, Bogotá, Medellín), backup (3), cloud (3), SOC, cumplimiento (ISO 27001 + Ley 1581), servicios profesionales, CSIRT, Gonemo y Plataforma IA LCI
-- [x] 3 herramientas interactivas funcionales: calculadora RTO/RPO, evaluador ISO 27001, test de phishing (6 escenarios colombianos)
+- [x] 5 herramientas interactivas funcionales: calculadora RTO/RPO, evaluador ISO 27001, test de phishing, evaluación de madurez y calculadora de costo de downtime
 
 ### Fase 4 — Blog
 - [x] 88 posts migrados a Content Collections (1 basura excluida) con imágenes localizadas a WebP, links internos reescritos, categorización, schema Article, relacionados y filtro por categoría
 
 ### Fase 5 — SEO técnico
 - [x] Redirects 301 de posts en raíz y páginas WP antiguas; `/plataforma-ia-lci` es ahora una página propia y se retiró su redirect anterior a Gonemo
-- [x] Sitemap (116 URLs), robots.txt con AI crawlers, llms.txt conforme a llmstxt.org
-- [x] JSON-LD: Organization, LocalBusiness (geo Bogotá), WebSite, BreadcrumbList, Service, Article, FAQPage, SoftwareApplication, Review
+- [x] Sitemap (117 URLs), robots.txt con AI crawlers, llms.txt conforme a llmstxt.org
+- [x] JSON-LD: Organization, LocalBusiness (geo Bogotá), WebSite, BreadcrumbList, Service, Article, FAQPage y SoftwareApplication. Los testimonios visibles no emiten Review autorreferencial inelegible.
 
 ### Fase 6 — Verificación
 - [x] Auditoría del sitio: titles, descriptions, H1 únicos, canonical — 0 errores
-- [x] Formulario y las 3 herramientas probados end-to-end en navegador
+- [x] Formulario y las 5 herramientas probados end-to-end en navegador
 - [x] Mobile verificado · Peso de home ~320KB total
 
 ### ⚠️ Decisión de diseño (2026-07-10): rediseño v2 "Swiss-technical" DESCARTADO
@@ -76,7 +76,7 @@ Auditoría sistemática a 375px de las ~24 páginas + blog + herramientas (3 age
 Spec: `docs/superpowers/specs/2026-07-14-analitica-zoho-design.md` · Plan: `docs/superpowers/plans/2026-07-14-analitica-zoho.md`
 - [x] GA4 por eventos: `src/lib/analytics.ts` (track + atribución UTM/landing/referrer en sessionStorage) + listener global `data-track` en BaseLayout; eventos `generate_lead`, `form_error`, `contact_click`, `tool_complete`, `cta_click` (taxonomía en README §8)
 - [x] `/api/contact` generalizado: despacha en paralelo a Resend y Zoho CRM (Lead en módulo Leads vía `src/lib/zoho.ts`, OAuth self-client); éxito si al menos un canal funciona; acepta leads de herramientas (`source`, `tool_result`)
-- [x] Captura de leads en las 3 herramientas gratuitas: `ToolLeadForm.astro` (email + empresa, opcional, dentro del resultado) — cada herramienta reporta su score al CRM
+- [x] Captura de leads en las 5 herramientas gratuitas: `ToolLeadForm.astro` (email + empresa, opcional, dentro del resultado) — cada herramienta reporta su score al CRM
 - [x] Verificado: build limpio, batería curl del endpoint (400/200/503 según caso), envíos y eventos probados en navegador (desktop + mobile 375px, tap targets 44px)
 - [x] **Credenciales Zoho** (2026-07-15): Self Client creado (DC `.com`), grant code intercambiado por refresh token, credenciales en `.env` local (gitignored). ⚠️ Falta copiarlas a Vercel al momento del deploy (`ZOHO_CLIENT_ID`, `ZOHO_CLIENT_SECRET`, `ZOHO_REFRESH_TOKEN` — valores en el `.env` local de Julián).
 - [x] **Prueba E2E Zoho** (2026-07-15): POST real a `/api/contact` con solo Zoho configurado → 200, Lead creado en el CRM. Lead de prueba a borrar en Zoho: email `prueba-integracion@lumacloud.co`, empresa "PRUEBA INTEGRACION WEB - BORRAR".
@@ -94,9 +94,23 @@ Solicitud del dueño basada en los documentos y recursos de `Página Luma/` (`Aj
 - [x] **Inicio**: nuevo logo azul, fondos responsive y arte principal suministrados; H1/subtítulo actualizados; industrias ajustadas a las diez verticales indicadas; vendors Google Cloud, Vicarius y Microsoft añadidos; estadística ColCERT actualizada con el texto aprobado.
 - [x] **Navegación**: enlace explícito a Inicio y “Gonemo IA” reemplazado en el menú por “Plataforma IA”. La ruta histórica `/gonemo` se conserva publicada; el menú dirige a `/plataforma-ia-lci`.
 - [x] **Plataforma IA LCI**: nueva landing con contenido, modalidades y precios del brief suministrado; calculadora con supuestos declarados, simulador accesible, schema SoftwareApplication, FAQs y formulario real conectado a `/api/contact` (`source=lci`, Resend + Zoho + GA4). Se descartaron el contador de escasez artificial, el éxito de formulario simulado y la animación canvas del mockup para respetar las reglas de credibilidad, analítica y animación CSS del proyecto.
-- [x] **Quiénes somos**: reconstruida alrededor del propósito, misión, visión, valores ADN Luma y los cuatro frentes del ecosistema Luma 360 entregados por el dueño; se integró fielmente la lámina del PPT con el mapa regional y los logos aprobados, y se conservan únicamente los testimonios verificados del sitio.
+- [x] **Quiénes somos**: reconstruida alrededor del propósito, misión, visión, valores ADN Luma y los cuatro frentes del ecosistema Luma 360 entregados por el dueño. Tras la aclaración de derechos del cliente, se retiró la lámina con logos y su activo público; la sección conserva el mapa regional, muestra Google Cloud/Vicarius/Microsoft como texto y presenta únicamente los 23 nombres autorizados de organizaciones. Se conservan solo los testimonios verificados del sitio.
 - [x] **Contacto**: H1 y subtítulo actualizados exactamente según el documento; opción comercial renombrada a Plataforma IA.
 - [x] **Fuente de verdad corregida por instrucción del dueño**: los materiales entregados por el cliente prevalecen sobre el corpus histórico. Se incorporaron a `content-source/client-approved/`, se publicaron “+11 años” y “+6 países” en Quiénes somos y se actualizaron README/AGENTS. El teléfono/WhatsApp vigente no cambia únicamente porque el documento del cliente indica que el nuevo número todavía no debe aplicarse.
+
+### Auditoría SEO + Growth y cierre de brechas medibles (2026-07-17)
+- [x] Auditorías independientes SEO/Growth: la base se conserva; el pSEO masivo queda congelado hasta validar intención, evidencia local y QA humano.
+- [x] Nueva `docs/SEO-MATRIZ-2026.md`: una intención por URL, conflictos resueltos, orden de contenido, gates locales/sectoriales y medición 30/60/90.
+- [x] Atribución ampliada: primer toque, última página útil, referrer y CTA; fallback global para todos los enlaces a `/contacto`.
+- [x] LCI transmite al lead plan, modalidad, estimación ROI y agente configurado cuando el usuario los utiliza.
+- [x] Zoho admite campos personalizados opcionales vía `ZOHO_FIELD_*`; sin ellos, el contexto completo permanece en `Description`.
+- [x] Formularios con autorización obligatoria, versión y timestamp; falta validación legal del aviso/política definitiva.
+- [x] Las cinco herramientas envían una copia orientativa del resultado al usuario cuando Resend está activo; si solo funciona Zoho, informan que un especialista lo revisará.
+- [x] Review schema autorreferencial retirado sin quitar testimonios; política editorial pública y campos futuros de autor/revisor/fuentes en Content Collections.
+- [x] Blog: CTA contextual a la herramienta más cercana + servicio del silo.
+- [x] `llms.txt` actualizado con LCI, cinco herramientas, `+11 años`, `+6 países` y países aprobados.
+- [x] Corrección semántica de claims no respaldados como “RTO/RPO garantizados” y “datacenters certificados” en las superficies intervenidas.
+- [x] QA: build limpio; 118 HTML sin errores de H1/main/title/description/canonical; 117 URLs en sitemap; 404 excluido; desktop y móvil 375px sin overflow.
 
 ---
 
@@ -105,6 +119,7 @@ Solicitud del dueño basada en los documentos y recursos de `Página Luma/` (`Aj
 ### Para lanzar (bloqueantes — acciones del dueño)
 - [ ] **Respaldo WP** con el admin (ver `docs/RESPALDO-WORDPRESS.md`): exportar WXR + UpdraftPlus
 - [ ] **Resend**: crear cuenta, verificar dominio lumacloud.co, poner `RESEND_API_KEY` en Vercel
+- [ ] **Privacidad**: validar legalmente el aviso/política definitiva y el texto de autorización antes del cutover (la captura técnica de consentimiento ya está implementada)
 - [x] `PUBLIC_GA4_ID` en Vercel (2026-07-15, `G-4HP5K1LWCY`, Production and Preview) — falta marcar `generate_lead` como key event en GA4
 - [x] **Fix GA4** (2026-07-15): al configurar el ID real se descubrió que Partytown nunca ejecutaba los scripts de GA (sin hits, sin cookies, en dev y en Vercel). Se eliminó Partytown y GA4 pasó a gtag async estándar — verificado con hits reales a `google-analytics.com/g/collect`. **Requiere redeploy en Vercel.**
 - [x] **Zoho CRM**: credenciales self-client copiadas a las env vars de Vercel (2026-07-15) — aplican desde el próximo deploy
@@ -121,7 +136,7 @@ Solicitud del dueño basada en los documentos y recursos de `Página Luma/` (`Aj
 - [ ] OG images específicas por página clave (hoy todas usan `/images/og/default.webp`)
 
 ### Fase 2 del Plan Maestro (meses 5-12 — no empezar antes del lanzamiento)
-- [ ] pSEO local: páginas por ciudad (Cali, Barranquilla, Bucaramanga) y por sector (financiero, salud, retail, educación, manufactura) — con Supabase según el plan
+- [ ] pSEO local: piloto máximo de 3 páginas por ciudad/sector, únicamente después de superar los gates de `docs/SEO-MATRIZ-2026.md`; medir 8–12 semanas antes de escalar. No generar lotes automáticos ni adoptar Supabase/RAG solo por el plan original.
 - [ ] Herramientas conectadas a RAG/LLM real (hoy son JS estático — "Plan B" correcto para Fase 1)
 - [ ] Link building: guest posts en medios TI colombianos, digital PR con informe propio
 - [ ] Expansión LATAM (México, Perú, Ecuador)
@@ -137,7 +152,7 @@ Solicitud del dueño basada en los documentos y recursos de `Página Luma/` (`Aj
 |---|---|---|
 | Tráfico orgánico no-marca/mes | 19 | 600 |
 | Keywords en top 10 | ~3 | 25+ |
-| URLs indexadas | ~15 | 90+ (hoy: 116 en el sitemap) |
+| URLs indexadas | ~15 | 90+ (hoy: 117 en el sitemap; sitemap no equivale a indexación) |
 | Leads orgánicos/mes | ~2 | 12+ |
 
 **Contexto de la brecha de autoridad**: lumacloud.co hoy tiene ~60 keywords indexadas vs. 200-1.200 de competidores directos (datos101.com, cloudseguro.co, hostdime.com.co). Ningún rediseño cierra esa brecha por sí solo — se cierra con los meses de contenido evergreen + backlinks de las Fases 1-2 de arriba. **No prometer posición #1 en términos genéricos ("ciberseguridad", "cloud") a corto plazo** — es una carrera de 12+ meses, no de una web nueva. Ver conversación registrada: el dueño preguntó esto explícitamente y se le dio una respuesta honesta sobre expectativas de SEO y conversión (no hay garantías sin datos reales post-lanzamiento).

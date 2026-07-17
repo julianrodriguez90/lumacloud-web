@@ -19,7 +19,33 @@
 - CyberSOC y equipo de expertos.
 - Capacidades de IA para empresas.
 - Trabajo técnico relacionado con ISO 27001, sin afirmar que LumaCloud emita certificaciones ni preste asesoría legal.
-- La lámina “Nuestra experiencia” presenta operación en Colombia, Ecuador, República Dominicana, Perú, México y Chile. El mapa, la composición y los logos de organizaciones incluidos en esa lámina quedan aprobados para su publicación como referencia de experiencia.
+- La lámina “Nuestra experiencia” presenta operación en Colombia, Ecuador, República Dominicana, Perú, México y Chile. El mapa y los nombres de los países quedan aprobados para su publicación como referencia de experiencia.
+- **Aclaración posterior del cliente (2026-07-17):** Luma no cuenta con permisos para publicar los logos de las organizaciones incluidos en la presentación. Esos logos son material privado de referencia y están prohibidos en el sitio público. Esta decisión reemplaza cualquier autorización anterior registrada sobre esos logos.
+- La franja tecnológica se presenta únicamente como texto: Google Cloud, Vicarius y Microsoft.
+- Las organizaciones autorizadas para mostrarse únicamente por nombre son:
+  - Seguros APS
+  - Vivienda (Ministerio de Vivienda)
+  - IDU (Instituto de Desarrollo Urbano)
+  - Universidad de Manizales
+  - Domoteq
+  - La Terminal (Terminal de Transporte de Bogotá)
+  - Takami
+  - Suma
+  - Centro de Investigación Clínica de la Costa
+  - Itaú
+  - CNE (Consejo Nacional Electoral)
+  - Mass
+  - Torortiz
+  - Icontec
+  - Amarilo
+  - SuPiscina
+  - AssisPrex
+  - Ana María
+  - Ecopetrol
+  - Ejército Nacional de Colombia
+  - Energía Integral Andina
+  - SENA
+  - Canal RCN
 
 ## Posicionamiento corporativo
 
@@ -47,7 +73,7 @@ LumaCloud es un aliado estratégico especializado en la continuidad operativa de
 - El H1 de Inicio es “Ciberseguridad, Continuidad Operativa y Nube Empresarial”.
 - El H1 de Contacto es “Hablemos de tu entorno Cloud, IA y Ciberseguridad”.
 - El teléfono y WhatsApp actuales se mantienen hasta que el cliente confirme el cambio al número propuesto: `3157972080`.
-- La sección “Nuestra experiencia” de Quiénes somos debe conservar fielmente el mapa, los países y los logos entregados en la presentación del cliente.
+- La sección “Nuestra experiencia” de Quiénes somos debe conservar el mapa y los países entregados por el cliente, usar la lista textual autorizada y no publicar logos de organizaciones.
 
 ## Regla de precedencia
 

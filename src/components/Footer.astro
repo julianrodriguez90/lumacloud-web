@@ -59,7 +59,7 @@ const year = new Date().getFullYear();
         <h2 class="font-display text-lg tracking-wide text-sky-500">Empresa</h2>
         <ul class="mt-2">
           {
-            [...NAV, { href: '/contacto', label: 'Contacto' }].map((item) => (
+            [...NAV, { href: '/politica-editorial', label: 'Política editorial' }, { href: '/contacto', label: 'Contacto' }].map((item) => (
               <li>
                 <a href={item.href} class="flex min-h-11 items-center text-sm text-white/60 transition-colors hover:text-white">
                   {item.label}
@@ -101,7 +101,7 @@ const year = new Date().getFullYear();
 
     <div class="mt-14 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 text-sm text-white/40 sm:flex-row sm:items-center">
       <p>© {year} {SITE.legalName} — {SITE.name}. Todos los derechos reservados.</p>
-      <p>Datacenters certificados TIER III y IV · CSIRT operativo · Bogotá, Colombia</p>
+      <p>Operación sobre datacenters TIER III y IV · CSIRT operativo · Bogotá, Colombia</p>
     </div>
   </div>
 </footer>

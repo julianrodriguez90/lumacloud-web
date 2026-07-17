@@ -8,7 +8,7 @@ export const SERVICES = [
   {
     href: '/backup',
     label: 'Backup y Ciberrecuperación',
-    desc: 'Backup empresarial, DRP y replicación con RTO/RPO garantizados',
+    desc: 'Backup empresarial, DRP y replicación con objetivos RTO/RPO definidos',
   },
   {
     href: '/cloud',

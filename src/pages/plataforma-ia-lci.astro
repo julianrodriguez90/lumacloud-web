@@ -110,7 +110,6 @@ const softwareSchema = {
   ]}
   schemas={[softwareSchema]}
 >
-  <main>
     <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
       <div class="pointer-events-none absolute -right-28 top-12 h-80 w-80 rounded-full bg-sky-500/20 blur-3xl" aria-hidden="true"></div>
       <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1fr_1.05fr] lg:pb-24 lg:pt-20">
@@ -353,6 +352,7 @@ const softwareSchema = {
         </div>
         <form id="form-lci" class="rounded-[2rem] bg-white p-6 shadow-2xl sm:p-9">
           <input type="hidden" name="source" value="lci" />
+          <input type="hidden" name="consent_version" value="lead-response-v1" />
           <div class="absolute -left-[9999px]" aria-hidden="true"><label>Deja este campo vacío<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
           <div class="grid gap-5 sm:grid-cols-2">
             <label class="text-sm font-medium text-ink">Nombre completo *<input required name="nombre" autocomplete="name" class="mt-2 min-h-11 w-full rounded-xl border border-frost-300 px-4 outline-none focus:border-mid-500 focus:ring-2 focus:ring-mid-100" /></label>
@@ -366,7 +366,7 @@ const softwareSchema = {
             </select>
           </label>
           <label class="mt-5 block text-sm font-medium text-ink">Cuéntanos el reto *<textarea required name="mensaje" rows="4" class="mt-2 w-full rounded-xl border border-frost-300 px-4 py-3 outline-none focus:border-mid-500 focus:ring-2 focus:ring-mid-100"></textarea></label>
-          <label class="mt-5 flex min-h-11 cursor-pointer items-start gap-3 text-sm text-ink-soft"><input required type="checkbox" class="mt-1 h-5 w-5 shrink-0 accent-mid-500" /><span>Autorizo el tratamiento de mis datos para recibir respuesta a esta solicitud.</span></label>
+          <label class="mt-5 flex min-h-11 cursor-pointer items-start gap-3 text-sm text-ink-soft"><input required type="checkbox" name="consent" value="yes" class="mt-1 h-5 w-5 shrink-0 accent-mid-500" /><span>Autorizo a Grupo Luma SAS a usar mis datos para responder esta solicitud.</span></label>
           <button type="submit" class="mt-5 flex min-h-11 w-full items-center justify-center rounded-xl bg-mid-500 px-7 font-semibold text-white hover:bg-mid-600 disabled:cursor-wait disabled:opacity-60">Solicitar diagnóstico</button>
           <p id="form-lci-status" class="mt-4 min-h-6 text-center text-sm" aria-live="polite"></p>
         </form>
@@ -374,13 +374,16 @@ const softwareSchema = {
     </section>
 
     <FAQSection faqs={FAQS} />
-  </main>
 </BaseLayout>
 
 <script>
   import { appendAttribution, track } from '@/lib/analytics';
 
   const currency = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 });
+  let currentRoiSummary = '';
+  let currentAgentSummary = '';
+  let currentPriceMode = '12 meses';
+  let selectedPlan = '';
 
   const roiInputs = ['roi-personas', 'roi-horas', 'roi-salario', 'roi-factor'].map((id) => document.getElementById(id) as HTMLInputElement);
   const updateRoi = () => {
@@ -389,6 +392,7 @@ const softwareSchema = {
     const recoveredHours = monthlyHours * Math.min(100, factor) / 100;
     const hourlyCost = salario / 160;
     const value = recoveredHours * hourlyCost;
+    currentRoiSummary = `${Math.round(recoveredHours)} horas/mes recuperables; valor estimado ${currency.format(value)}/mes; datos declarados por el usuario`;
     const hoursOutput = document.getElementById('roi-hours');
     const valueOutput = document.getElementById('roi-value');
     if (hoursOutput) hoursOutput.textContent = `${Math.round(recoveredHours).toLocaleString('es-CO')} h`;
@@ -419,6 +423,7 @@ const softwareSchema = {
       if (nameOutput) nameOutput.textContent = name;
       if (areaOutput) areaOutput.textContent = area;
       if (purposeOutput) purposeOutput.textContent = purpose;
+      currentAgentSummary = `${name}; área: ${area}; propósito: ${purpose}`;
     }
   };
   document.querySelectorAll<HTMLButtonElement>('[data-agent-tab]').forEach((tab) => tab.addEventListener('click', () => showAgentStep(Number(tab.dataset.agentTab))));
@@ -433,6 +438,7 @@ const softwareSchema = {
   type PriceMode = keyof typeof priceModes;
   const setPriceMode = (key: PriceMode) => {
     const mode = priceModes[key];
+    currentPriceMode = document.querySelector<HTMLButtonElement>(`[data-price-mode="${key}"]`)?.textContent?.trim() || key;
     document.querySelectorAll<HTMLButtonElement>('[data-price-mode]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.priceMode === key)));
     const note = document.getElementById('price-note');
     if (note) note.textContent = mode.note;
@@ -448,6 +454,13 @@ const softwareSchema = {
     });
   };
   document.querySelectorAll<HTMLButtonElement>('[data-price-mode]').forEach((button) => button.addEventListener('click', () => setPriceMode(button.dataset.priceMode as PriceMode)));
+  document.querySelectorAll<HTMLAnchorElement>('[data-track-cta^="lci-plan-"]').forEach((link) => {
+    link.addEventListener('click', () => {
+      const card = link.closest<HTMLElement>('[data-plan]');
+      const planName = card?.querySelector('h3')?.textContent?.trim();
+      selectedPlan = planName ? `${planName} (${card?.dataset.plan || ''})` : card?.dataset.plan || '';
+    });
+  });
   setPriceMode('m12');
 
   const leadForm = document.getElementById('form-lci') as HTMLFormElement | null;
@@ -459,6 +472,10 @@ const softwareSchema = {
     if (status) { status.textContent = 'Enviando…'; status.className = 'mt-4 min-h-6 text-center text-sm text-ink-mute'; }
     try {
       const data = new FormData(leadForm);
+      if (selectedPlan) data.append('lci_plan', selectedPlan);
+      data.append('lci_modalidad', currentPriceMode);
+      if (currentRoiSummary) data.append('lci_roi', currentRoiSummary);
+      if (currentAgentSummary) data.append('lci_agente', currentAgentSummary);
       appendAttribution(data);
       const response = await fetch('/api/contact', { method: 'POST', body: data });
       const result = await response.json();

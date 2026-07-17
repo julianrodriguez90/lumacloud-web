@@ -12,6 +12,14 @@ export interface ZohoLeadInput {
   telefono?: string;
   leadSource: string;
   description: string;
+  formSource?: string;
+  service?: string;
+  toolResult?: string;
+  landingPage?: string;
+  lastTouchPage?: string;
+  ctaId?: string;
+  lciPlan?: string;
+  lciModality?: string;
 }
 
 interface ZohoConfig {
@@ -83,6 +91,22 @@ export async function createZohoLead(input: ZohoLeadInput): Promise<void> {
   };
   if (parts.length > 1) record.First_Name = parts[0];
   if (input.telefono) record.Phone = input.telefono;
+
+  // Los API names de campos personalizados varían por cuenta. Si se definen
+  // en env, se envía contexto estructurado; si no, sigue disponible en Description.
+  const customFields: Array<[string | undefined, string | undefined]> = [
+    [import.meta.env.ZOHO_FIELD_FORM_SOURCE, input.formSource],
+    [import.meta.env.ZOHO_FIELD_SERVICE, input.service],
+    [import.meta.env.ZOHO_FIELD_TOOL_RESULT, input.toolResult],
+    [import.meta.env.ZOHO_FIELD_LANDING_PAGE, input.landingPage],
+    [import.meta.env.ZOHO_FIELD_LAST_TOUCH_PAGE, input.lastTouchPage],
+    [import.meta.env.ZOHO_FIELD_CTA, input.ctaId],
+    [import.meta.env.ZOHO_FIELD_LCI_PLAN, input.lciPlan],
+    [import.meta.env.ZOHO_FIELD_LCI_MODALITY, input.lciModality],
+  ];
+  for (const [apiName, value] of customFields) {
+    if (apiName && value) record[apiName] = value;
+  }
 
   const res = await fetch(`${cfg.apiUrl}/crm/v8/Leads`, {
     method: 'POST',

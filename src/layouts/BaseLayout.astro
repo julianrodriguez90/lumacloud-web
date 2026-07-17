@@ -153,21 +153,24 @@ const jsonLd = {
     </main>
     <Footer />
     <script>
-      import { initAttribution, track } from '@/lib/analytics';
+      import { initAttribution, recordInteraction, track } from '@/lib/analytics';
 
       window.lumaTrack = track;
       initAttribution();
 
       document.addEventListener('click', (e) => {
-        const el = (e.target as Element | null)?.closest?.('[data-track]') as HTMLElement | null;
-        if (!el?.dataset.track) return;
+        const el = (e.target as Element | null)?.closest?.('[data-track], a[href="/contacto"], a[href^="/contacto?"]') as HTMLElement | null;
+        if (!el) return;
+        recordInteraction(el);
+        const eventName = el.dataset.track || 'cta_click';
         const params: Record<string, string> = { page: location.pathname };
         for (const [key, value] of Object.entries(el.dataset)) {
           if (key !== 'track' && key.startsWith('track') && value) {
             params[key.slice(5).toLowerCase()] = value;
           }
         }
-        track(el.dataset.track, params);
+        if (!params.cta && el instanceof HTMLAnchorElement && el.pathname === '/contacto') params.cta = 'contacto-link';
+        track(eventName, params);
       });
     </script>
   </body>

@@ -32,17 +32,6 @@ const TESTIMONIOS = [
   },
 ];
 
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  '@id': 'https://lumacloud.co/#organization',
-  review: TESTIMONIOS.map((t) => ({
-    '@type': 'Review',
-    author: { '@type': 'Person', name: t.nombre },
-    reviewBody: t.texto,
-    itemReviewed: { '@type': 'Organization', name: 'LumaCloud' },
-  })),
-};
 ---
 
 <section class="bg-frost-50 py-20">
@@ -72,5 +61,3 @@ const schema = {
     </div>
   </div>
 </section>
-
-<script type="application/ld+json" set:html={JSON.stringify(schema)} />

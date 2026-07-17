@@ -1,0 +1,74 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Política Editorial | LumaCloud';
+const description =
+  'Conoce cómo LumaCloud selecciona fuentes, revisa datos y actualiza sus contenidos sobre ciberseguridad, nube y continuidad operativa.';
+
+const schema = {
+  '@type': 'WebPage',
+  '@id': `${SITE.url}/politica-editorial#webpage`,
+  url: `${SITE.url}/politica-editorial`,
+  name: title,
+  description,
+  about: { '@id': `${SITE.url}/#organization` },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Política editorial', href: '/politica-editorial' },
+  ]}
+  schemas={[schema]}
+>
+  <header class="bg-blueprint bg-hero-mesh border-b border-frost-200">
+    <div class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:py-20">
+      <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+        <a href="/" class="inline-flex min-h-11 items-center hover:text-mid-600">Inicio</a>
+        <span class="mx-2">/</span>
+        <span class="font-medium text-cold-600">Política editorial</span>
+      </nav>
+      <p class="mt-5 text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Transparencia y fuentes</p>
+      <h1 class="font-display mt-3 text-5xl leading-none text-ink sm:text-6xl">Cómo elaboramos nuestros contenidos</h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
+        Nuestro objetivo es publicar información útil y rastreable para equipos que toman decisiones sobre ciberseguridad, nube y continuidad operativa.
+      </p>
+    </div>
+  </header>
+
+  <article class="prose-luma mx-auto max-w-4xl px-4 py-16 sm:px-6">
+    <h2>Jerarquía de fuentes</h2>
+    <p>
+      Los materiales entregados o aprobados por el cliente son la fuente de mayor precedencia para datos corporativos. Después utilizamos el corpus histórico de LumaCloud, el BrandBook y fuentes primarias oficiales o técnicas. Si dos fuentes entran en conflicto, se conserva la versión más reciente y autorizada.
+    </p>
+
+    <h2>Datos que no publicamos sin respaldo</h2>
+    <p>
+      No inventamos años de experiencia, países, clientes, porcentajes de ahorro, capacidades, certificaciones ni niveles de servicio. Las cifras externas deben enlazar su fuente primaria y conservar el contexto temporal y geográfico.
+    </p>
+
+    <h2>Autoría y revisión</h2>
+    <p>
+      Los artículos históricos migrados del sitio anterior se identifican como “Equipo LumaCloud” cuando no existe una asignación personal verificable. Los contenidos nuevos pueden incorporar autor o revisor técnico cuando LumaCloud confirme su nombre, cargo, especialidad y participación. No creamos perfiles ni revisiones retroactivas.
+    </p>
+
+    <h2>Actualizaciones y correcciones</h2>
+    <p>
+      Registramos la fecha de publicación y la fecha de actualización de cada artículo. Los contenidos fechados, las amenazas y las referencias normativas requieren revisión periódica; cuando dos páginas responden la misma intención, priorizamos consolidar y redirigir antes que mantener duplicados.
+    </p>
+
+    <h2>Límites profesionales</h2>
+    <p>
+      En cumplimiento normativo, LumaCloud implementa controles técnicos y acompaña procesos tecnológicos. No emite certificaciones ISO ni sustituye la asesoría legal. Las herramientas publicadas ofrecen diagnósticos orientativos y no reemplazan una evaluación técnica formal.
+    </p>
+
+    <h2>Contacto editorial</h2>
+    <p>
+      Si detectas un dato que requiere corrección o actualización, puedes escribir a <a href={`mailto:${SITE.email}`} class="inline-flex min-h-11 items-center">{SITE.email}</a> indicando la URL y la fuente correspondiente.
+    </p>
+  </article>
+</BaseLayout>

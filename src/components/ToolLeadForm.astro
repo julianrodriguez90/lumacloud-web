@@ -16,6 +16,7 @@ const { tool } = Astro.props;
     Déjanos tu email y un experto te envía recomendaciones concretas según tu resultado. Sin spam ni llamadas insistentes.
   </p>
   <form id="tool-lead-form" class="mt-4 grid gap-3 sm:grid-cols-[1.2fr_1fr_auto]" novalidate>
+    <input type="hidden" name="consent_version" value="lead-response-v1" />
     <div class="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
       <label for="tl-website">No llenes este campo</label>
       <input type="text" id="tl-website" name="website" tabindex="-1" autocomplete="off" />
@@ -52,6 +53,10 @@ const { tool } = Astro.props;
     >
       Recibir diagnóstico
     </button>
+    <label class="flex min-h-11 cursor-pointer items-start gap-3 text-xs leading-relaxed text-ink-mute sm:col-span-3">
+      <input required type="checkbox" name="consent" value="yes" class="mt-1 h-5 w-5 shrink-0 accent-mid-500" />
+      <span>Autorizo a Grupo Luma SAS a usar estos datos para enviarme el resultado y responder esta solicitud.</span>
+    </label>
   </form>
   <p id="tool-lead-status" role="status" aria-live="polite" class="mt-3 hidden text-sm font-medium"></p>
 </div>
@@ -88,7 +93,7 @@ const { tool } = Astro.props;
     const formId = root.dataset.source ?? 'tool';
     try {
       const res = await fetch('/api/contact', { method: 'POST', body });
-      let data: { ok?: boolean; error?: string } = {};
+      let data: { ok?: boolean; error?: string; diagnostic_sent?: boolean } = {};
       try {
         data = await res.json();
       } catch {
@@ -96,7 +101,12 @@ const { tool } = Astro.props;
       }
       if (res.ok && data.ok) {
         form.reset();
-        showStatus('¡Listo! Te enviaremos tu diagnóstico en horario hábil.', true);
+        showStatus(
+          data.diagnostic_sent
+            ? '¡Listo! Enviamos una copia del resultado a tu correo y revisaremos los próximos pasos.'
+            : '¡Listo! Registramos tu resultado. Un especialista lo revisará en horario hábil.',
+          true,
+        );
         track('generate_lead', { form_id: formId, tool_score: root.dataset.result });
       } else {
         showStatus(data.error ?? 'No pudimos registrar tu email. Escríbenos a info@lumacloud.co.', false);

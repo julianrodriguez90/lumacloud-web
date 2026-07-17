@@ -7,6 +7,7 @@
 /** @type {Record<string, string>} */
 export const pageRedirects = {
   '/ciberproteccion': '/ciberseguridad',
+  '/ciberseguridad/bogota-colombia': '/ciberseguridad/bogota',
   '/ciber-recuperacion': '/backup',
   '/drp': '/backup',
   '/infraestructura-iaas': '/cloud',
@@ -23,6 +24,7 @@ export const pageRedirects = {
   '/newsletter': '/blog',
   '/planes': '/contacto',
   '/tienda': '/contacto',
+  '/herramientas/simulador-phishing': '/herramientas/test-phishing',
 };
 
 let postRedirects = {};

@@ -10,8 +10,8 @@ Sitio web nuevo de **LumaCloud** (Grupo Luma SAS — empresa colombiana de ciber
 
 - **LumaCloud** vende: ciberseguridad administrada (Acronis), backup/DRP, cloud privado/público/híbrido, SOC 24/7 (Fortinet/FortiSIEM), cumplimiento (ISO 27001, Ley 1581), servicios profesionales TI, CSIRT y LCI (plataforma de IA empresarial).
 - **El problema**: el WordPress actual tiene LCP móvil de **25.9s**, 88% de tráfico de marca y ~19 visitas orgánicas no-marca/mes. Los competidores (datos101.com, cloudseguro.co, hostdime.com.co) capturan 3-20× más keywords.
-- **La estrategia**: rediseño total en Astro (estático = rápido) + arquitectura de contenido en 5 silos SEO definida en `Plan_Maestro_pSEO_LumaCloud.docx` (diagnóstico Semrush, keywords con volumen/KD, roadmap de 12 meses).
-- **Regla editorial**: todo dato factual del sitio debe rastrearse al corpus (`content-source/`), al BrandBook o a materiales entregados/aprobados por el cliente. **Los materiales aprobados por el cliente son la fuente de mayor precedencia**: si contradicen al WordPress histórico, se usa la versión más reciente del cliente y se actualiza el corpus en el mismo cambio. Nunca inventar cifras que no aparezcan en una de estas fuentes.
+- **La estrategia**: rediseño total en Astro (estático = rápido) + arquitectura de contenido en 5 silos SEO definida en `Plan_Maestro_pSEO_LumaCloud.docx`. La ejecución vigente se controla en `docs/SEO-MATRIZ-2026.md`, que resuelve canibalizaciones y reemplaza la publicación pSEO masiva por gates de calidad y un piloto limitado.
+- **Regla editorial**: todo dato factual del sitio debe rastrearse al corpus (`content-source/`), al BrandBook o a materiales entregados/aprobados por el cliente. **Los materiales aprobados por el cliente son la fuente de mayor precedencia**: si contradicen al WordPress histórico, se usa la versión más reciente del cliente y se actualiza el corpus en el mismo cambio. Nunca inventar cifras que no aparezcan en una de estas fuentes. Los logos de organizaciones de la presentación de Quiénes somos son material privado sin autorización pública: la web usa únicamente el mapa y los nombres textuales aprobados.
 - **Marca** (de `LUMA - BrandBook.pdf`, 44 págs, no está en git por peso): colores Cold Blue `#173A87`, Mid Blue `#0073FF`, White Blue `#27CAFF`, Grey B `#100E16`; tipografías Bebas Neue (títulos) + Open Sans (modernizada a Inter en la web); esencia "Tranquilidad, Innovación, Seguridad"; arquetipo Creador; voz experta-cercana con tuteo.
 
 ## 2. Quick start
@@ -29,9 +29,9 @@ Variables de entorno (`.env`, ver `.env.example`):
 |---|---|---|
 | `RESEND_API_KEY` | Envío de leads por email a info@lumacloud.co | ⚠️ Pendiente: crear cuenta en resend.com y verificar dominio |
 | `PUBLIC_GA4_ID` | Google Analytics 4 (gtag async; sin la variable no se carga nada) | ✅ Configurada en Vercel (2026-07-15) |
-| `ZOHO_CLIENT_ID` | Zoho CRM: creación de Leads desde los formularios | ⚠️ Pendiente: self-client en api-console.zoho.com |
-| `ZOHO_CLIENT_SECRET` | Zoho CRM (par del client id) | ⚠️ Pendiente |
-| `ZOHO_REFRESH_TOKEN` | Zoho CRM: token permanente (scope `ZohoCRM.modules.leads.CREATE`) | ⚠️ Pendiente |
+| `ZOHO_CLIENT_ID` | Zoho CRM: creación de Leads desde los formularios | ✅ Configurada local + Vercel (2026-07-15) |
+| `ZOHO_CLIENT_SECRET` | Zoho CRM (par del client id) | ✅ Configurada local + Vercel (2026-07-15) |
+| `ZOHO_REFRESH_TOKEN` | Zoho CRM: token permanente (scope `ZohoCRM.modules.leads.CREATE`) | ✅ Configurada local + Vercel (2026-07-15) |
 | `ZOHO_ACCOUNTS_URL` / `ZOHO_API_URL` | Solo si el DC de Zoho no es `.com` (defaults: accounts.zoho.com / www.zohoapis.com) | Opcional |
 
 ## 3. Stack y por qué
@@ -41,7 +41,7 @@ Variables de entorno (`.env`, ver `.env.example`):
 | Astro | `^6.4.8` (**no subir a 7**) | SSG puro = Core Web Vitals perfectos. Astro 7 salió hace semanas, sin probar compatibilidad |
 | Tailwind CSS | `~4.1.8` (**no subir a 4.3+**) | El spec original documentó que 4.3+ rompe con Astro 6. Tokens vía `@theme` en CSS |
 | `@astrojs/vercel` | `^10` | v10 = Astro 6, v11 = Astro 7. Materializa los redirects en `.vercel/output/config.json` |
-| `@astrojs/sitemap` | ^3.7 | Sitemap automático en build (116 URLs) |
+| `@astrojs/sitemap` | ^3.7 | Sitemap automático en build (117 URLs) |
 | ~~`@astrojs/partytown`~~ | eliminado 2026-07-15 | Nunca ejecutó los scripts de GA4 (ni en dev ni en Vercel); GA4 pasó a gtag async estándar |
 | Resend | ^4 | Email del formulario. Único código server-side del sitio |
 | sharp | ^0.34 | Optimización de imágenes a WebP (scripts, no runtime) |
@@ -146,7 +146,7 @@ Definido en `src/styles/global.css` con `@theme` de Tailwind 4. **Página patró
 
 - **Arquitectura de 5 silos** (del Plan Maestro): `/ciberseguridad/*`, `/backup/*`, `/cloud/*`, `/soc` + `/cumplimiento/*`, blog + `/herramientas/*`. Cada página ataca UNA keyword del plan con su volumen/KD documentado.
 - **Reglas por página**: title ≤60 chars (`Keyword | LumaCloud`) · description 120–155 · exactamente 1 H1 con la keyword · canonical self-referencing · breadcrumbs (prop + schema).
-- **JSON-LD** (en BaseLayout, todas las páginas): Organization + LocalBusiness (geo Bogotá) + WebSite + BreadcrumbList. Por tipo: Service (páginas de silo), Article (blog), SoftwareApplication (herramientas), FAQPage (automático vía FAQSection), Review (testimonios), AboutPage/ContactPage.
+- **JSON-LD** (en BaseLayout, todas las páginas): Organization + LocalBusiness (geo Bogotá) + WebSite + BreadcrumbList. Por tipo: Service (páginas de silo), Article (blog), SoftwareApplication (herramientas), FAQPage (automático vía FAQSection) y AboutPage/ContactPage. Los testimonios verificados son contenido visible, pero no emiten Review schema autorreferencial porque no es elegible para estrellas en Google.
 - **Redirects 301**: 108 en total. Posts (`/{slug}` → `/blog/{slug}`) en `redirects-posts.generated.mjs` (regenerar con `node scripts/generate-redirects.mjs`); páginas viejas del WP mapeadas a mano en `redirects.mjs`. Se materializan en `.vercel/output/config.json` al hacer build — verificar ahí, no funcionan en `npm run preview`.
 - **AI-SEO**: `robots.txt` permite GPTBot/ClaudeBot/PerplexityBot/CCBot; `llms.txt` en formato llmstxt.org (H1 + blockquote + secciones con links Markdown — un validador externo exige ese formato exacto).
 - **Herramientas gratuitas** como imanes de links/leads (hub en `/herramientas`): evaluación de madurez NIST CSF, calculadora de costo de downtime, calculadora RTO/RPO, evaluador ISO 27001, test de phishing. JS vanilla en cliente (sin backend) — la versión conectada a IA/RAG es Fase 2.
@@ -156,15 +156,15 @@ Definido en `src/styles/global.css` con `@theme` de Tailwind 4. **Página patró
 Todos los leads del sitio pasan por `src/pages/api/contact.ts` (único endpoint server-side, `prerender = false`), que despacha **en paralelo** a dos canales (`Promise.allSettled`):
 
 1. **Resend** → email a info@lumacloud.co (respaldo; asunto indica la fuente)
-2. **Zoho CRM** → crea un Lead vía `src/lib/zoho.ts` (OAuth self-client, módulo Leads; `Lead_Source` = utm_source o "Sitio web", atribución en `Description`)
+2. **Zoho CRM** → crea un Lead vía `src/lib/zoho.ts` (OAuth self-client, módulo Leads; `Lead_Source` = utm_source o "Sitio web"). El contexto permanece en `Description`; opcionalmente se estructura en campos personalizados mediante los `ZOHO_FIELD_*` de `.env.example` cuando el dueño confirme sus API names.
 
 Éxito si al menos un canal funciona; el fallo del otro queda en logs de Vercel. Sin ningún canal configurado responde 503 con mensaje amigable — comportamiento esperado en dev.
 
-**Fuentes de lead** (campo `source`): `contacto` y `lci` (formularios completos: nombre*, email*, empresa, teléfono, servicio/proceso y mensaje*), y `tool-iso` / `tool-rto` / `tool-phishing` / `tool-madurez` / `tool-downtime` (componente `ToolLeadForm.astro` dentro del resultado de cada herramienta: email* + empresa, con el resultado en `tool_result`). Todos tienen honeypot oculto `website` (anti-spam). Las claves de `FORM_LABELS` y `TOOL_LABELS` en `src/pages/api/contact.ts` definen los `source` válidos; una herramienta nueva también requiere añadir su clave al union de `Props.tool` en `ToolLeadForm.astro`.
+**Fuentes de lead** (campo `source`): `contacto` y `lci` (formularios completos: nombre*, email*, empresa, teléfono, servicio/proceso y mensaje*), y `tool-iso` / `tool-rto` / `tool-phishing` / `tool-madurez` / `tool-downtime` (componente `ToolLeadForm.astro` dentro del resultado de cada herramienta: email* + empresa, con el resultado en `tool_result`). Todos tienen honeypot `website`, autorización obligatoria `consent=yes`, versión y timestamp. LCI adjunta plan, modalidad, estimación ROI y configuración preliminar del agente cuando existen. Con Resend activo, las herramientas envían al usuario una copia orientativa de su resultado además de notificar internamente. La política/aviso legal definitivo sigue requiriendo validación antes del lanzamiento.
 
 ### Analítica GA4 (eventos)
 
-`src/lib/analytics.ts` expone `track()` (gtag async estándar, cargado en BaseLayout) y captura atribución (UTMs, landing, referrer) en `sessionStorage`, que viaja con cada lead. Listener global en `BaseLayout` para elementos con `data-track`. Los scripts inline (`define:vars`) usan `window.lumaTrack`.
+`src/lib/analytics.ts` expone `track()` (gtag async estándar, cargado en BaseLayout) y captura atribución en `sessionStorage`: UTMs/landing/referrer de primer toque, última página útil y CTA que originó la conversión. `/contacto` no pisa la página anterior. El listener global procesa elementos con `data-track` y cubre como fallback todos los enlaces internos a `/contacto`. Los scripts inline (`define:vars`) usan `window.lumaTrack`.
 
 | Evento | Cuándo | Parámetros |
 |---|---|---|
@@ -179,7 +179,7 @@ En GA4 hay que marcar `generate_lead` como *key event* (paso manual en la propie
 ## 9. Workflows comunes
 
 **Agregar una página de servicio nueva:**
-1. Buscar la keyword objetivo en `Plan_Maestro_pSEO_LumaCloud.docx` (volumen, KD, URL objetivo)
+1. Confirmar la URL e intención en `docs/SEO-MATRIZ-2026.md`; usar `Plan_Maestro_pSEO_LumaCloud.docx` como referencia histórica de volumen/KD y revalidar antes del sprint
 2. Copiar la estructura de `src/pages/ciberseguridad/index.astro`
 3. Contenido factual desde `content-source/` (¡nada inventado!)
 4. Añadirla a `src/lib/nav.ts` si va en el menú, y enlazarla desde las páginas hermanas del silo
@@ -206,5 +206,6 @@ En GA4 hay que marcar `generate_lead` como *key event* (paso manual en la propie
 | [`CLAUDE.md`](CLAUDE.md) | Reglas operativas para sesiones con Claude/IA |
 | [`docs/RESPALDO-WORDPRESS.md`](docs/RESPALDO-WORDPRESS.md) | Guía de respaldo del WP para el admin |
 | [`docs/superpowers/specs/2026-05-13-lumacloud-rebuild-design.md`](docs/superpowers/specs/2026-05-13-lumacloud-rebuild-design.md) | Spec técnico original del rebuild |
-| `Plan_Maestro_pSEO_LumaCloud.docx` | Estrategia SEO: diagnóstico, 5 silos, keywords con volumen/KD, roadmap 12 meses, KPIs |
+| `Plan_Maestro_pSEO_LumaCloud.docx` | Estrategia SEO original: diagnóstico, 5 silos, keywords con volumen/KD, roadmap 12 meses, KPIs |
+| [`docs/SEO-MATRIZ-2026.md`](docs/SEO-MATRIZ-2026.md) | Fuente operativa keyword–intención–URL, prioridades, gates pSEO y medición 2026 |
 | `content-source/INVENTORY.md` + `MEDIA-CATALOG.md` | Inventario del contenido y medios extraídos del WP |

@@ -1,8 +1,8 @@
 # LumaCloud
 
-> Empresa colombiana de ciberseguridad y nube empresarial (Grupo Luma SAS, Bogotá). Protege y opera la infraestructura tecnológica de empresas en Colombia con una solución 360: ciberseguridad administrada, backup, cloud privado, SOC 24/7 y cumplimiento normativo.
+> Empresa colombiana de ciberseguridad, continuidad operativa, nube e IA empresarial (Grupo Luma SAS, Bogotá). El ecosistema Luma 360 integra infraestructura resiliente, defensa proactiva, recuperación y servicios profesionales.
 
-Datos clave: datacenters certificados TIER III y IV con arquitectura local en Colombia; CSIRT operativo; soporte 24/7; migración a la nube gratuita. Contacto: info@lumacloud.co · +57 318 595 8261 · Cll 121 #15a-50, Bogotá D.C., Colombia.
+Datos clave aprobados: más de 11 años de experiencia; experiencia en Colombia, Ecuador, República Dominicana, Perú, México y Chile; operación sobre datacenters TIER III y IV; CyberSOC y CSIRT operativo; soporte 24/7; migración a la nube gratuita. Contacto: info@lumacloud.co · +57 318 595 8261 · Cll 121 #15a-50, Bogotá D.C., Colombia.
 
 ## Servicios
 
@@ -13,7 +13,7 @@ Datos clave: datacenters certificados TIER III y IV con arquitectura local en Co
 - [Cumplimiento ISO 27001](https://lumacloud.co/cumplimiento/iso-27001): implementación de controles técnicos del estándar
 - [Cumplimiento Ley 1581](https://lumacloud.co/cumplimiento/ley-1581): protección de datos personales en Colombia
 - [Servicios profesionales TI](https://lumacloud.co/servicios-profesionales): administración de bases de datos, infraestructura, sistemas operativos y hacking ético
-- [Gonemo](https://lumacloud.co/gonemo): plataforma de agentes de IA para automatización empresarial
+- [Plataforma IA LCI](https://lumacloud.co/plataforma-ia-lci): agentes de IA para automatizar procesos empresariales, con planes y diagnóstico según el alcance
 - [CSIRT](https://lumacloud.co/csirt): equipo de respuesta a incidentes de seguridad
 
 ## Recursos
@@ -22,8 +22,11 @@ Datos clave: datacenters certificados TIER III y IV con arquitectura local en Co
 - [Calculadora RTO/RPO](https://lumacloud.co/herramientas/calculadora-rto-rpo): herramienta gratuita para definir tu estrategia de backup y DRP
 - [Evaluador de brecha ISO 27001](https://lumacloud.co/herramientas/evaluador-iso-27001): autoevaluación gratuita de 10 controles clave
 - [Test de phishing](https://lumacloud.co/herramientas/test-phishing): pon a prueba tu ojo con 6 correos simulados
+- [Evaluación de madurez en ciberseguridad](https://lumacloud.co/herramientas/evaluacion-ciberseguridad): diagnóstico basado en las seis funciones de NIST CSF 2.0
+- [Calculadora de costo de downtime](https://lumacloud.co/herramientas/calculadora-costo-downtime): estima el impacto de una interrupción con datos declarados por la empresa
+- [Todas las herramientas](https://lumacloud.co/herramientas): hub de diagnósticos y calculadoras gratuitas
 
 ## Empresa
 
-- [Quiénes somos](https://lumacloud.co/quienes-somos): misión, visión y valores de LumaCloud
+- [Quiénes somos](https://lumacloud.co/quienes-somos): propósito, misión, visión, valores, experiencia regional y ecosistema Luma 360
 - [Contacto](https://lumacloud.co/contacto): agenda un diagnóstico gratuito
