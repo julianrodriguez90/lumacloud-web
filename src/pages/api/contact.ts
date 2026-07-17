@@ -14,6 +14,11 @@ const TOOL_LABELS: Record<string, string> = {
   'tool-downtime': 'Calculadora de costo de downtime',
 };
 
+const FORM_LABELS: Record<string, string> = {
+  contacto: 'Formulario de contacto',
+  lci: 'Plataforma IA LCI',
+};
+
 const ATTRIBUTION_KEYS = [
   'utm_source',
   'utm_medium',
@@ -39,7 +44,7 @@ export const POST: APIRoute = async ({ request }) => {
   const get = (key: string) => String(data.get(key) ?? '').trim();
 
   const rawSource = get('source');
-  const source = rawSource in TOOL_LABELS ? rawSource : 'contacto';
+  const source = rawSource in TOOL_LABELS || rawSource in FORM_LABELS ? rawSource : 'contacto';
   const nombre = get('nombre');
   const email = get('email');
   const empresa = get('empresa');
@@ -48,7 +53,7 @@ export const POST: APIRoute = async ({ request }) => {
   const mensaje = get('mensaje');
   const toolResult = get('tool_result').slice(0, 500);
 
-  if (source === 'contacto' && (!nombre || !mensaje)) {
+  if (source in FORM_LABELS && (!nombre || !mensaje)) {
     return json({ error: 'Nombre, email y mensaje son obligatorios' }, 400);
   }
   if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
@@ -63,7 +68,8 @@ export const POST: APIRoute = async ({ request }) => {
   const contexto = [
     '— Contexto del sitio web —',
     servicio && `Servicio de interés: ${servicio}`,
-    source !== 'contacto' && `Herramienta: ${TOOL_LABELS[source]}${toolResult ? ` — ${toolResult}` : ''}`,
+    source in TOOL_LABELS && `Herramienta: ${TOOL_LABELS[source]}${toolResult ? ` — ${toolResult}` : ''}`,
+    source in FORM_LABELS && source !== 'contacto' && `Formulario: ${FORM_LABELS[source]}`,
     ...attribution.map(([key, value]) => `${key}: ${value}`),
   ]
     .filter(Boolean)
@@ -77,7 +83,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const asunto =
-    source === 'contacto'
+    source in FORM_LABELS
       ? `Nuevo lead web: ${nombre}${empresa ? ` — ${empresa}` : ''}${servicio ? ` (${servicio})` : ''}`
       : `Nuevo lead web (${TOOL_LABELS[source]}): ${email}${empresa ? ` — ${empresa}` : ''}`;
 

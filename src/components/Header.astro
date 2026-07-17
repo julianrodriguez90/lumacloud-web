@@ -7,17 +7,26 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
 
 <header class="sticky top-0 z-50 border-b border-frost-200 bg-white/85 backdrop-blur-lg">
   <div class="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-6 px-4 sm:px-6">
-    <a href="/" class="flex shrink-0 items-center" aria-label="LumaCloud — inicio">
-      <img src="/images/brand/logo-luma.webp" alt="LumaCloud" width="132" height="63" class="h-11 w-auto" />
+    <a href="/" class="flex min-h-11 shrink-0 items-center" aria-label="LumaCloud — inicio">
+      <img src="/images/brand/logo-luma-azul.webp" alt="LumaCloud" width="520" height="160" class="h-10 w-auto" />
     </a>
 
     <!-- nav escritorio -->
-    <nav class="hidden items-center gap-1 lg:flex" aria-label="Principal">
+    <nav class="hidden items-center gap-1 xl:flex" aria-label="Principal">
+      <a
+        href="/"
+        class:list={[
+          'flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-frost-100 hover:text-cold-600',
+          isActive('/') ? 'text-cold-600' : 'text-ink-soft',
+        ]}
+      >
+        Inicio
+      </a>
       <div class="group relative">
         <button
           type="button"
           class:list={[
-            'flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-frost-100 hover:text-cold-600',
+            'flex min-h-11 items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-frost-100 hover:text-cold-600',
             SERVICES.some((s) => isActive(s.href)) ? 'text-cold-600' : 'text-ink-soft',
           ]}
           aria-expanded="false"
@@ -53,7 +62,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
           <a
             href={item.href}
             class:list={[
-              'rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-frost-100 hover:text-cold-600',
+              'flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-frost-100 hover:text-cold-600',
               isActive(item.href) ? 'text-cold-600' : 'text-ink-soft',
             ]}
           >
@@ -68,13 +77,13 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
         href="/contacto"
         data-track="cta_click"
         data-track-cta="header-contacto"
-        class="hidden rounded-xl bg-mid-500 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_4px_14px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600 hover:shadow-[0_6px_20px_rgb(0_115_255/0.45)] sm:inline-block"
+        class="hidden min-h-11 items-center rounded-xl bg-mid-500 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_4px_14px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600 hover:shadow-[0_6px_20px_rgb(0_115_255/0.45)] sm:flex"
       >
         Habla con un experto
       </a>
 
       <!-- menú móvil -->
-      <details class="relative lg:hidden">
+      <details class="relative xl:hidden">
         <summary
           class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg border border-frost-300 text-ink [&::-webkit-details-marker]:hidden"
           aria-label="Abrir menú"
@@ -86,6 +95,10 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
         <div class="absolute right-0 top-full z-50 mt-3 w-[calc(100vw-2rem)] max-w-sm overflow-hidden rounded-2xl border border-frost-200 bg-white shadow-card-hover">
           <div class="brand-rule"></div>
           <nav class="flex flex-col gap-1 p-3" aria-label="Menú móvil">
+            <a href="/" class="flex min-h-11 items-center rounded-lg px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-frost-50 hover:text-mid-600">
+              Inicio
+            </a>
+            <div class="my-2 h-px bg-frost-200"></div>
             <span class="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wider text-ink-mute">Servicios</span>
             {
               SERVICES.map((s) => (

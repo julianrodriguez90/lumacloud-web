@@ -9,7 +9,7 @@ import { SERVICES } from '@/lib/nav';
 
 const title = 'Ciberseguridad y Nube Empresarial en Colombia | LumaCloud';
 const description =
-  'Soluciones de ciberseguridad administrada, backup, cloud privado y SOC 24/7 para empresas en Colombia. Datacenters TIER III y IV, migración gratuita y soporte permanente.';
+  'Ciberseguridad, continuidad operativa y nube empresarial para empresas en Latinoamérica. Protege tu operación con LumaCloud.';
 
 const DIFERENCIALES = [
   { titulo: 'Sin sorpresas en la factura', texto: 'Precios estables y escalabilidad lineal de recursos: más hardware, procesadores o almacenamiento sin sobrecostos.' },
@@ -23,11 +23,16 @@ const DIFERENCIALES = [
 ];
 
 const SECTORES = [
-  'Desarrolladoras de software',
-  'Agencias de marketing',
-  'Tecnología de la información',
-  'Proveedoras de software',
-  'Telecomunicaciones',
+  'Transporte',
+  'Educación',
+  'Tecnología',
+  'Telecomunicación',
+  'Energía',
+  'Salud',
+  'Construcción',
+  'Logística',
+  'Manufactura',
+  'Retail',
 ];
 
 const FAQS = [
@@ -52,7 +57,7 @@ const FAQS = [
 
 <BaseLayout {title} {description} schemas={[]}>
   <!-- ======== HERO ======== -->
-  <section class="bg-blueprint bg-hero-mesh relative overflow-hidden">
+  <section class="home-hero relative overflow-hidden border-b border-frost-200">
     <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-20 pt-16 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:pb-28 lg:pt-24">
       <div class="animate-rise">
         <p class="inline-flex items-center gap-2 rounded-full border border-mid-200 bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-cold-600 backdrop-blur">
@@ -63,13 +68,13 @@ const FAQS = [
           SOC monitoreando 24/7
         </p>
 
-        <h1 class="font-display mt-6 text-6xl leading-[0.95] text-ink sm:text-7xl lg:text-8xl">
-          Ciberseguridad y nube <span class="text-brand-gradient">empresarial</span> para Colombia
+        <h1 class="font-display mt-6 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+          Ciberseguridad, Continuidad Operativa y <span class="text-brand-gradient">Nube Empresarial</span>
         </h1>
 
         <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
-          Más que servicios, una solución 360: infraestructura en la nube, ciberprotección avanzada, backup y un SOC que nunca duerme.
-          Con datacenters TIER III y IV en arquitectura local.
+          Infraestructura de nube avanzada (pública, privada e híbrida) y protección de datos de nivel bancario para empresas en evolución
+          en toda Latinoamérica. Una solución 360 con Datacenters locales TIER III / IV y un Cyber SOC que nunca duerme.
         </p>
 
         <div class="mt-9 flex flex-col gap-4 sm:flex-row">
@@ -100,16 +105,21 @@ const FAQS = [
         </ul>
       </div>
 
-      <div class="animate-rise relative [animation-delay:0.2s]">
-        <div class="parallax-hero">
-          <BrandImage
-            src="/images/heros/home-datacenter.webp"
-            alt="Datacenter de LumaCloud con racks de servidores"
-            width={908}
-            height={605}
-            overlay
-            priority
-          />
+      <div class="animate-rise relative min-w-0 [animation-delay:0.2s]">
+        <div class="parallax-hero aspect-[4/3] sm:aspect-square">
+          <picture>
+            <source media="(max-width: 639px)" srcset="/images/heros/home-cloud-secure-mobile.webp" />
+            <img
+              src="/images/heros/home-cloud-secure.webp"
+              alt="Infraestructura de nube segura de LumaCloud protegida con ciberseguridad"
+              width="800"
+              height="800"
+              loading="eager"
+              fetchpriority="high"
+              decoding="sync"
+              class="h-full w-full object-contain drop-shadow-[0_24px_40px_rgb(23_58_135/0.24)]"
+            />
+          </picture>
         </div>
         <!-- chips flotantes: entrada escalonada (rise) + flotación continua sutil, una vez asentados -->
         <div class="animate-rise-float absolute -bottom-6 -left-4 rounded-2xl border border-frost-200 bg-white/95 px-5 py-4 shadow-card-hover backdrop-blur [animation-delay:0.35s,1.05s] sm:-left-8">
@@ -131,13 +141,13 @@ const FAQS = [
       <div class="animate-marquee flex w-max items-center gap-16">
         {/* copia real, accesible a lectores de pantalla */}
         <div class="flex items-center gap-16">
-          {['Acronis', 'Fortinet', 'Proxmox', 'VMware', 'Veeam'].map((v) => (
+          {['Acronis', 'Fortinet', 'Proxmox', 'VMware', 'Veeam', 'Google Cloud', 'Vicarius', 'Microsoft'].map((v) => (
             <span class="font-display text-2xl tracking-wider text-ink-mute/70 transition-colors hover:text-cold-600">{v}</span>
           ))}
         </div>
         {/* copia duplicada decorativa, solo para el loop visual continuo */}
         <div class="flex items-center gap-16" aria-hidden="true">
-          {['Acronis', 'Fortinet', 'Proxmox', 'VMware', 'Veeam'].map((v) => (
+          {['Acronis', 'Fortinet', 'Proxmox', 'VMware', 'Veeam', 'Google Cloud', 'Vicarius', 'Microsoft'].map((v) => (
             <span class="font-display text-2xl tracking-wider text-ink-mute/70 transition-colors hover:text-cold-600">{v}</span>
           ))}
         </div>
@@ -278,8 +288,8 @@ const FAQS = [
   <!-- ======== ESTADÍSTICA CITADA ======== -->
   <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
     <StatCallout
-      stat="79,8%"
-      label="de los incidentes de ciberseguridad gestionados por el Estado colombiano en 2024-2025 fueron fraude: phishing y compromiso de cuentas de correo."
+      stat="79.8%"
+      label="de los incidentes de ciberseguridad reportados en Colombia (2024-2025) corresponden a fraudes digitales como phishing y robo de correos corporativos. Proteger el eslabón humano es el primer paso para la continuidad operativa."
       source="MinTIC / ColCERT — Informe de Tendencias de Amenazas Cibernéticas 2025"
       sourceUrl="https://www.mintic.gov.co/portal/inicio/Sala-de-prensa/Noticias/433511:Colombia-fortalece-su-soberania-digital-durante-2025-logro-reducir-en-un-48-los-incidentes-ciberneticos"
       class="scroll-reveal"
@@ -289,3 +299,17 @@ const FAQS = [
   <FAQSection faqs={FAQS} />
   <CTASection />
 </BaseLayout>
+
+<style>
+  .home-hero {
+    background-image: url('/images/heros/home-background-mobile.webp');
+    background-position: center bottom;
+    background-size: cover;
+  }
+
+  @media (min-width: 640px) {
+    .home-hero {
+      background-image: url('/images/heros/home-background.webp');
+    }
+  }
+</style>

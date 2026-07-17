@@ -17,7 +17,6 @@ export const pageRedirects = {
   '/luma-cybersoc': '/soc',
   '/agente-gonemo': '/gonemo',
   '/agentes-ia-gonemo': '/gonemo',
-  '/plataforma-ia-lci': '/gonemo',
   '/csirt/servicios_csirt': '/csirt',
   '/csirt/contacto_csirt': '/csirt',
   '/csirt/boletin_csirt': '/csirt',

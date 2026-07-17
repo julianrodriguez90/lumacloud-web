@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCI - Automatiza tu Empresa en 15 Días o es Gratis</title>
+    <!-- Tailwind CSS para diseño fluido y ultra-premium -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#f8fafc',
+                            card: 'rgba(255, 255, 255, 0.8)',
+                            teal: '#0d9488',
+                            blue: '#0066cc',
+                            purple: '#7c3aed',
+                            border: 'rgba(0, 0, 0, 0.06)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Space Grotesk', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f8fafc;
+            overflow-x: hidden;
+        }
+        .glow-teal {
+            box-shadow: 0 10px 25px rgba(13, 148, 136, 0.15);
+        }
+        .glow-blue {
+            box-shadow: 0 10px 25px rgba(0, 102, 204, 0.15);
+        }
+        .text-glow-teal {
+            text-shadow: 0 0 8px rgba(13, 148, 136, 0.2);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            backdrop-filter: blur(16px);
+        }
+        
+        /* Animación sofisticada para el botón del top derecho */
+        @keyframes premiumBlink {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 12px rgba(13, 148, 136, 0.2);
+                border-color: rgba(13, 148, 136, 0.3);
+            }
+            50% {
+                transform: scale(1.03);
+                box-shadow: 0 0 20px rgba(13, 148, 136, 0.5);
+                border-color: rgba(13, 148, 136, 1);
+                background-color: rgba(13, 148, 136, 0.08);
+            }
+        }
+        .btn-blink {
+            animation: premiumBlink 2.5s infinite ease-in-out;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0d9488;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen relative flex flex-col justify-between selection:bg-teal-500 selection:text-white">
+
+    <!-- Canvas de fondo neural en color teal/azul adaptado al modo claro -->
+    <canvas id="neural-bg" class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-25"></canvas>
+
+    <!-- HEADER / NAVEGACIÓN -->
+    <nav class="border-b border-slate-200/80 bg-white/70 backdrop-blur-md sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-r from-blue-600 to-teal-500 p-2 rounded-xl shadow-lg">
+                    <i class="fa-solid fa-brain text-white text-lg"></i>
+                </div>
+                <div>
+                    <span class="font-heading text-lg font-bold tracking-tight text-slate-900">LCI</span>
+                    <span class="text-[9px] block text-slate-500 font-mono">Luma Core Intelligence</span>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#solucion" class="text-xs font-bold text-slate-500 hover:text-teal-600 transition-colors">La Solución</a>
+                <a href="#calculadora" class="text-xs font-bold text-slate-500 hover:text-teal-600 transition-colors">Calculadora ROI</a>
+                <a href="#simulador" class="text-xs font-bold text-slate-500 hover:text-teal-600 transition-colors">Fábrica de Agentes</a>
+                <a href="#precios" class="text-xs font-bold text-slate-500 hover:text-teal-600 transition-colors">Nuestros Planes</a>
+            </div>
+
+            <!-- Botones de Iniciar Sesión / Registrarse -->
+            <div class="flex items-center gap-4">
+                <a href="#" onclick="alert('Redireccionando al portal corporativo LCI...')" class="text-xs font-bold text-slate-600 hover:text-teal-600 transition-all">
+                    Iniciar sesión
+                </a>
+                <a href="#registro" class="bg-teal-600 text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-teal-500 transition-all shadow-md glow-teal">
+                    Registrarse
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="max-w-7xl mx-auto px-6 pt-20 pb-16 text-center relative z-10">
+        <!-- Banner de Urgencia / Escasez -->
+        <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 text-amber-700 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 animate-pulse">
+            <i class="fa-solid fa-fire-flame-curved"></i>
+            <span>Quedan solo <span id="slots-counter" class="font-bold">7</span> cupos de implementación directa para este mes</span>
+        </div>
+
+        <h1 class="font-heading text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-950 max-w-5xl mx-auto leading-tight">
+            Automatiza tu empresa en <span class="bg-gradient-to-r from-blue-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent font-extrabold">15 Días</span>
+        </h1>
+
+        <p class="text-slate-600 max-w-3xl mx-auto text-base md:text-lg mt-6 leading-relaxed">
+            Unifica tus áreas de licitaciones, facturación, soporte, ventas y recursos humanos bajo un <strong>cerebro de IA centralizado</strong>. Funcional desde el primer día, con <strong>usuarios ilimitados</strong> y sin fricción de costos iniciales.
+        </p>
+
+        <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+            <a href="#registro" class="w-full sm:w-auto bg-gradient-to-r from-teal-600 to-emerald-600 text-white font-bold px-8 py-4 rounded-xl text-sm transition-all hover:scale-105 shadow-xl glow-teal flex items-center justify-center gap-2">
+                <i class="fa-solid fa-play"></i> Iniciar Reto de Adopción de 15 Días
+            </a>
+            <a href="#calculadora" class="w-full sm:w-auto bg-white/85 text-slate-700 font-semibold px-8 py-4 rounded-xl text-sm hover:bg-slate-50 transition-all border border-slate-200 shadow-sm flex items-center justify-center gap-2">
+                <i class="fa-solid fa-calculator text-teal-600"></i> Calcular mis Ahorros
+            </a>
+        </div>
+
+        <!-- LOGOS DE RESPALDO CORPORATIVO -->
+        <div class="mt-20 pt-10 border-t border-slate-200 max-w-5xl mx-auto">
+            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-6 font-mono">Tecnología de clase mundial respaldada por Luma Cloud</p>
+            <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16 opacity-75 grayscale hover:grayscale-0 transition-all duration-300">
+                <span class="text-xs font-bold text-slate-700 font-mono tracking-widest"><i class="fa-solid fa-shield-halved text-teal-600 mr-1.5"></i>ISO 27001</span>
+                <span class="text-xs font-bold text-slate-700 font-mono tracking-widest"><i class="fa-solid fa-server text-teal-600 mr-1.5"></i>TIER IV DATA CENTERS</span>
+                <span class="text-xs font-bold text-slate-700 font-mono tracking-widest"><i class="fa-solid fa-globe text-teal-600 mr-1.5"></i>+6 PAÍSES</span>
+                <span class="text-xs font-bold text-slate-700 font-mono tracking-widest"><i class="fa-solid fa-clock-rotate-left text-teal-600 mr-1.5"></i>+9 AÑOS EN EL MERCADO</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECCIÓN DE DIFERENCIALES -->
+    <section class="max-w-7xl mx-auto px-6 py-12 relative z-10">
+        <div class="text-center mb-12">
+            <h2 class="font-heading text-3xl font-bold text-slate-900">
+                ¿Por qué LCI y no otra plataforma IA empresarial?
+            </h2>
+            <div class="w-16 h-1 bg-teal-600 mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Diferencial 1 -->
+            <div class="p-6 rounded-2xl bg-white border border-slate-200/80 hover:border-teal-500/50 transition-colors duration-300 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="bg-teal-50 text-teal-600 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-bolt text-lg"></i>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">IA operativa desde el día 1</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">No esperes meses de desarrollo ni integraciones complejas. Acceso y flujos listos de inmediato.</p>
+                </div>
+            </div>
+
+            <!-- Diferencial 2 -->
+            <div class="p-6 rounded-2xl bg-white border border-slate-200/80 hover:border-teal-500/50 transition-colors duration-300 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="bg-teal-50 text-teal-600 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-chart-line text-lg"></i>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Ahorra el 70% del trabajo operativo</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Automatiza procesos y permite que tu talento humano se enfoque en actividades de alto valor.</p>
+                </div>
+            </div>
+
+            <!-- Diferencial 3 -->
+            <div class="p-6 rounded-2xl bg-white border border-slate-200/80 hover:border-teal-500/50 transition-colors duration-300 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="bg-teal-50 text-teal-600 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Crea agentes en tres simples pasos</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Interfaz no-code sumamente intuitiva para desplegar tus propios agentes expertos.</p>
+                </div>
+            </div>
+
+            <!-- Diferencial 4 -->
+            <div class="p-6 rounded-2xl bg-white border border-slate-200/80 hover:border-teal-500/50 transition-colors duration-300 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="bg-teal-50 text-teal-600 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-lock text-lg"></i>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Seguridad en Capa de Infraestructura</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Máxima privacidad corporativa y cumplimiento ISO en cada flujo procesado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EL PROBLEMA Y LA SOLUCIÓN -->
+    <section id="solucion" class="max-w-7xl mx-auto px-6 py-16 scroll-mt-20 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="text-teal-600 text-xs font-bold uppercase tracking-widest font-mono block mb-2">El Gran Problema</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-900 leading-tight">La trampa de los proyectos de IA de largo plazo</h2>
+                <p class="text-slate-600 text-sm mt-4 leading-relaxed">
+                    Las consultoras tradicionales te prometen transformar tu empresa, pero te exigen proyectos de 6 meses de desarrollo, integraciones manuales complejas y tarifas de millones de pesos antes de ver el primer resultado.
+                </p>
+                <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+                    En LCI rompemos ese ciclo. Al ser una <strong>plataforma de infraestructura nativa</strong>, los módulos automatizados están preconfigurados y listos para conectarse. No esperas meses: obtienes flujos reales de producción el primer día.
+                </p>
+
+                <!-- Beneficios Check -->
+                <div class="mt-8 flex flex-col gap-3">
+                    <div class="flex items-center gap-3 text-slate-700 text-xs">
+                        <div class="bg-teal-500/10 text-teal-600 p-1 rounded-full"><i class="fa-solid fa-check"></i></div>
+                        <span><strong>Usuarios Ilimitados:</strong> Democratiza la IA para toda la nómina desde el primer día.</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-slate-700 text-xs">
+                        <div class="bg-teal-500/10 text-teal-600 p-1 rounded-full"><i class="fa-solid fa-check"></i></div>
+                        <span><strong>Integración MCP:</strong> Se conecta a tus sistemas Core o CRM en minutos.</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-slate-700 text-xs">
+                        <div class="bg-teal-500/10 text-teal-600 p-1 rounded-full"><i class="fa-solid fa-check"></i></div>
+                        <span><strong>Créditos Transparentes:</strong> Visualiza exactamente qué consume cada flujo en tu Dashboard.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Previsualización del Dashboard Centralizado -->
+            <div class="relative">
+                <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-500 to-teal-400 opacity-15 blur-lg"></div>
+                <div class="glass-panel border border-slate-200 rounded-2xl p-6 relative overflow-hidden shadow-md">
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-400"></span>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest bg-slate-100 border border-slate-200 px-3 py-1 rounded">LCI Core Dashboard</span>
+                    </div>
+                    
+                    <div class="flex flex-col gap-4">
+                        <div class="bg-white border border-slate-200/80 p-4 rounded-xl flex items-center justify-between shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-blue-50 text-blue-600 p-2.5 rounded-lg border border-blue-100"><i class="fa-solid fa-file-invoice-dollar text-base"></i></div>
+                                <div>
+                                    <h4 class="text-slate-900 text-xs font-bold">Módulo Clasificador de Facturas</h4>
+                                    <p class="text-[10px] text-slate-500">Automatizado, leyendo y subiendo a ERP</p>
+                                </div>
+                            </div>
+                            <span class="bg-emerald-50 text-emerald-600 text-[9px] font-bold px-2 py-0.5 rounded border border-emerald-100">ACTIVO</span>
+                        </div>
+
+                        <div class="bg-white border border-slate-200/80 p-4 rounded-xl flex items-center justify-between shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-teal-50 text-teal-600 p-2.5 rounded-lg border border-teal-100"><i class="fa-solid fa-gavel text-base"></i></div>
+                                <div>
+                                    <h4 class="text-slate-900 text-xs font-bold">Módulo de Licitaciones</h4>
+                                    <p class="text-[10px] text-slate-500">Análisis y checklist de pliegos activo</p>
+                                </div>
+                            </div>
+                            <span class="bg-emerald-50 text-emerald-600 text-[9px] font-bold px-2 py-0.5 rounded border border-emerald-100">ACTIVO</span>
+                        </div>
+
+                        <div class="bg-white border border-slate-200/80 p-4 rounded-xl flex items-center justify-between shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-purple-50 text-purple-600 p-2.5 rounded-lg border border-purple-100"><i class="fa-solid fa-user-plus text-base"></i></div>
+                                <div>
+                                    <h4 class="text-slate-900 text-xs font-bold">Módulo de Reclutamiento TH</h4>
+                                    <p class="text-[10px] text-slate-500">Filtro de hojas de vida y terna autónoma</p>
+                                </div>
+                            </div>
+                            <span class="bg-slate-100 text-slate-500 text-[9px] font-bold px-2 py-0.5 rounded border border-slate-200">INACTIVO</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALCULADORA ROI -->
+    <section id="calculadora" class="bg-white/60 border-y border-slate-200/80 py-20 scroll-mt-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="text-teal-600 text-xs font-bold uppercase tracking-widest font-mono block mb-2">Prueba Social & ROI</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-900">Calcula cuánto dinero y tiempo estás perdiendo</h2>
+                <p class="text-slate-500 max-w-xl mx-auto text-sm mt-3">Configura los parámetros de tu organización para ver el impacto real de la automatización en un mes.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Inputs de la calculadora -->
+                <div class="lg:col-span-5 glass-panel p-6 rounded-2xl border border-slate-200/80 flex flex-col gap-6 shadow-sm">
+                    <div>
+                        <label class="text-xs text-slate-600 font-bold uppercase block mb-2">Número de Empleados</label>
+                        <input type="number" id="calc-employees" value="50" min="1" oninput="calculateROI()" class="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm text-slate-850 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all font-mono">
+                    </div>
+
+                    <div>
+                        <label class="text-xs text-slate-600 font-bold uppercase block mb-2">Horas semanales repetitivas (Por empleado)</label>
+                        <input type="number" id="calc-hours" value="8" min="1" oninput="calculateROI()" class="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm text-slate-850 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all font-mono">
+                    </div>
+
+                    <div>
+                        <label class="text-xs text-slate-600 font-bold uppercase block mb-2">Salario promedio mensual (COP)</label>
+                        <input type="number" id="calc-salary" value="2500000" min="1" oninput="calculateROI()" class="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm text-slate-850 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all font-mono">
+                    </div>
+                </div>
+
+                <!-- Resultados del cálculo -->
+                <div class="lg:col-span-7 bg-slate-900 rounded-2xl p-8 flex flex-col justify-between shadow-xl text-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-80 h-80 bg-teal-600/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10">
+                        <h4 class="text-white font-bold text-lg mb-6 font-heading">Ahorro Mensual Proyectado con LCI</h4>
+                        
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="bg-slate-800/60 border border-slate-700/60 p-5 rounded-xl">
+                                <span class="text-[10px] text-slate-300 uppercase tracking-widest block mb-1">Horas Recuperadas / Mes</span>
+                                <span id="roi-hours" class="font-heading text-3xl font-bold text-teal-400">1,280 h</span>
+                            </div>
+                            
+                            <div class="bg-slate-800/60 border border-slate-700/60 p-5 rounded-xl">
+                                <span class="text-[10px] text-slate-300 uppercase tracking-widest block mb-1">Dinero Optimizado / Mes</span>
+                                <span id="roi-money" class="font-heading text-2xl md:text-3xl font-bold text-blue-400">$ 20.0M COP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative z-10">
+                        <div class="text-[11px] text-slate-400 leading-relaxed max-w-sm">
+                            *Proyección basada en un factor de automatización del 80% verificado en nuestros clientes corporativos activos.
+                        </div>
+                        <a href="#registro" class="bg-teal-500 text-slate-950 font-bold text-xs px-6 py-3.5 rounded-xl hover:bg-teal-400 transition-all shadow-md glow-teal whitespace-nowrap">
+                            Reclamar Prueba de 15 Días
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FÁBRICA DE AGENTES -->
+    <section id="simulador" class="max-w-7xl mx-auto px-6 py-20 scroll-mt-20 relative z-10">
+        <div class="text-center mb-12">
+            <span class="text-teal-600 text-xs font-bold uppercase tracking-widest font-mono block mb-2 font-semibold">Fábrica de Agentes</span>
+            <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-900">Crea tu primer Agente Inteligente en minutos</h2>
+            <p class="text-slate-500 max-w-xl mx-auto text-sm mt-3">Usa nuestro simulador interactivo para diseñar tu primer experto en 3 simples pasos.</p>
+        </div>
+
+        <div class="glass-panel border border-slate-200 rounded-3xl max-w-4xl mx-auto overflow-hidden shadow-lg bg-white/80">
+            <!-- Pestañas de Pasos -->
+            <div class="grid grid-cols-3 bg-slate-50 border-b border-slate-200 text-center">
+                <button onclick="switchStep(1)" id="step-tab-1" class="py-4 text-xs font-bold text-teal-700 border-b-2 border-teal-600 transition-all">
+                    1. Identidad del Agente
+                </button>
+                <button onclick="switchStep(2)" id="step-tab-2" class="py-4 text-xs font-bold text-slate-500 hover:text-slate-800 transition-all">
+                    2. Entrenamiento (RAG)
+                </button>
+                <button onclick="switchStep(3)" id="step-tab-3" class="py-4 text-xs font-bold text-slate-500 hover:text-slate-800 transition-all">
+                    3. Despliegue & Widget
+                </button>
+            </div>
+
+            <!-- Contenido de los pasos -->
+            <div class="p-8">
+                <!-- Paso 1 -->
+                <div id="step-content-1" class="flex flex-col gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="text-xs text-slate-600 block mb-2 uppercase font-bold">Nombre del Agente</label>
+                            <input type="text" id="sim-name" value="Camila" oninput="updateSimAgent()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all font-mono">
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-600 block mb-2 uppercase font-bold">Rol Especializado</label>
+                            <select id="sim-role" onchange="updateSimAgent()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all">
+                                <option value="Asistente de Ventas">Asistente de Ventas 24/7</option>
+                                <option value="Soporte Técnico">Soporte Técnico Experto</option>
+                                <option value="Reclutador Corporativo">Reclutador Corporativo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex justify-end mt-4">
+                        <button onclick="switchStep(2)" class="bg-teal-600 text-white font-bold px-6 py-3 rounded-xl text-xs hover:bg-teal-500 transition-all flex items-center gap-2">
+                            Siguiente Paso <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Paso 2 -->
+                <div id="step-content-2" class="hidden flex flex-col gap-6">
+                    <div>
+                        <label class="text-xs text-slate-600 block mb-2 uppercase font-bold">Instrucciones y Comportamiento del Agente</label>
+                        <textarea id="sim-instr" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-700 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all h-24 font-mono leading-relaxed">REGLAS DE COMUNICACIÓN:
+- NUNCA expongas nombres técnicos de herramientas de Luma.
+- Ofrece soporte amable y redirige objeciones complejas al equipo humano.</textarea>
+                    </div>
+
+                    <div>
+                        <label class="text-xs text-slate-600 block mb-2 uppercase font-bold">Documentos de Entrenamiento (PDF, CSV, TXT, DOCX)</label>
+                        <div class="border-2 border-dashed border-slate-200 hover:border-teal-500/50 transition-all rounded-xl p-6 text-center cursor-pointer bg-slate-50">
+                            <i class="fa-solid fa-cloud-arrow-up text-slate-400 text-2xl mb-2"></i>
+                            <p class="text-xs text-slate-500">Arrastra archivos de conocimiento de tu empresa o haz clic para subir</p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between mt-4">
+                        <button onclick="switchStep(1)" class="text-slate-500 hover:text-slate-800 text-xs font-semibold px-4 py-2 transition-all">
+                            Atrás
+                        </button>
+                        <button onclick="switchStep(3)" class="bg-teal-600 text-white font-bold px-6 py-3 rounded-xl text-xs hover:bg-teal-500 transition-all flex items-center gap-2">
+                            Siguiente Paso <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Paso 3 -->
+                <div id="step-content-3" class="hidden flex flex-col gap-6">
+                    <p class="text-slate-600 text-xs leading-relaxed">
+                        ¡Tu agente está entrenado! Copia este script en el archivo de tu sitio web (antes de cerrar la etiqueta <code class="bg-slate-100 text-teal-700 px-1.5 py-0.5 rounded font-mono">&lt;/body&gt;</code>) para habilitar el widget de atención en vivo.
+                    </p>
+
+                    <div class="bg-slate-900 border border-slate-850 rounded-xl p-4 relative">
+                        <pre class="text-[11px] text-teal-400 font-mono overflow-x-auto whitespace-pre-wrap leading-relaxed"><code id="code-snippet">&lt;!-- Widget LCI Inteligente --&gt;
+&lt;script&gt;
+  window.LumaWidget = window.LumaWidget || {};
+  LumaWidget.config = { name: "Camila", role: "Asistente de Ventas" };
+&lt;/script&gt;
+&lt;script src="https://demo.lumacloud.co/widget/embed.js" async&gt;&lt;/script&gt;</code></pre>
+                        <button onclick="copyCode()" class="absolute top-3 right-3 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white p-2 rounded-lg text-xs transition-all">
+                            <i class="fa-solid fa-copy text-xs"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex justify-between mt-4">
+                        <button onclick="switchStep(2)" class="text-slate-500 hover:text-slate-800 text-xs font-semibold px-4 py-2 transition-all">
+                            Atrás
+                        </button>
+                        <a href="#registro" class="bg-teal-600 text-white font-bold px-6 py-3 rounded-xl text-xs hover:bg-teal-500 transition-all shadow-md glow-teal">
+                            Probar mi Agente en Vivo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PLANES DE INVERSIÓN (ACTUALIZADOS CON EL ARCHIVO EXCEL/PPT) -->
+    <section id="precios" class="bg-white/70 border-t border-slate-200/80 py-20 scroll-mt-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="text-teal-600 text-xs font-bold uppercase tracking-widest font-mono block mb-2 font-semibold">Nuestros Planes</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-900 mt-2">Inversión predecible. Usuarios ilimitados.</h2>
+                <p class="text-slate-500 max-w-xl mx-auto text-sm mt-3">Selecciona tu horizonte de contrato para ver el beneficio y descuento comercial del plan.</p>
+                
+                <!-- Selector de Contrato Actualizado (12 meses, 24 meses y Pago Anticipado) -->
+                <div class="mt-8 inline-flex bg-slate-100 border border-slate-200 rounded-2xl p-1.5 gap-2 shadow-sm">
+                    <button onclick="switchPriceMode('m12')" id="btn-p-m12" class="px-5 py-2.5 rounded-xl text-xs font-bold text-teal-800 bg-white shadow-sm border border-slate-200 transition-all">
+                        Contrato 12 Meses
+                    </button>
+                    <button onclick="switchPriceMode('m24')" id="btn-p-m24" class="px-5 py-2.5 rounded-xl text-xs font-bold text-slate-500 hover:text-slate-900 transition-all">
+                        Contrato 24 Meses
+                    </button>
+                    <button onclick="switchPriceMode('pago-ant')" id="btn-p-pago-ant" class="px-5 py-2.5 rounded-xl text-xs font-bold text-slate-500 hover:text-slate-900 transition-all flex items-center gap-1.5">
+                        Pago Anticipado <span class="bg-emerald-500 text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">30% OFF</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tarjetas de Precios Dinámicas -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto mt-8">
+                
+                <!-- Paquete 1 -->
+                <div class="glass-panel border border-slate-200 p-8 rounded-3xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all bg-white/90">
+                    <div>
+                        <span class="text-xs text-slate-500 font-bold uppercase tracking-wider block mb-2">Ideal para PYMES</span>
+                        <h3 class="font-heading text-2xl font-bold text-slate-900">Paquete 1 (COP)</h3>
+                        <p class="text-slate-500 text-xs mt-2 leading-relaxed">Perfecto para automatizar un flujo clave de tu operación y desplegar agentes de IA.</p>
+                        
+                        <!-- Contenedor de Precios Paquete 1 -->
+                        <div class="my-8">
+                            <div class="text-[10px] text-slate-400 font-bold uppercase font-mono mb-1">Valor mensual</div>
+                            <span id="price-val-p1" class="font-heading text-4xl font-bold text-slate-950">$ 2,655,000</span>
+                            <span class="text-slate-500 text-xs">/ mes</span>
+                            
+                            <hr class="border-slate-100 my-4">
+                            
+                            <div class="text-[10px] text-slate-400 font-bold uppercase font-mono mb-1">Implementación (Pago único)</div>
+                            <span id="imp-val-p1" class="font-heading text-xl font-bold text-slate-700">$ 10,000,000</span>
+                            
+                            <div class="bg-teal-50 border border-teal-100/50 p-3 rounded-xl mt-4">
+                                <span class="text-[9px] text-slate-500 uppercase tracking-wider font-bold block mb-0.5">Total Contrato</span>
+                                <span id="total-val-p1" class="font-heading text-base font-extrabold text-teal-800">$ 41,860,000</span>
+                            </div>
+                        </div>
+
+                        <hr class="border-slate-200/50 my-6">
+
+                        <ul class="flex flex-col gap-3.5 text-xs text-slate-600">
+                            <li><i class="fa-solid fa-clock text-teal-600 mr-2"></i> <strong>20 hrs</strong> de Implementación</li>
+                            <li><i class="fa-solid fa-coins text-teal-600 mr-2"></i> <strong>30 Mil</strong> Créditos Mensuales</li>
+                            <li><i class="fa-solid fa-cloud text-teal-600 mr-2"></i> 500 GB Almacenamiento Seguro</li>
+                            <li><i class="fa-solid fa-robot text-teal-600 mr-2"></i> Agentes y Usuarios Ilimitados</li>
+                            <li><i class="fa-solid fa-cubes text-teal-600 mr-2"></i> Módulos ilimitados</li>
+                        </ul>
+                    </div>
+
+                    <a href="#registro" class="w-full bg-slate-900 border border-slate-800 text-white font-bold py-3.5 rounded-xl text-xs text-center transition-all mt-8 block hover:bg-slate-850">
+                        Comenzar 15 Días Gratis
+                    </a>
+                </div>
+
+                <!-- Paquete 3 (Destacado) -->
+                <div class="glass-panel border-2 border-teal-500 p-8 rounded-3xl flex flex-col justify-between relative shadow-xl bg-white relative transform lg:-translate-y-2">
+                    <div id="badge-popular" class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-teal-600 text-white font-extrabold uppercase tracking-widest text-[9px] px-4 py-1 rounded-full shadow-lg border border-teal-500">
+                        Más Popular
+                    </div>
+                    <div>
+                        <span class="text-xs text-teal-600 font-bold uppercase tracking-wider block mb-2">Empresas en Crecimiento</span>
+                        <h3 class="font-heading text-2xl font-bold text-slate-900">Paquete 3 (COP)</h3>
+                        <p class="text-slate-500 text-xs mt-2 leading-relaxed">Conecta múltiples áreas organizacionales y gestiona flujos cruzados.</p>
+                        
+                        <!-- Contenedor de Precios Paquete 3 -->
+                        <div class="my-8">
+                            <div class="text-[10px] text-slate-400 font-bold uppercase font-mono mb-1">Valor mensual</div>
+                            <span id="price-val-p3" class="font-heading text-4xl font-bold text-slate-950">$ 3,155,000</span>
+                            <span class="text-slate-500 text-xs">/ mes</span>
+                            
+                            <hr class="border-slate-100 my-4">
+                            
+                            <div class="text-[10px] text-slate-400 font-bold uppercase font-mono mb-1">Implementación (Pago único)</div>
+                            <span id="imp-val-p3" class="font-heading text-xl font-bold text-slate-700">$ 20,000,000</span>
+                            
+                            <div class="bg-teal-50 border border-teal-100/50 p-3 rounded-xl mt-4">
+                                <span class="text-[9px] text-slate-500 uppercase tracking-wider font-bold block mb-0.5">Total Contrato</span>
+                                <span id="total-val-p3" class="font-heading text-base font-extrabold text-teal-800">$ 57,860,000</span>
+                            </div>
+                        </div>
+
+                        <hr class="border-slate-200/50 my-6">
+
+                        <ul class="flex flex-col gap-3.5 text-xs text-slate-600">
+                            <li><i class="fa-solid fa-clock text-teal-600 mr-2"></i> <strong>40 hrs</strong> de Implementación</li>
+                            <li><i class="fa-solid fa-coins text-teal-600 mr-2"></i> <strong>40 Mil</strong> Créditos Mensuales</li>
+                            <li><i class="fa-solid fa-cloud text-teal-600 mr-2"></i> 500 GB Almacenamiento Seguro</li>
+                            <li><i class="fa-solid fa-robot text-teal-600 mr-2"></i> Agentes y Usuarios Ilimitados</li>
+                            <li><i class="fa-solid fa-cubes text-teal-600 mr-2"></i> Módulos ilimitados</li>
+                        </ul>
+                    </div>
+
+                    <a href="#registro" class="w-full bg-teal-600 hover:bg-teal-500 text-white font-bold py-3.5 rounded-xl text-xs text-center transition-all mt-8 block shadow-md glow-teal">
+                        Comenzar 15 Días Gratis
+                    </a>
+                </div>
+
+                <!-- Paquete 4 (Licitaciones Premium) -->
+                <div class="glass-panel border border-slate-200 p-8 rounded-3xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all bg-white/90">
+                    <div>
+                        <span class="text-xs text-slate-500 font-bold uppercase tracking-wider block mb-2">Máxima Productividad</span>
+                        <h3 class="font-heading text-2xl font-bold text-slate-900">Paquete 4 (COP)</h3>
+                        <p class="text-slate-500 text-xs mt-2 leading-relaxed">Especializado en contratación pública y privada de alta demanda con IA.</p>
+                        
+                        <!-- Contenedor de Precios Paquete 4 -->
+                        <div class="my-8">
+                            <div class="text-[10px] text-slate-400 font-bold uppercase font-mono mb-1">Valor mensual</div>
+                            <span id="price-val-p4" class="font-heading text-4xl font-bold text-slate-950">$ 3,810,000</span>
+                            <span class="text-slate-500 text-xs">/ mes</span>
+                            
+                            <hr class="border-slate-100 my-4">
+                            
+                            <div class="text-[10px] text-slate-400 font-bold uppercase font-mono mb-1">Implementación (Pago único)</div>
+                            <span id="imp-val-p4" class="font-heading text-xl font-bold text-slate-700">$ 20,000,000</span>
+                            
+                            <div class="bg-teal-50 border border-teal-100/50 p-3 rounded-xl mt-4">
+                                <span class="text-[9px] text-slate-500 uppercase tracking-wider font-bold block mb-0.5">Total Contrato</span>
+                                <span id="total-val-p4" class="font-heading text-base font-extrabold text-teal-800">$ 65,720,000</span>
+                            </div>
+                        </div>
+
+                        <hr class="border-slate-200/50 my-6">
+
+                        <ul class="flex flex-col gap-3.5 text-xs text-slate-600">
+                            <li><i class="fa-solid fa-clock text-teal-600 mr-2"></i> <strong>40 hrs</strong> de Implementación</li>
+                            <li><i class="fa-solid fa-coins text-teal-600 mr-2"></i> <strong>50 Mil</strong> Créditos Mensuales</li>
+                            <li><i class="fa-solid fa-cloud text-teal-600 mr-2"></i> 1 TB Almacenamiento Seguro</li>
+                            <li><i class="fa-solid fa-robot text-teal-600 mr-2"></i> Agentes y Usuarios Ilimitados</li>
+                            <li><i class="fa-solid fa-cubes text-teal-600 mr-2"></i> Módulos ilimitados</li>
+                        </ul>
+                    </div>
+
+                    <a href="#registro" class="w-full bg-slate-900 border border-slate-800 text-white font-bold py-3.5 rounded-xl text-xs text-center transition-all mt-8 block hover:bg-slate-850">
+                        Comenzar 15 Días Gratis
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Detalles de Financiación Comunes (Desde la PPT) -->
+            <div class="max-w-4xl mx-auto mt-12 bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center text-xs text-slate-600 relative overflow-hidden">
+                <p class="font-bold"><i class="fa-solid fa-circle-info text-teal-600 mr-1.5"></i> Esquema de Financiación de Implementación:</p>
+                <p class="mt-1">50% Pago Inicial, 30% Mes 1, y 20% Mes 2 para contratos estándar. Con pago anticipado ahorras hasta $6.000.000 COP en la implementación.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMULARIO DE REGISTRO / CONVERSIÓN -->
+    <section id="registro" class="max-w-4xl mx-auto px-6 py-20 scroll-mt-20 relative z-10">
+        <div class="glass-panel border border-slate-200/80 p-8 md:p-10 rounded-3xl shadow-xl relative bg-white/95">
+            <div class="text-center mb-8">
+                <span class="bg-teal-50 text-teal-700 text-[10px] font-bold uppercase tracking-widest px-3.5 py-1 rounded-full border border-teal-200">Únete al Reto</span>
+                <h3 class="font-heading text-3xl font-bold text-slate-950 mt-3">Comienza tu Transformación Cognitiva Hoy</h3>
+                <p class="text-slate-500 text-xs mt-2 max-w-xl mx-auto">Te garantizamos tener tu primer flujo activo e integrado con tus herramientas en 15 días o el piloto es completamente gratis.</p>
+            </div>
+
+            <form onsubmit="handleRegistration(event)" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="text-[10px] text-slate-500 font-bold uppercase block mb-1">Nombre Completo</label>
+                    <input type="text" required placeholder="Cielo Moreno" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all font-mono">
+                </div>
+
+                <div>
+                    <label class="text-[10px] text-slate-500 font-bold uppercase block mb-1">Correo Corporativo</label>
+                    <input type="email" required placeholder="cielo@tuempresa.co" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all font-mono">
+                </div>
+
+                <div>
+                    <label class="text-[10px] text-slate-500 font-bold uppercase block mb-1">Nombre de la Empresa</label>
+                    <input type="text" required placeholder="Luma Cloud S.A.S." class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all font-mono">
+                </div>
+
+                <div>
+                    <label class="text-[10px] text-slate-500 font-bold uppercase block mb-1">Número de Contacto</label>
+                    <input type="tel" required placeholder="+57 318 595 8261" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all font-mono">
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="text-[10px] text-slate-500 font-bold uppercase block mb-1">¿Qué flujo te urge más automatizar hoy?</label>
+                    <select required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all">
+                        <option value="licitaciones">Gestión de Licitaciones Públicas/Privadas</option>
+                        <option value="facturas">Radicación y Clasificación de Facturas de Proveedores</option>
+                        <option value="soporte">Soporte Técnico de Nivel 1</option>
+                        <option value="comercial">Atención y Captación Comercial de Leads</option>
+                        <option value="rrhh">Selección y Reclutamiento de Talento</option>
+                    </select>
+                </div>
+
+                <!-- Términos y Envío -->
+                <div class="md:col-span-2 mt-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" required id="terms" class="rounded border-slate-300 text-teal-600 focus:ring-teal-500">
+                        <label for="terms" class="text-[10px] text-slate-500 leading-none">Acepto los términos de la prueba y la política de tratamiento de datos corporativos.</label>
+                    </div>
+                    
+                    <button type="submit" class="w-full md:w-auto bg-teal-600 text-white font-bold px-8 py-3.5 rounded-xl text-xs hover:bg-teal-500 transition-all shadow-md glow-teal">
+                        Reclamar Mi Prueba Sin Costo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="w-full max-w-7xl mx-auto px-4 py-8 text-center border-t border-slate-200 text-slate-400 text-[10px] tracking-wide relative z-10 font-mono">
+        Luma Cloud S.A.S. © 2026 | info@lumacloud.co | Calle 121 #15 a - 50 - Bogotá, Colombia | Certificación de Seguridad ISO/IEC 27001:2013
+    </footer>
+
+    <!-- CONTENEDOR NOTIFICACIONES TOAST -->
+    <div id="toast-container" class="fixed bottom-5 right-5 space-y-3 z-50 pointer-events-none"></div>
+
+    <script>
+        // Lógica de Urgencia: Cuenta regresiva de cupos de implementación directa
+        let slots = 7;
+        setInterval(() => {
+            if (slots > 2) {
+                slots -= Math.floor(Math.random() * 2);
+                document.getElementById('slots-counter').innerText = slots;
+            }
+        }, 120000); // Reduce cada 2 minutos ocasionalmente
+
+        // Calculadora de ROI en tiempo real
+        function calculateROI() {
+            const employees = parseFloat(document.getElementById('calc-employees').value) || 0;
+            const hours = parseFloat(document.getElementById('calc-hours').value) || 0;
+            const salary = parseFloat(document.getElementById('calc-salary').value) || 0;
+
+            // Factor de automatización de LCI (80%)
+            const hoursSaved = Math.round(employees * hours * 4.33 * 0.8);
+            const hourlyRate = salary / 192; // 48 horas semanales promedio por 4 semanas
+            const moneyOptimized = Math.round(hoursSaved * hourlyRate);
+
+            // Formatear outputs
+            document.getElementById('roi-hours').innerText = hoursSaved.toLocaleString() + ' h';
+            
+            if (moneyOptimized >= 1000000) {
+                document.getElementById('roi-money').innerText = '$ ' + (moneyOptimized / 1000000).toFixed(1) + 'M COP';
+            } else {
+                document.getElementById('roi-money').innerText = '$ ' + moneyOptimized.toLocaleString() + ' COP';
+            }
+        }
+
+        // Simulador de Agente en 3 pasos
+        function switchStep(step) {
+            for (let i = 1; i <= 3; i++) {
+                const tab = document.getElementById('step-tab-' + i);
+                const content = document.getElementById('step-content-' + i);
+                
+                tab.className = "py-4 text-xs font-bold text-slate-500 hover:text-slate-800 transition-all";
+                content.classList.add('hidden');
+            }
+
+            document.getElementById('step-tab-' + step).className = "py-4 text-xs font-bold text-teal-700 border-b-2 border-teal-600 transition-all";
+            document.getElementById('step-content-' + step).classList.remove('hidden');
+        }
+
+        function updateSimAgent() {
+            const name = document.getElementById('sim-name').value;
+            const role = document.getElementById('sim-role').value;
+            
+            const code = `<!-- Widget LCI Inteligente -->
+<script>
+  window.LumaWidget = window.LumaWidget || {};
+  LumaWidget.config = { name: "${name}", role: "${role}" };
+<\/script>
+<script src="https://demo.lumacloud.co/widget/embed.js" async><\/script>`;
+
+            document.getElementById('code-snippet').innerText = code;
+        }
+
+        function copyCode() {
+            const text = document.getElementById('code-snippet').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                showCustomNotification("Widget Copiado", "El código para embeber el widget ha sido copiado al portapapeles.", "success");
+            });
+        }
+
+        // CONTROL DE PRECIOS DINÁMICOS SEGÚN PLANES DEL PPT/PPTX
+        function switchPriceMode(mode) {
+            const btn12 = document.getElementById('btn-p-m12');
+            const btn24 = document.getElementById('btn-p-m24');
+            const btnAnt = document.getElementById('btn-p-pago-ant');
+            const badge = document.getElementById('badge-popular');
+
+            // Reset Clases
+            btn12.className = "px-5 py-2.5 rounded-xl text-xs font-bold text-slate-500 hover:text-slate-900 transition-all";
+            btn24.className = "px-5 py-2.5 rounded-xl text-xs font-bold text-slate-500 hover:text-slate-900 transition-all";
+            btnAnt.className = "px-5 py-2.5 rounded-xl text-xs font-bold text-slate-500 hover:text-slate-900 transition-all";
+
+            if (mode === 'm12') {
+                btn12.className = "px-5 py-2.5 rounded-xl text-xs font-bold text-teal-800 bg-white shadow-sm border border-slate-200 transition-all";
+                badge.innerText = "Más Popular";
+                updatePrices(
+                    "$ 2,655,000", "$ 10,000,000", "$ 41,860,000", // Paquete 1 (12M)
+                    "$ 3,155,000", "$ 20,000,000", "$ 57,860,000", // Paquete 3 (12M)
+                    "$ 3,810,000", "$ 20,000,000", "$ 65,720,000"  // Paquete 4 (12M)
+                );
+            } else if (mode === 'm24') {
+                btn24.className = "px-5 py-2.5 rounded-xl text-xs font-bold text-teal-800 bg-white shadow-sm border border-slate-200 transition-all";
+                badge.innerText = "Mejor Relación Mensual";
+                updatePrices(
+                    "$ 2,124,000", "$ 9,000,000", "$ 59,976,000",  // Paquete 1 (24M)
+                    "$ 2,524,000", "$ 18,000,000", "$ 78,576,000", // Paquete 3 (24M)
+                    "$ 3,048,000", "$ 18,000,000", "$ 91,152,000"  // Paquete 4 (24M)
+                );
+            } else if (mode === 'pago-ant') {
+                btnAnt.className = "px-5 py-2.5 rounded-xl text-xs font-bold text-teal-800 bg-white shadow-sm border border-slate-200 transition-all";
+                badge.innerText = "Ahorro Máximo (30% OFF)";
+                updatePrices(
+                    "$ 1,858,500", "$ 7,000,000", "$ 29,302,000",  // Paquete 1 (Anticipado)
+                    "$ 2,208,500", "$ 14,000,000", "$ 40,502,000", // Paquete 3 (Anticipado)
+                    "$ 2,667,500", "$ 14,000,000", "$ 46,004,000"  // Paquete 4 (Anticipado)
+                );
+            }
+        }
+
+        function updatePrices(p1Val, p1Imp, p1Total, p3Val, p3Imp, p3Total, p4Val, p4Imp, p4Total) {
+            document.getElementById('price-val-p1').innerText = p1Val;
+            document.getElementById('imp-val-p1').innerText = p1Imp;
+            document.getElementById('total-val-p1').innerText = p1Total;
+            
+            document.getElementById('price-val-p3').innerText = p3Val;
+            document.getElementById('imp-val-p3').innerText = p3Imp;
+            document.getElementById('total-val-p3').innerText = p3Total;
+
+            document.getElementById('price-val-p4').innerText = p4Val;
+            document.getElementById('imp-val-p4').innerText = p4Imp;
+            document.getElementById('total-val-p4').innerText = p4Total;
+        }
+
+        // ALERTAS TOAST PERSONALIZADAS
+        function showCustomNotification(title, message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let bgBorder = 'bg-white border-slate-200';
+            let iconColor = 'text-blue-600';
+            let icon = 'fa-solid fa-circle-info';
+            
+            if (type === 'success') {
+                bgBorder = 'bg-white border-teal-500/50';
+                iconColor = 'text-teal-600';
+                icon = 'fa-solid fa-circle-check';
+            }
+
+            toast.className = `p-4 rounded-2xl border ${bgBorder} shadow-xl flex items-start gap-3 w-80 pointer-events-auto transition-all duration-500 transform translate-x-12 opacity-0 glass-panel`;
+            toast.innerHTML = `
+                <span class="${iconColor} text-lg mt-0.5"><i class="${icon}"></i></span>
+                <div class="flex-grow">
+                    <h4 class="text-xs font-bold text-slate-900">${title}</h4>
+                    <p class="text-[10px] text-slate-500 mt-1 leading-normal">${message}</p>
+                </div>
+                <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-slate-600 text-xs pl-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            `;
+            
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.remove('translate-x-12', 'opacity-0'), 10);
+            setTimeout(() => {
+                toast.classList.add('translate-x-12', 'opacity-0');
+                setTimeout(() => toast.remove(), 500);
+            }, 6000);
+        }
+
+        // Envío del Formulario de Registro
+        function handleRegistration(event) {
+            event.preventDefault();
+            showCustomNotification(
+                "¡Registro Exitoso!", 
+                "Tu reto de adopción de 15 días ha sido programado. Un consultor se contactará contigo de inmediato.", 
+                "success"
+            );
+            event.target.reset();
+        }
+
+        // CONFIGURACIÓN DEL CANVAS NEURAL ADAPTADO AL MODO CLARO
+        const canvas = document.getElementById('neural-bg');
+        const ctx = canvas.getContext('2d');
+        let dots = [];
+        let mouse = { x: null, y: null };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initDots();
+        }
+
+        class Dot {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.3;
+                this.vy = (Math.random() - 0.5) * 0.3;
+                this.radius = Math.random() * 2 + 1.5;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#0d9488'; // Teal adaptado
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+                if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+
+                if (mouse.x && mouse.y) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist < 120) {
+                        this.x -= dx * 0.015;
+                        this.y -= dy * 0.015;
+                    }
+                }
+            }
+        }
+
+        function initDots() {
+            dots = [];
+            const count = Math.min(Math.floor(canvas.width / 18), 80);
+            for (let i = 0; i < count; i++) {
+                dots.push(new Dot());
+            }
+        }
+
+        function drawLines() {
+            for (let i = 0; i < dots.length; i++) {
+                for (let j = i + 1; j < dots.length; j++) {
+                    const dist = Math.hypot(dots[i].x - dots[j].x, dots[i].y - dots[j].y);
+                    if (dist < 160) {
+                        ctx.beginPath();
+                        ctx.moveTo(dots[i].x, dots[i].y);
+                        ctx.lineTo(dots[j].x, dots[j].y);
+                        ctx.strokeStyle = `rgba(0, 102, 204, ${0.12 * (1 - dist/160)})`; // Azul sutil
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateBg() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            dots.forEach(dot => {
+                dot.update();
+                dot.draw();
+            });
+            drawLines();
+            requestAnimationFrame(animateBg);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            resizeCanvas();
+            animateBg();
+            calculateROI();
+        });
+    </script>
+</body>
+</html>

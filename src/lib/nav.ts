@@ -33,7 +33,7 @@ export const SERVICES = [
 ] as const;
 
 export const NAV = [
-  { href: '/gonemo', label: 'Gonemo IA' },
+  { href: '/plataforma-ia-lci', label: 'Plataforma IA' },
   { href: '/csirt', label: 'CSIRT' },
   { href: '/herramientas', label: 'Herramientas' },
   { href: '/quienes-somos', label: 'Quiénes somos' },

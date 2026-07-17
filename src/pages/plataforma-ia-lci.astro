@@ -1,0 +1,486 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { SITE } from '@/lib/site';
+
+const title = 'Plataforma IA Empresarial | LumaCloud';
+const description =
+  'Automatiza procesos con agentes de IA empresarial en 15 días. Conoce LCI, calcula tu oportunidad y solicita un diagnóstico personalizado.';
+
+const PLANES = [
+  {
+    id: 'p1',
+    nombre: 'LCI P1',
+    descripcion: 'Para iniciar la automatización de procesos prioritarios.',
+    features: ['20 horas de acompañamiento', '30.000 créditos de IA', '500 GB de almacenamiento', 'Agentes, usuarios y módulos ilimitados'],
+  },
+  {
+    id: 'p3',
+    nombre: 'LCI P3',
+    descripcion: 'Para equipos que necesitan ampliar su capacidad operativa.',
+    features: ['40 horas de acompañamiento', '40.000 créditos de IA', '500 GB de almacenamiento', 'Agentes, usuarios y módulos ilimitados'],
+    destacado: true,
+  },
+  {
+    id: 'p4',
+    nombre: 'LCI P4',
+    descripcion: 'Para operaciones con mayor consumo y almacenamiento.',
+    features: ['40 horas de acompañamiento', '50.000 créditos de IA', '1 TB de almacenamiento', 'Agentes, usuarios y módulos ilimitados'],
+  },
+];
+
+const PRECIO_MODOS = {
+  m12: {
+    label: '12 meses',
+    note: 'Implementación financiada 50% / 30% / 20%.',
+    prices: {
+      p1: { monthly: 2655000, implementation: 10000000, total: 41860000 },
+      p3: { monthly: 3155000, implementation: 20000000, total: 57860000 },
+      p4: { monthly: 3810000, implementation: 20000000, total: 65720000 },
+    },
+  },
+  m24: {
+    label: '24 meses',
+    note: 'Implementación financiada 50% / 30% / 20%.',
+    prices: {
+      p1: { monthly: 2124000, implementation: 9000000, total: 59976000 },
+      p3: { monthly: 2524000, implementation: 18000000, total: 78576000 },
+      p4: { monthly: 3048000, implementation: 18000000, total: 91152000 },
+    },
+  },
+  prepaid: {
+    label: 'Anticipado',
+    note: 'Pago anticipado con ahorro de hasta $6.000.000 en implementación.',
+    prices: {
+      p1: { monthly: 1858500, implementation: 7000000, total: 29302000 },
+      p3: { monthly: 2208500, implementation: 14000000, total: 40502000 },
+      p4: { monthly: 2667500, implementation: 14000000, total: 46004000 },
+    },
+  },
+};
+
+const FAQS = [
+  {
+    q: '¿Qué es LCI?',
+    a: 'LCI es la plataforma de IA empresarial de LumaCloud para crear agentes, automatizar procesos y trabajar con la información de tu organización desde un mismo entorno.',
+  },
+  {
+    q: '¿Necesito saber programar para crear un agente?',
+    a: 'No. La plataforma permite configurar agentes mediante instrucciones, fuentes de información y reglas de negocio sin depender de código para cada automatización.',
+  },
+  {
+    q: '¿Cuánto tarda la implementación?',
+    a: 'La propuesta de implementación está diseñada para poner en marcha el primer proceso priorizado en 15 días, sujeto al alcance, la disponibilidad de información y las integraciones necesarias.',
+  },
+  {
+    q: '¿Los agentes y usuarios tienen límite?',
+    a: 'Los planes presentados incluyen agentes, usuarios y módulos ilimitados. Cada plan cambia en horas de acompañamiento, créditos de IA y capacidad de almacenamiento.',
+  },
+  {
+    q: '¿Cómo elijo el plan adecuado?',
+    a: 'El equipo de LumaCloud revisa contigo el proceso, el volumen de trabajo, las fuentes de datos y el consumo esperado para recomendar la modalidad y el plan apropiados.',
+  },
+];
+
+const softwareSchema = {
+  '@type': 'SoftwareApplication',
+  '@id': `${SITE.url}/plataforma-ia-lci#software`,
+  name: 'LCI — Plataforma IA Empresarial',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  url: `${SITE.url}/plataforma-ia-lci`,
+  description,
+  provider: { '@id': `${SITE.url}/#organization` },
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'COP',
+    lowPrice: '1858500',
+    highPrice: '3810000',
+    offerCount: 9,
+  },
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  breadcrumbs={[
+    { name: 'Inicio', href: '/' },
+    { name: 'Plataforma IA', href: '/plataforma-ia-lci' },
+  ]}
+  schemas={[softwareSchema]}
+>
+  <main>
+    <section class="bg-blueprint bg-hero-mesh relative overflow-hidden border-b border-frost-200">
+      <div class="pointer-events-none absolute -right-28 top-12 h-80 w-80 rounded-full bg-sky-500/20 blur-3xl" aria-hidden="true"></div>
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1fr_1.05fr] lg:pb-24 lg:pt-20">
+        <div class="animate-rise">
+          <nav class="text-sm text-ink-mute" aria-label="Miga de pan">
+            <a href="/" class="flex min-h-11 min-w-11 items-center hover:text-mid-600">Inicio</a>
+            <span class="sr-only">/</span>
+            <span class="font-medium text-cold-600">Plataforma IA</span>
+          </nav>
+          <p class="mt-4 text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">LCI · Inteligencia artificial empresarial</p>
+          <h1 class="font-display mt-4 text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
+            Automatiza tu empresa en <span class="text-brand-gradient">15 días</span>
+          </h1>
+          <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+            Crea agentes de IA, conecta la información de tu empresa y convierte procesos repetitivos en flujos de trabajo más ágiles,
+            medibles y escalables.
+          </p>
+          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+            <a href="#diagnostico" data-track="cta_click" data-track-cta="lci-hero-diagnostico" class="flex min-h-11 items-center justify-center rounded-xl bg-mid-500 px-8 py-3 font-semibold text-white shadow-[0_8px_30px_rgb(0_115_255/0.35)] transition-all hover:-translate-y-0.5 hover:bg-mid-600">
+              Solicitar diagnóstico
+            </a>
+            <a href="#simulador" data-track="cta_click" data-track-cta="lci-hero-simulador" class="flex min-h-11 items-center justify-center rounded-xl border border-frost-300 bg-white/80 px-8 py-3 font-semibold text-cold-600 transition-colors hover:border-mid-400 hover:text-mid-600">
+              Diseña un agente
+            </a>
+          </div>
+        </div>
+
+        <div class="relative animate-rise [animation-delay:0.15s]" aria-label="Flujo de trabajo de LCI">
+          <div class="rounded-[2rem] border border-cold-200 bg-cold-900 p-5 shadow-[0_24px_80px_rgb(23_58_135/0.28)] sm:p-8">
+            <div class="mb-6 flex items-center justify-between gap-4 border-b border-white/10 pb-5">
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-sky-500">Espacio de trabajo LCI</p>
+                <p class="mt-1 font-semibold text-white">Agente de operaciones</p>
+              </div>
+              <span class="rounded-full bg-emerald-400/15 px-3 py-1 text-xs font-semibold text-emerald-300">Activo</span>
+            </div>
+            <div class="grid gap-3 sm:grid-cols-2">
+              {['Recibe la solicitud', 'Consulta la información', 'Aplica tus reglas', 'Entrega el resultado'].map((paso, index) => (
+                <div class="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
+                  <span class="flex h-8 w-8 items-center justify-center rounded-full bg-mid-500 text-sm font-bold text-white">{index + 1}</span>
+                  <p class="mt-3 text-sm font-medium text-white">{paso}</p>
+                </div>
+              ))}
+            </div>
+            <div class="mt-4 rounded-2xl bg-gradient-to-r from-mid-500 to-sky-500 p-[1px]">
+              <div class="rounded-[15px] bg-cold-900 px-5 py-4">
+                <p class="text-xs uppercase tracking-[0.16em] text-white/55">Resultado</p>
+                <p class="mt-1 font-semibold text-white">Un proceso trazable, listo para tu equipo</p>
+              </div>
+            </div>
+          </div>
+          <div class="absolute -bottom-5 -left-3 rounded-2xl border border-sky-300 bg-white px-4 py-3 shadow-lg sm:-left-6">
+            <p class="text-xs font-semibold uppercase tracking-[0.15em] text-mid-500">Primer proceso</p>
+            <p class="font-display mt-1 text-2xl text-cold-600">15 días</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">De la tarea manual al flujo inteligente</p>
+        <h2 class="font-display mt-3 text-4xl text-cold-600 sm:text-5xl">Una plataforma para pasar de la idea a la operación</h2>
+        <div class="mx-auto mt-3 w-16 brand-rule"></div>
+      </div>
+      <div class="stagger mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          ['Día 1', 'Priorizamos contigo el proceso que genera más fricción o trabajo repetitivo.'],
+          ['Sin código', 'Configura el propósito, las fuentes y las reglas de cada agente desde un entorno visual.'],
+          ['Información conectada', 'Centraliza el conocimiento que tus agentes necesitan para responder con contexto.'],
+          ['Infraestructura segura', 'Opera con el acompañamiento de LumaCloud y una arquitectura pensada para empresas.'],
+        ].map(([label, text]) => (
+          <article class="card-brand scroll-reveal p-6">
+            <p class="font-display text-2xl text-mid-500">{label}</p>
+            <p class="mt-3 text-sm leading-relaxed text-ink-soft">{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="bg-frost-50 py-20">
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+        <div class="scroll-reveal">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">El problema</p>
+          <h2 class="font-display mt-3 text-4xl text-cold-600 sm:text-5xl">Tu equipo sabe qué hacer. El trabajo repetitivo le quita tiempo.</h2>
+          <div class="mt-3 w-16 brand-rule"></div>
+          <p class="mt-6 leading-relaxed text-ink-soft">
+            La información dispersa, los pasos manuales y las solicitudes que se repiten frenan la operación. LCI convierte ese conocimiento
+            en agentes que trabajan con un proceso definido y entregan resultados consistentes.
+          </p>
+        </div>
+        <div class="grid gap-4">
+          {[
+            ['01', 'Describe el rol', 'Define qué debe resolver el agente y para quién.'],
+            ['02', 'Conecta el conocimiento', 'Agrega las instrucciones y fuentes que necesita consultar.'],
+            ['03', 'Activa el flujo', 'Prueba, ajusta y lleva el agente al trabajo cotidiano.'],
+          ].map(([number, heading, text]) => (
+            <article class="scroll-reveal flex gap-5 rounded-2xl border border-frost-300 bg-white p-6 shadow-card">
+              <span class="font-display text-3xl text-sky-600">{number}</span>
+              <div>
+                <h3 class="text-lg font-semibold text-ink">{heading}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-ink-soft">{text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="calculadora" class="bg-blueprint-dark bg-ink py-20 text-white">
+      <div class="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.05fr]">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-sky-500">Calculadora de oportunidad</p>
+          <h2 class="font-display mt-3 text-4xl sm:text-5xl">Estima el tiempo que podrías recuperar</h2>
+          <p class="mt-5 max-w-xl leading-relaxed text-white/70">Ingresa los datos de tu proceso y ajusta el porcentaje que consideras automatizable. El resultado es una referencia, no una promesa de ahorro.</p>
+          <form id="roi-form" class="mt-8 grid gap-5 sm:grid-cols-2">
+            <label class="text-sm font-medium text-white/85">Personas en el proceso
+              <input id="roi-personas" type="number" min="1" value="5" class="mt-2 min-h-11 w-full rounded-xl border border-white/20 bg-white/10 px-4 text-white outline-none focus:border-sky-500" />
+            </label>
+            <label class="text-sm font-medium text-white/85">Horas repetitivas por semana
+              <input id="roi-horas" type="number" min="1" value="8" class="mt-2 min-h-11 w-full rounded-xl border border-white/20 bg-white/10 px-4 text-white outline-none focus:border-sky-500" />
+            </label>
+            <label class="text-sm font-medium text-white/85">Costo mensual por persona (COP)
+              <input id="roi-salario" type="number" min="0" step="100000" value="3000000" class="mt-2 min-h-11 w-full rounded-xl border border-white/20 bg-white/10 px-4 text-white outline-none focus:border-sky-500" />
+            </label>
+            <label class="text-sm font-medium text-white/85">Porción automatizable (%)
+              <input id="roi-factor" type="number" min="0" max="100" value="80" class="mt-2 min-h-11 w-full rounded-xl border border-white/20 bg-white/10 px-4 text-white outline-none focus:border-sky-500" />
+            </label>
+          </form>
+        </div>
+        <div class="flex flex-col justify-center rounded-[2rem] border border-white/15 bg-white/[0.07] p-7 sm:p-10" aria-live="polite">
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-sky-500">Estimación mensual</p>
+          <div class="mt-7 grid gap-6 sm:grid-cols-2">
+            <div><p class="text-sm text-white/60">Horas recuperables</p><p id="roi-hours" class="font-display mt-2 text-5xl">128 h</p></div>
+            <div><p class="text-sm text-white/60">Capacidad equivalente</p><p id="roi-value" class="font-display mt-2 text-5xl text-sky-500">$2.400.000</p></div>
+          </div>
+          <p class="mt-8 border-t border-white/10 pt-5 text-xs leading-relaxed text-white/50">Estimación basada exclusivamente en los datos y el factor ingresados. El resultado real depende del proceso, la calidad de la información y el alcance de la implementación.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="simulador" class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Simulador</p>
+        <h2 class="font-display mt-3 text-4xl text-cold-600 sm:text-5xl">Diseña tu primer agente</h2>
+        <p class="mt-5 text-ink-soft">Explora cómo se estructura un agente antes de solicitar la implementación.</p>
+      </div>
+      <div class="mx-auto mt-10 max-w-5xl overflow-hidden rounded-[2rem] border border-frost-300 bg-white shadow-card">
+        <div class="grid grid-cols-3 border-b border-frost-200 bg-frost-50" role="tablist" aria-label="Pasos del simulador">
+          {['1. Propósito', '2. Instrucciones', '3. Resultado'].map((label, index) => (
+            <button type="button" role="tab" aria-selected={index === 0 ? 'true' : 'false'} aria-controls={`agent-panel-${index + 1}`} id={`agent-tab-${index + 1}`} data-agent-tab={index + 1} class="agent-tab min-h-11 border-b-2 border-transparent px-2 py-3 text-xs font-semibold text-ink-mute sm:text-sm">{label}</button>
+          ))}
+        </div>
+        <div class="p-6 sm:p-10">
+          <section id="agent-panel-1" role="tabpanel" aria-labelledby="agent-tab-1" data-agent-panel="1">
+            <div class="grid gap-5 sm:grid-cols-2">
+              <label class="text-sm font-medium text-ink">Nombre del agente
+                <input id="agent-name" type="text" value="Asistente de operaciones" class="mt-2 min-h-11 w-full rounded-xl border border-frost-300 px-4 outline-none focus:border-mid-500 focus:ring-2 focus:ring-mid-100" />
+              </label>
+              <label class="text-sm font-medium text-ink">Área
+                <select id="agent-area" class="mt-2 min-h-11 w-full rounded-xl border border-frost-300 bg-white px-4 outline-none focus:border-mid-500 focus:ring-2 focus:ring-mid-100">
+                  <option>Operaciones</option><option>Servicio al cliente</option><option>Ventas</option><option>Talento humano</option><option>Finanzas</option>
+                </select>
+              </label>
+            </div>
+            <label class="mt-5 block text-sm font-medium text-ink">¿Qué debe resolver?
+              <textarea id="agent-purpose" rows="4" class="mt-2 w-full rounded-xl border border-frost-300 px-4 py-3 outline-none focus:border-mid-500 focus:ring-2 focus:ring-mid-100">Recibir solicitudes internas, consultar el procedimiento y entregar el siguiente paso recomendado.</textarea>
+            </label>
+          </section>
+          <section id="agent-panel-2" role="tabpanel" aria-labelledby="agent-tab-2" data-agent-panel="2" hidden>
+            <label class="block text-sm font-medium text-ink">Instrucciones principales
+              <textarea id="agent-rules" rows="5" class="mt-2 w-full rounded-xl border border-frost-300 px-4 py-3 outline-none focus:border-mid-500 focus:ring-2 focus:ring-mid-100">Responde únicamente con base en los procedimientos aprobados. Si falta información, solicita los datos necesarios antes de continuar.</textarea>
+            </label>
+            <div class="mt-5 rounded-2xl border border-dashed border-mid-300 bg-mid-50 p-5">
+              <p class="font-semibold text-cold-600">Fuentes de conocimiento</p>
+              <p class="mt-2 text-sm text-ink-soft">En una implementación real, aquí conectas manuales, políticas, bases de conocimiento y sistemas autorizados.</p>
+            </div>
+          </section>
+          <section id="agent-panel-3" role="tabpanel" aria-labelledby="agent-tab-3" data-agent-panel="3" hidden>
+            <div class="rounded-2xl bg-cold-900 p-6 text-white">
+              <p class="text-xs font-semibold uppercase tracking-[0.16em] text-sky-500">Configuración preliminar</p>
+              <p id="agent-summary-name" class="mt-4 text-xl font-semibold">Asistente de operaciones</p>
+              <dl class="mt-5 grid gap-4 sm:grid-cols-2">
+                <div><dt class="text-xs text-white/50">Área</dt><dd id="agent-summary-area" class="mt-1">Operaciones</dd></div>
+                <div><dt class="text-xs text-white/50">Estado</dt><dd class="mt-1 text-emerald-300">Listo para validar</dd></div>
+              </dl>
+              <p id="agent-summary-purpose" class="mt-5 border-t border-white/10 pt-5 text-sm leading-relaxed text-white/70">Recibir solicitudes internas, consultar el procedimiento y entregar el siguiente paso recomendado.</p>
+            </div>
+          </section>
+          <div class="mt-7 flex flex-col-reverse justify-between gap-3 sm:flex-row">
+            <button id="agent-prev" type="button" class="flex min-h-11 items-center justify-center rounded-xl border border-frost-300 px-6 font-semibold text-cold-600 disabled:cursor-not-allowed disabled:opacity-40">Anterior</button>
+            <button id="agent-next" type="button" class="flex min-h-11 items-center justify-center rounded-xl bg-mid-500 px-6 font-semibold text-white hover:bg-mid-600">Siguiente paso</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="planes" class="bg-frost-50 py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-mid-500">Planes LCI</p>
+          <h2 class="font-display mt-3 text-4xl text-cold-600 sm:text-5xl">Elige la capacidad para tu operación</h2>
+          <p class="mt-5 text-ink-soft">Valores en pesos colombianos antes de IVA, según la modalidad seleccionada.</p>
+        </div>
+        <div class="mx-auto mt-9 grid max-w-2xl grid-cols-3 rounded-2xl border border-frost-300 bg-white p-1" role="group" aria-label="Modalidad de contratación">
+          {Object.entries(PRECIO_MODOS).map(([key, mode], index) => (
+            <button type="button" data-price-mode={key} aria-pressed={index === 0 ? 'true' : 'false'} class="price-mode min-h-11 rounded-xl px-2 py-2 text-xs font-semibold text-ink-mute sm:text-sm">{mode.label}</button>
+          ))}
+        </div>
+        <p id="price-note" class="mx-auto mt-4 max-w-2xl text-center text-sm text-ink-mute">{PRECIO_MODOS.m12.note}</p>
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          {PLANES.map((plan) => (
+            <article class:list={['relative rounded-[2rem] border bg-white p-7 shadow-card', plan.destacado ? 'border-mid-400 lg:-translate-y-3' : 'border-frost-300']} data-plan={plan.id}>
+              {plan.destacado && <span class="absolute -top-3 left-7 rounded-full bg-mid-500 px-4 py-1 text-xs font-bold uppercase tracking-[0.12em] text-white">Recomendado</span>}
+              <h3 class="font-display text-4xl text-cold-600">{plan.nombre}</h3>
+              <p class="mt-3 min-h-12 text-sm leading-relaxed text-ink-soft">{plan.descripcion}</p>
+              <p class="mt-7 text-sm text-ink-mute">Mensualidad</p>
+              <p class="mt-1"><span class="plan-monthly font-display text-4xl text-ink">$2.655.000</span><span class="text-sm text-ink-mute"> / mes</span></p>
+              <dl class="mt-6 space-y-2 border-y border-frost-200 py-5 text-sm">
+                <div class="flex justify-between gap-4"><dt class="text-ink-mute">Implementación</dt><dd class="plan-implementation font-semibold text-ink">$10.000.000</dd></div>
+                <div class="flex justify-between gap-4"><dt class="text-ink-mute">Total del contrato</dt><dd class="plan-total font-semibold text-cold-600">$41.860.000</dd></div>
+              </dl>
+              <ul class="mt-6 space-y-3">
+                {plan.features.map((feature) => <li class="flex gap-3 text-sm text-ink-soft"><span class="text-mid-500" aria-hidden="true">✓</span>{feature}</li>)}
+              </ul>
+              <a href="#diagnostico" data-track="cta_click" data-track-cta={`lci-plan-${plan.id}`} class="mt-7 flex min-h-11 items-center justify-center rounded-xl bg-cold-600 px-5 font-semibold text-white hover:bg-mid-600">Consultar este plan</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="diagnostico" class="bg-blueprint-dark bg-ink py-20">
+      <div class="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-sky-500">Diagnóstico a tu medida</p>
+          <h2 class="font-display mt-3 text-4xl text-white sm:text-5xl">Conversemos sobre tu primer proceso</h2>
+          <p class="mt-5 leading-relaxed text-white/70">Cuéntanos qué área quieres automatizar. Nuestro equipo revisará el alcance y te contactará para definir el siguiente paso.</p>
+          <a href={SITE.whatsapp} target="_blank" rel="noopener" data-track="contact_click" data-track-method="whatsapp" data-track-location="lci" class="mt-7 flex min-h-11 w-fit items-center font-semibold text-sky-500 hover:text-white">También puedes escribirnos por WhatsApp →</a>
+        </div>
+        <form id="form-lci" class="rounded-[2rem] bg-white p-6 shadow-2xl sm:p-9">
+          <input type="hidden" name="source" value="lci" />
+          <div class="absolute -left-[9999px]" aria-hidden="true"><label>Deja este campo vacío<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <label class="text-sm font-medium text-ink">Nombre completo *<input required name="nombre" autocomplete="name" class="mt-2 min-h-11 w-full rounded-xl border border-frost-300 px-4 outline-none focus:border-mid-500 focus:ring-2 focus:ring-mid-100" /></label>
+            <label class="text-sm font-medium text-ink">Correo empresarial *<input required type="email" name="email" autocomplete="email" class="mt-2 min-h-11 w-full rounded-xl border border-frost-300 px-4 outline-none focus:border-mid-500 focus:ring-2 focus:ring-mid-100" /></label>
+            <label class="text-sm font-medium text-ink">Empresa<input name="empresa" autocomplete="organization" class="mt-2 min-h-11 w-full rounded-xl border border-frost-300 px-4 outline-none focus:border-mid-500 focus:ring-2 focus:ring-mid-100" /></label>
+            <label class="text-sm font-medium text-ink">Teléfono<input name="telefono" autocomplete="tel" class="mt-2 min-h-11 w-full rounded-xl border border-frost-300 px-4 outline-none focus:border-mid-500 focus:ring-2 focus:ring-mid-100" /></label>
+          </div>
+          <label class="mt-5 block text-sm font-medium text-ink">Área o proceso a automatizar *
+            <select required name="servicio" class="mt-2 min-h-11 w-full rounded-xl border border-frost-300 bg-white px-4 outline-none focus:border-mid-500 focus:ring-2 focus:ring-mid-100">
+              <option value="">Selecciona una opción</option><option>Operaciones</option><option>Servicio al cliente</option><option>Ventas</option><option>Talento humano</option><option>Finanzas</option><option>Otro proceso</option>
+            </select>
+          </label>
+          <label class="mt-5 block text-sm font-medium text-ink">Cuéntanos el reto *<textarea required name="mensaje" rows="4" class="mt-2 w-full rounded-xl border border-frost-300 px-4 py-3 outline-none focus:border-mid-500 focus:ring-2 focus:ring-mid-100"></textarea></label>
+          <label class="mt-5 flex min-h-11 cursor-pointer items-start gap-3 text-sm text-ink-soft"><input required type="checkbox" class="mt-1 h-5 w-5 shrink-0 accent-mid-500" /><span>Autorizo el tratamiento de mis datos para recibir respuesta a esta solicitud.</span></label>
+          <button type="submit" class="mt-5 flex min-h-11 w-full items-center justify-center rounded-xl bg-mid-500 px-7 font-semibold text-white hover:bg-mid-600 disabled:cursor-wait disabled:opacity-60">Solicitar diagnóstico</button>
+          <p id="form-lci-status" class="mt-4 min-h-6 text-center text-sm" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <FAQSection faqs={FAQS} />
+  </main>
+</BaseLayout>
+
+<script>
+  import { appendAttribution, track } from '@/lib/analytics';
+
+  const currency = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 });
+
+  const roiInputs = ['roi-personas', 'roi-horas', 'roi-salario', 'roi-factor'].map((id) => document.getElementById(id) as HTMLInputElement);
+  const updateRoi = () => {
+    const [personas, horas, salario, factor] = roiInputs.map((input) => Math.max(0, Number(input?.value) || 0));
+    const monthlyHours = personas * horas * 4;
+    const recoveredHours = monthlyHours * Math.min(100, factor) / 100;
+    const hourlyCost = salario / 160;
+    const value = recoveredHours * hourlyCost;
+    const hoursOutput = document.getElementById('roi-hours');
+    const valueOutput = document.getElementById('roi-value');
+    if (hoursOutput) hoursOutput.textContent = `${Math.round(recoveredHours).toLocaleString('es-CO')} h`;
+    if (valueOutput) valueOutput.textContent = currency.format(value);
+  };
+  roiInputs.forEach((input) => input?.addEventListener('input', updateRoi));
+  updateRoi();
+
+  let currentAgentStep = 1;
+  const showAgentStep = (nextStep: number) => {
+    currentAgentStep = Math.min(3, Math.max(1, nextStep));
+    document.querySelectorAll<HTMLElement>('[data-agent-panel]').forEach((panel) => { panel.hidden = Number(panel.dataset.agentPanel) !== currentAgentStep; });
+    document.querySelectorAll<HTMLButtonElement>('[data-agent-tab]').forEach((tab) => {
+      const selected = Number(tab.dataset.agentTab) === currentAgentStep;
+      tab.setAttribute('aria-selected', String(selected));
+    });
+    const prev = document.getElementById('agent-prev') as HTMLButtonElement;
+    const next = document.getElementById('agent-next') as HTMLButtonElement;
+    if (prev) prev.disabled = currentAgentStep === 1;
+    if (next) next.textContent = currentAgentStep === 3 ? 'Solicitar implementación' : 'Siguiente paso';
+    if (currentAgentStep === 3) {
+      const name = (document.getElementById('agent-name') as HTMLInputElement)?.value || 'Agente sin nombre';
+      const area = (document.getElementById('agent-area') as HTMLSelectElement)?.value || 'Sin área';
+      const purpose = (document.getElementById('agent-purpose') as HTMLTextAreaElement)?.value || 'Sin propósito definido';
+      const nameOutput = document.getElementById('agent-summary-name');
+      const areaOutput = document.getElementById('agent-summary-area');
+      const purposeOutput = document.getElementById('agent-summary-purpose');
+      if (nameOutput) nameOutput.textContent = name;
+      if (areaOutput) areaOutput.textContent = area;
+      if (purposeOutput) purposeOutput.textContent = purpose;
+    }
+  };
+  document.querySelectorAll<HTMLButtonElement>('[data-agent-tab]').forEach((tab) => tab.addEventListener('click', () => showAgentStep(Number(tab.dataset.agentTab))));
+  document.getElementById('agent-prev')?.addEventListener('click', () => showAgentStep(currentAgentStep - 1));
+  document.getElementById('agent-next')?.addEventListener('click', () => {
+    if (currentAgentStep === 3) document.getElementById('diagnostico')?.scrollIntoView({ behavior: 'smooth' });
+    else showAgentStep(currentAgentStep + 1);
+  });
+  showAgentStep(1);
+
+  const priceModes = {"m12":{"note":"Implementación financiada 50% / 30% / 20%.","prices":{"p1":{"monthly":2655000,"implementation":10000000,"total":41860000},"p3":{"monthly":3155000,"implementation":20000000,"total":57860000},"p4":{"monthly":3810000,"implementation":20000000,"total":65720000}}},"m24":{"note":"Implementación financiada 50% / 30% / 20%.","prices":{"p1":{"monthly":2124000,"implementation":9000000,"total":59976000},"p3":{"monthly":2524000,"implementation":18000000,"total":78576000},"p4":{"monthly":3048000,"implementation":18000000,"total":91152000}}},"prepaid":{"note":"Pago anticipado con ahorro de hasta $6.000.000 en implementación.","prices":{"p1":{"monthly":1858500,"implementation":7000000,"total":29302000},"p3":{"monthly":2208500,"implementation":14000000,"total":40502000},"p4":{"monthly":2667500,"implementation":14000000,"total":46004000}}}} as const;
+  type PriceMode = keyof typeof priceModes;
+  const setPriceMode = (key: PriceMode) => {
+    const mode = priceModes[key];
+    document.querySelectorAll<HTMLButtonElement>('[data-price-mode]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.priceMode === key)));
+    const note = document.getElementById('price-note');
+    if (note) note.textContent = mode.note;
+    Object.entries(mode.prices).forEach(([planId, price]) => {
+      const card = document.querySelector<HTMLElement>(`[data-plan="${planId}"]`);
+      if (!card) return;
+      const monthly = card.querySelector('.plan-monthly');
+      const implementation = card.querySelector('.plan-implementation');
+      const total = card.querySelector('.plan-total');
+      if (monthly) monthly.textContent = currency.format(price.monthly);
+      if (implementation) implementation.textContent = currency.format(price.implementation);
+      if (total) total.textContent = currency.format(price.total);
+    });
+  };
+  document.querySelectorAll<HTMLButtonElement>('[data-price-mode]').forEach((button) => button.addEventListener('click', () => setPriceMode(button.dataset.priceMode as PriceMode)));
+  setPriceMode('m12');
+
+  const leadForm = document.getElementById('form-lci') as HTMLFormElement | null;
+  leadForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const submit = leadForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const status = document.getElementById('form-lci-status');
+    submit.disabled = true;
+    if (status) { status.textContent = 'Enviando…'; status.className = 'mt-4 min-h-6 text-center text-sm text-ink-mute'; }
+    try {
+      const data = new FormData(leadForm);
+      appendAttribution(data);
+      const response = await fetch('/api/contact', { method: 'POST', body: data });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'No fue posible enviar la solicitud.');
+      track('generate_lead', { form_id: 'lci', servicio: String(data.get('servicio') || '') });
+      leadForm.reset();
+      if (status) { status.textContent = 'Recibimos tu solicitud. Te contactaremos pronto.'; status.className = 'mt-4 min-h-6 text-center text-sm font-medium text-emerald-700'; }
+    } catch (error) {
+      track('form_error', { form_id: 'lci', error_type: 'server' });
+      if (status) { status.textContent = error instanceof Error ? error.message : 'No fue posible enviar la solicitud.'; status.className = 'mt-4 min-h-6 text-center text-sm font-medium text-red-700'; }
+    } finally {
+      submit.disabled = false;
+    }
+  });
+</script>
+
+<style>
+  /* Hallmark · genre: modern-minimal · tone: experto-cercano · palette: Cold Blue · macrostructure: Workbench · theme: Luma v1 · enrichment: none · nav/footer: Luma existentes · contrast: pass (40–41) · honest/chrome/tokens: pass (46–48) · mobile: pass (34, 49–57) */
+  .agent-tab[aria-selected='true'],
+  .price-mode[aria-pressed='true'] {
+    border-color: var(--color-mid-500);
+    background: var(--color-mid-50);
+    color: var(--color-cold-600);
+  }
+</style>

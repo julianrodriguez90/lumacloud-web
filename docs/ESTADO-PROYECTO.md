@@ -1,17 +1,17 @@
 # Estado del proyecto — rediseño lumacloud.co
 
-**Última actualización:** 2026-07-15 · Rama: `master` (única rama del repo — `redesign/astro-rebuild` cumplió su ciclo vía PRs #2-#7 y fue borrada)
+**Última actualización:** 2026-07-17 · Rama: `master` (única rama del repo — `redesign/astro-rebuild` cumplió su ciclo vía PRs #2-#7 y fue borrada)
 Documento interno de seguimiento (en el repo, no se publica en la web).
 
 ## 🧭 Resumen ejecutivo — si solo lees esto
 
-El rediseño completo de lumacloud.co (WordPress → Astro) **está terminado, verificado y listo para desplegar**: 112 páginas, blog de 88 posts, SEO técnico completo, sistema de diseño con motion pulido, y una auditoría de usabilidad mobile ya corregida. Nada de esto está en producción todavía — el sitio vive solo en este repo (`master`, sincronizado con GitHub) y en `localhost:4321`.
+El rediseño completo de lumacloud.co (WordPress → Astro) **está terminado, verificado y listo para desplegar**: 116 URLs en el sitemap, blog de 88 posts, SEO técnico completo, sistema de diseño con motion pulido, y una auditoría de usabilidad mobile ya corregida. Nada de esto está en producción todavía — el sitio vive solo en este repo (`master`) y en `localhost:4321`.
 
 **Lo que falta para lanzar** es 100% acción del dueño (respaldo del WP, cuenta de Resend, deploy a Vercel, cutover de DNS — ver checklist abajo). **Lo que falta para ganar en SEO** es contenido: 8 artículos evergreen + ~11 subpáginas comerciales de la Fase 1 del Plan Maestro, todavía sin escribir. Ninguno de los dos frentes requiere más trabajo de diseño o arquitectura — ambos son ejecución sobre una base ya sólida.
 
 ## Objetivo
 
-Reemplazar el WordPress actual (LCP móvil 25.9s, 88% tráfico de marca, ~19 visitas orgánicas no-marca/mes) por un sitio Astro rápido, estéticamente superior y optimizado para el **Plan Maestro pSEO** (`Plan_Maestro_pSEO_LumaCloud.docx`). Contenido 100% rastreable al corpus extraído del WP (`content-source/`) — cero alucinaciones.
+Reemplazar el WordPress actual (LCP móvil 25.9s, 88% tráfico de marca, ~19 visitas orgánicas no-marca/mes) por un sitio Astro rápido, estéticamente superior y optimizado para el **Plan Maestro pSEO** (`Plan_Maestro_pSEO_LumaCloud.docx`). Contenido 100% rastreable al corpus, BrandBook o fuentes aprobadas por el cliente — los materiales recientes del cliente prevalecen sobre el WordPress histórico.
 
 ---
 
@@ -30,21 +30,21 @@ Reemplazar el WordPress actual (LCP móvil 25.9s, 88% tráfico de marca, ~19 vis
 - [x] Componentes: BaseLayout (SEO + JSON-LD completo), Header con mega-menú, Footer, BrandImage, CTASection, FAQSection, Testimonios
 - [x] Endpoint `/api/contact` con Resend + honeypot anti-spam
 
-### Fase 3 — Páginas core (24 URLs)
+### Fase 3 — Páginas core (28 URLs)
 - [x] Home + quienes-somos + contacto + 404
-- [x] 17 páginas de silos: ciberseguridad (5: hub, consultoría, auditoría, Bogotá, Medellín), backup (3), cloud (3), SOC, cumplimiento (ISO 27001 + Ley 1581), servicios profesionales, CSIRT, Gonemo
+- [x] Páginas de silos: ciberseguridad (5: hub, consultoría, auditoría, Bogotá, Medellín), backup (3), cloud (3), SOC, cumplimiento (ISO 27001 + Ley 1581), servicios profesionales, CSIRT, Gonemo y Plataforma IA LCI
 - [x] 3 herramientas interactivas funcionales: calculadora RTO/RPO, evaluador ISO 27001, test de phishing (6 escenarios colombianos)
 
 ### Fase 4 — Blog
 - [x] 88 posts migrados a Content Collections (1 basura excluida) con imágenes localizadas a WebP, links internos reescritos, categorización, schema Article, relacionados y filtro por categoría
 
 ### Fase 5 — SEO técnico
-- [x] 108 redirects 301 (89 posts en raíz → /blog/slug + páginas WP viejas)
-- [x] Sitemap (112 URLs), robots.txt con AI crawlers, llms.txt conforme a llmstxt.org
+- [x] Redirects 301 de posts en raíz y páginas WP antiguas; `/plataforma-ia-lci` es ahora una página propia y se retiró su redirect anterior a Gonemo
+- [x] Sitemap (116 URLs), robots.txt con AI crawlers, llms.txt conforme a llmstxt.org
 - [x] JSON-LD: Organization, LocalBusiness (geo Bogotá), WebSite, BreadcrumbList, Service, Article, FAQPage, SoftwareApplication, Review
 
 ### Fase 6 — Verificación
-- [x] Auditoría de 112 páginas: titles, descriptions, H1 únicos, canonical — 0 errores
+- [x] Auditoría del sitio: titles, descriptions, H1 únicos, canonical — 0 errores
 - [x] Formulario y las 3 herramientas probados end-to-end en navegador
 - [x] Mobile verificado · Peso de home ~320KB total
 
@@ -89,6 +89,15 @@ Decisión del dueño (2026-07-15): más herramientas serias/validadas para clien
 - [x] **Hub `/herramientas/`** con las 5 herramientas (schema CollectionPage+ItemList) + "Herramientas" en el menú principal (nav.ts) y links actualizados en Footer y /contacto — cierra el pendiente de la página índice.
 - [x] Ambas herramientas capturan leads (sources `tool-madurez`, `tool-downtime`) y emiten eventos GA4; verificadas en build, curl, browser desktop + mobile 375px (tap targets 44px) y matemática validada a mano.
 
+### Ajustes editoriales y Plataforma IA LCI (2026-07-17)
+Solicitud del dueño basada en los documentos y recursos de `Página Luma/` (`Ajustes página Luma.docx`, documento/PPT de Quiénes somos, propuesta HTML de LCI e imágenes de referencia):
+- [x] **Inicio**: nuevo logo azul, fondos responsive y arte principal suministrados; H1/subtítulo actualizados; industrias ajustadas a las diez verticales indicadas; vendors Google Cloud, Vicarius y Microsoft añadidos; estadística ColCERT actualizada con el texto aprobado.
+- [x] **Navegación**: enlace explícito a Inicio y “Gonemo IA” reemplazado en el menú por “Plataforma IA”. La ruta histórica `/gonemo` se conserva publicada; el menú dirige a `/plataforma-ia-lci`.
+- [x] **Plataforma IA LCI**: nueva landing con contenido, modalidades y precios del brief suministrado; calculadora con supuestos declarados, simulador accesible, schema SoftwareApplication, FAQs y formulario real conectado a `/api/contact` (`source=lci`, Resend + Zoho + GA4). Se descartaron el contador de escasez artificial, el éxito de formulario simulado y la animación canvas del mockup para respetar las reglas de credibilidad, analítica y animación CSS del proyecto.
+- [x] **Quiénes somos**: reconstruida alrededor del propósito, misión, visión, valores ADN Luma y los cuatro frentes del ecosistema Luma 360 entregados por el dueño; se conservan únicamente los testimonios verificados del sitio.
+- [x] **Contacto**: H1 y subtítulo actualizados exactamente según el documento; opción comercial renombrada a Plataforma IA.
+- [x] **Fuente de verdad corregida por instrucción del dueño**: los materiales entregados por el cliente prevalecen sobre el corpus histórico. Se incorporaron a `content-source/client-approved/`, se publicaron “+11 años” y “+6 países” en Quiénes somos y se actualizaron README/AGENTS. El teléfono/WhatsApp vigente no cambia únicamente porque el documento del cliente indica que el nuevo número todavía no debe aplicarse.
+
 ---
 
 ## 🔲 Qué nos hace falta
@@ -120,8 +129,7 @@ Decisión del dueño (2026-07-15): más herramientas serias/validadas para clien
 ### Mejoras menores conocidas
 - [ ] Revisar/afinar manualmente la categoría de algunos posts del blog (la asignación es heurística)
 - [ ] Curar más imágenes del catálogo (`content-source/MEDIA-CATALOG.md`) para dar variedad visual a subpáginas
-- [ ] Página índice de `/herramientas/` (hoy solo existen las 3 herramientas sueltas)
-- [ ] Paginar `/blog` (hoy ~88 posts en un solo DOM) y evaluar acortar/segmentar `/quienes-somos` y `/csirt` (las páginas más largas del sitio en mobile)
+- [ ] Paginar `/blog` (hoy ~88 posts en un solo DOM) y evaluar segmentar `/csirt`, una de las páginas más largas del sitio en mobile
 
 ## KPIs objetivo (Plan Maestro, Fase 1 al mes 4)
 
@@ -129,7 +137,7 @@ Decisión del dueño (2026-07-15): más herramientas serias/validadas para clien
 |---|---|---|
 | Tráfico orgánico no-marca/mes | 19 | 600 |
 | Keywords en top 10 | ~3 | 25+ |
-| URLs indexadas | ~15 | 90+ (hoy: 112 construidas) |
+| URLs indexadas | ~15 | 90+ (hoy: 116 en el sitemap) |
 | Leads orgánicos/mes | ~2 | 12+ |
 
 **Contexto de la brecha de autoridad**: lumacloud.co hoy tiene ~60 keywords indexadas vs. 200-1.200 de competidores directos (datos101.com, cloudseguro.co, hostdime.com.co). Ningún rediseño cierra esa brecha por sí solo — se cierra con los meses de contenido evergreen + backlinks de las Fases 1-2 de arriba. **No prometer posición #1 en términos genéricos ("ciberseguridad", "cloud") a corto plazo** — es una carrera de 12+ meses, no de una web nueva. Ver conversación registrada: el dueño preguntó esto explícitamente y se le dio una respuesta honesta sobre expectativas de SEO y conversión (no hay garantías sin datos reales post-lanzamiento).

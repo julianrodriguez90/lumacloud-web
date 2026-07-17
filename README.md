@@ -8,10 +8,10 @@ Sitio web nuevo de **LumaCloud** (Grupo Luma SAS — empresa colombiana de ciber
 
 ## 1. Contexto de negocio (por qué existe este proyecto)
 
-- **LumaCloud** vende: ciberseguridad administrada (Acronis), backup/DRP, cloud privado/público/híbrido, SOC 24/7 (Fortinet/FortiSIEM), cumplimiento (ISO 27001, Ley 1581), servicios profesionales TI, CSIRT y Gonemo (plataforma de agentes IA).
+- **LumaCloud** vende: ciberseguridad administrada (Acronis), backup/DRP, cloud privado/público/híbrido, SOC 24/7 (Fortinet/FortiSIEM), cumplimiento (ISO 27001, Ley 1581), servicios profesionales TI, CSIRT y LCI (plataforma de IA empresarial).
 - **El problema**: el WordPress actual tiene LCP móvil de **25.9s**, 88% de tráfico de marca y ~19 visitas orgánicas no-marca/mes. Los competidores (datos101.com, cloudseguro.co, hostdime.com.co) capturan 3-20× más keywords.
 - **La estrategia**: rediseño total en Astro (estático = rápido) + arquitectura de contenido en 5 silos SEO definida en `Plan_Maestro_pSEO_LumaCloud.docx` (diagnóstico Semrush, keywords con volumen/KD, roadmap de 12 meses).
-- **Regla editorial**: todo dato factual del sitio debe rastrearse al corpus extraído del WordPress (`content-source/`) o al BrandBook. **Nunca inventar cifras** ("X años de experiencia", "% de ahorro", "N clientes") — no tienen respaldo verificable.
+- **Regla editorial**: todo dato factual del sitio debe rastrearse al corpus (`content-source/`), al BrandBook o a materiales entregados/aprobados por el cliente. **Los materiales aprobados por el cliente son la fuente de mayor precedencia**: si contradicen al WordPress histórico, se usa la versión más reciente del cliente y se actualiza el corpus en el mismo cambio. Nunca inventar cifras que no aparezcan en una de estas fuentes.
 - **Marca** (de `LUMA - BrandBook.pdf`, 44 págs, no está en git por peso): colores Cold Blue `#173A87`, Mid Blue `#0073FF`, White Blue `#27CAFF`, Grey B `#100E16`; tipografías Bebas Neue (títulos) + Open Sans (modernizada a Inter en la web); esencia "Tranquilidad, Innovación, Seguridad"; arquetipo Creador; voz experta-cercana con tuteo.
 
 ## 2. Quick start
@@ -41,7 +41,7 @@ Variables de entorno (`.env`, ver `.env.example`):
 | Astro | `^6.4.8` (**no subir a 7**) | SSG puro = Core Web Vitals perfectos. Astro 7 salió hace semanas, sin probar compatibilidad |
 | Tailwind CSS | `~4.1.8` (**no subir a 4.3+**) | El spec original documentó que 4.3+ rompe con Astro 6. Tokens vía `@theme` en CSS |
 | `@astrojs/vercel` | `^10` | v10 = Astro 6, v11 = Astro 7. Materializa los redirects en `.vercel/output/config.json` |
-| `@astrojs/sitemap` | ^3.7 | Sitemap automático en build (112 URLs) |
+| `@astrojs/sitemap` | ^3.7 | Sitemap automático en build (116 URLs) |
 | ~~`@astrojs/partytown`~~ | eliminado 2026-07-15 | Nunca ejecutó los scripts de GA4 (ni en dev ni en Vercel); GA4 pasó a gtag async estándar |
 | Resend | ^4 | Email del formulario. Único código server-side del sitio |
 | sharp | ^0.34 | Optimización de imágenes a WebP (scripts, no runtime) |
@@ -61,7 +61,8 @@ Variables de entorno (`.env`, ver `.env.example`):
 ├── Plan_Maestro_pSEO_LumaCloud.docx  ← estrategia SEO completa (keywords, silos, KPIs)
 ├── LUMA - BrandBook.pdf          ← manual de marca (gitignored, 20MB — pedirlo a Julián)
 │
-├── content-source/               ← ★ CORPUS: fuente de verdad del contenido (del WP)
+├── content-source/               ← ★ CORPUS: WP histórico + fuentes aprobadas por el cliente
+│   ├── client-approved/          ← datos recientes del cliente; prevalecen ante conflictos
 │   ├── posts/*.{json,md}         ← 89 posts del blog (JSON crudo + MD legible)
 │   ├── pages/*.{json,md,html}    ← 42 páginas (los .html son scraping de páginas Elementor rotas)
 │   ├── media.json                ← metadatos de los 828 medios del WP
@@ -93,7 +94,7 @@ Variables de entorno (`.env`, ver `.env.example`):
     ├── lib/site.ts               ← datos de empresa centralizados (dirección, tel, redes)
     ├── lib/nav.ts                ← estructura del menú (silos + páginas)
     ├── styles/global.css         ← ★ SISTEMA DE DISEÑO (tokens @theme + utilidades)
-    └── pages/                    ← 24 páginas core + blog + api/contact.ts
+    └── pages/                    ← 28 páginas core + 88 posts + api/contact.ts
 ```
 
 ## 5. Pipeline de contenido (cómo fluye el contenido del WP a la web)
@@ -159,7 +160,7 @@ Todos los leads del sitio pasan por `src/pages/api/contact.ts` (único endpoint 
 
 Éxito si al menos un canal funciona; el fallo del otro queda en logs de Vercel. Sin ningún canal configurado responde 503 con mensaje amigable — comportamiento esperado en dev.
 
-**Fuentes de lead** (campo `source`): `contacto` (formulario completo: nombre*, email*, empresa, teléfono, servicio, mensaje*), y `tool-iso` / `tool-rto` / `tool-phishing` / `tool-madurez` / `tool-downtime` (componente `ToolLeadForm.astro` dentro del resultado de cada herramienta: email* + empresa, con el resultado en `tool_result`). Todos con honeypot oculto `website` (anti-spam). Las claves de `TOOL_LABELS` en `src/pages/api/contact.ts` definen los `source` válidos; una herramienta nueva requiere añadir su clave ahí y al union de `Props.tool` en `ToolLeadForm.astro`.
+**Fuentes de lead** (campo `source`): `contacto` y `lci` (formularios completos: nombre*, email*, empresa, teléfono, servicio/proceso y mensaje*), y `tool-iso` / `tool-rto` / `tool-phishing` / `tool-madurez` / `tool-downtime` (componente `ToolLeadForm.astro` dentro del resultado de cada herramienta: email* + empresa, con el resultado en `tool_result`). Todos tienen honeypot oculto `website` (anti-spam). Las claves de `FORM_LABELS` y `TOOL_LABELS` en `src/pages/api/contact.ts` definen los `source` válidos; una herramienta nueva también requiere añadir su clave al union de `Props.tool` en `ToolLeadForm.astro`.
 
 ### Analítica GA4 (eventos)
 
