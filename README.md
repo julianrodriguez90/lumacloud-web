@@ -164,7 +164,7 @@ Todos los leads del sitio pasan por `src/pages/api/contact.ts` (único endpoint 
 
 ### Analítica GA4 (eventos)
 
-`src/lib/analytics.ts` expone `track()` (gtag async estándar, cargado en BaseLayout) y captura atribución en `sessionStorage`: UTMs/landing/referrer de primer toque, última página útil y CTA que originó la conversión. `/contacto` no pisa la página anterior. El listener global procesa elementos con `data-track` y cubre como fallback todos los enlaces internos a `/contacto`. Los scripts inline (`define:vars`) usan `window.lumaTrack`.
+`src/lib/analytics.ts` expone `track()` (gtag diferido a window.load, cargado en BaseLayout — eventos previos quedan encolados en dataLayer) y captura atribución en `sessionStorage`: UTMs/landing/referrer de primer toque, última página útil y CTA que originó la conversión. `/contacto` no pisa la página anterior. El listener global procesa elementos con `data-track` y cubre como fallback todos los enlaces internos a `/contacto`. Los scripts inline (`define:vars`) usan `window.lumaTrack`.
 
 | Evento | Cuándo | Parámetros |
 |---|---|---|

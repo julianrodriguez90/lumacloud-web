@@ -1,6 +1,6 @@
 # Estado del proyecto — rediseño lumacloud.co
 
-**Última actualización:** 2026-07-17 · Rama: `master` (única rama del repo — `redesign/astro-rebuild` cumplió su ciclo vía PRs #2-#7 y fue borrada)
+**Última actualización:** 2026-07-21 · Rama: `master` (única rama del repo — `redesign/astro-rebuild` cumplió su ciclo vía PRs #2-#7 y fue borrada)
 Documento interno de seguimiento (en el repo, no se publica en la web).
 
 ## 🧭 Resumen ejecutivo — si solo lees esto
@@ -97,6 +97,11 @@ Solicitud del dueño basada en los documentos y recursos de `Página Luma/` (`Aj
 - [x] **Quiénes somos**: reconstruida alrededor del propósito, misión, visión, valores ADN Luma y los cuatro frentes del ecosistema Luma 360 entregados por el dueño. Tras la aclaración de derechos del cliente, se retiró la lámina con logos y su activo público; la sección conserva el mapa regional, muestra Google Cloud/Vicarius/Microsoft como texto y presenta únicamente los 23 nombres autorizados bajo un mensaje de experiencia y confianza, sin exponer aclaraciones legales internas. Se conservan solo los testimonios verificados del sitio.
 - [x] **Contacto**: H1 y subtítulo actualizados exactamente según el documento; opción comercial renombrada a Plataforma IA.
 - [x] **Fuente de verdad corregida por instrucción del dueño**: los materiales entregados por el cliente prevalecen sobre el corpus histórico. Se incorporaron a `content-source/client-approved/`, se publicaron “+11 años” y “+6 países” en Quiénes somos y se actualizaron README/AGENTS. El teléfono/WhatsApp vigente no cambia únicamente porque el documento del cliente indica que el nuevo número todavía no debe aplicarse.
+
+### Cierre del docx "Ajustes página Luma" + optimización LCP (2026-07-21)
+- [x] Auditoría de cumplimiento del docx contra el sitio: 10/11 ítems ya estaban implementados (sección de arriba). Único faltante cerrado: ítem 5-bis — "retos de **ciberseguridad**" en la sección Sectores del home (palabra resaltada en amarillo en la imagen de referencia del documento).
+- [x] **Optimización de rendimiento móvil** (PageSpeed 80 → Lighthouse local 99; LCP 4,4s → 2,0s): preload con `fetchpriority=high` de los fondos del hero (nueva prop `preloadImages` en BaseLayout), gtag diferido a `window.load` (68KB fuera del camino crítico; eventos previos quedan encolados en dataLayer), logo del header 520×160→260×80 y variante móvil de 640px para `ciberseguridad-candado` vía `<picture>`.
+- [ ] Re-correr PageSpeed sobre `lumacloud-web.vercel.app` tras el próximo deploy para confirmar la mejora real.
 
 ### Auditoría SEO + Growth y cierre de brechas medibles (2026-07-17)
 - [x] Auditorías independientes SEO/Growth: la base se conserva; el pSEO masivo queda congelado hasta validar intención, evidencia local y QA humano.
