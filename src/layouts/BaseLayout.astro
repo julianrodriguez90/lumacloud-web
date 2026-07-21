@@ -14,9 +14,19 @@ interface Props {
   schemas?: Record<string, unknown>[];
   /** noindex para páginas utilitarias */
   noindex?: boolean;
+  /** Imágenes críticas (p. ej. fondo CSS del hero) a preloadear con fetchpriority=high */
+  preloadImages?: { href: string; media?: string }[];
 }
 
-const { title, description, ogImage = '/images/og/default.webp', breadcrumbs = [], schemas = [], noindex = false } = Astro.props;
+const {
+  title,
+  description,
+  ogImage = '/images/og/default.webp',
+  breadcrumbs = [],
+  schemas = [],
+  noindex = false,
+  preloadImages = [],
+} = Astro.props;
 
 const canonical = new URL(Astro.url.pathname === '/' ? '/' : Astro.url.pathname.replace(/\/$/, ''), SITE.url).href;
 const ogImageUrl = new URL(ogImage, SITE.url).href;
@@ -111,6 +121,7 @@ const jsonLd = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preload" href="/fonts/bebas-neue.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
+    {preloadImages.map((p) => <link rel="preload" as="image" href={p.href} media={p.media} fetchpriority="high" />)}
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />
@@ -130,13 +141,10 @@ const jsonLd = {
 
     {
       GA4 && (
-        <>
-          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA4}`} />
-          <script
-            is:inline
-            set:html={`window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','${GA4}');`}
-          />
-        </>
+        <script
+          is:inline
+          set:html={`window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','${GA4}');window.addEventListener('load',function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=${GA4}';document.head.appendChild(s);});`}
+        />
       )
     }
   </head>

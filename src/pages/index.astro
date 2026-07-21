@@ -55,7 +55,15 @@ const FAQS = [
 ];
 ---
 
-<BaseLayout {title} {description} schemas={[]}>
+<BaseLayout
+  {title}
+  {description}
+  schemas={[]}
+  preloadImages={[
+    { href: '/images/heros/home-background-mobile.webp', media: '(max-width: 639px)' },
+    { href: '/images/heros/home-background.webp', media: '(min-width: 640px)' },
+  ]}
+>
   <!-- ======== HERO ======== -->
   <section class="home-hero relative overflow-hidden border-b border-frost-200">
     <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-20 pt-16 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:pb-28 lg:pt-24">
@@ -164,14 +172,17 @@ const FAQS = [
     <div class="stagger mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       <!-- celda grande: ciberseguridad -->
       <a href="/ciberseguridad" class="card-brand scroll-reveal group relative overflow-hidden sm:col-span-2 sm:row-span-2">
-        <img
-          src="/images/heros/ciberseguridad-candado.webp"
-          alt="Ciberseguridad empresarial: candado sobre circuito digital"
-          width={1280}
-          height={800}
-          loading="lazy"
-          class="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-105 sm:h-full sm:min-h-[420px]"
-        />
+        <picture>
+          <source media="(max-width: 639px)" srcset="/images/heros/ciberseguridad-candado-sm.webp" />
+          <img
+            src="/images/heros/ciberseguridad-candado.webp"
+            alt="Ciberseguridad empresarial: candado sobre circuito digital"
+            width={1280}
+            height={800}
+            loading="lazy"
+            class="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-105 sm:h-full sm:min-h-[420px]"
+          />
+        </picture>
         <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent"></div>
         <div class="absolute inset-x-0 bottom-0 p-8">
           <p class="font-display text-4xl text-white">Ciberseguridad</p>
@@ -254,8 +265,8 @@ const FAQS = [
         <h2 class="font-display mt-3 text-4xl text-cold-600 sm:text-6xl">Conocemos tu industria</h2>
         <div class="mt-3 w-16 brand-rule"></div>
         <p class="mt-6 max-w-lg text-base leading-relaxed text-ink-soft">
-          Trabajamos con empresas que dependen de su tecnología para operar y crecer. Entendemos los retos de seguridad, disponibilidad y
-          cumplimiento de cada vertical.
+          Trabajamos con empresas que dependen de su tecnología para operar y crecer. Entendemos los retos de ciberseguridad, disponibilidad
+          y cumplimiento de cada vertical.
         </p>
         <ul class="mt-8 space-y-3">
           {
