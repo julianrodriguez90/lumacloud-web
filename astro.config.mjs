@@ -11,6 +11,10 @@ export default defineConfig({
   adapter: vercel(),
   trailingSlash: 'never',
   redirects,
+  build: {
+    // CSS inline en cada HTML: elimina el único request render-blocking (PageSpeed 2026-07-21)
+    inlineStylesheets: 'always',
+  },
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/api/'),
